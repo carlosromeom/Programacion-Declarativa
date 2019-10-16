@@ -1,4 +1,4 @@
-;EJERCICIO 3 prueba
+;EJERCICIO 3 
 
 (define (letraDNI n)
   (case (modulo n 23)
