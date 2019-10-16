@@ -1,0 +1,318 @@
+;EJERCICIO 7
+;; 
+;; Nombre: sucesion
+;; Objetivo: calcula el valor del término general de la serie que converge a e.
+;; Parámetro:
+;;         n: valor por el que sustituirá la n del término general de la serie. 
+;; Resultado: 
+;;         número e.
+;; Descripción:
+;;       suciesión que converge a e.
+;; Funciones a las que llama: ninguna.
+;;
+(define (sucesion n)
+  (expt (+ 1 (/ 1 n)) n) 
+)
+
+;; 
+;; Nombre: sucesion_interes
+;; Objetivo: calcula los intereses obtenidos al depositar una cantidad de dinero durante unos años con cierto interés.
+;; Parámetro:
+;;         c: Cantidad de dinero depositado.
+;;         n: Años que pasa el dinero en depósito.
+;;         i: Interés al que rinde el dinero.
+;; Resultado: 
+;;         Cantidad de dinero total obtenido.
+;;
+;; Funciones a las que llama: ninguna.
+;;
+(define (sucesion_interes c n i)
+  (* c (expt (+ 1 (/ i 100) ) n )  )
+)
+
+
+;EJERCICIO 8
+;; 
+;; Nombre: juliosacalorias
+;; Objetivo: convierte la unidad de medida de julios a calorías.
+;; Parámetro:
+;;         x: Julios para convertir a calorías.
+;; Resultado: 
+;;         Equivalente en calorías
+;;
+;; Funciones a las que llama: ninguna
+;;
+(define (juliosacalorias x)
+  (* 0.24 x)
+)
+
+;; 
+;; Nombre: caloriasajulios
+;; Objetivo: Transformar las calorías en julios.
+;; Parámetro:
+;;         x: Calorías para convertir a julios.
+;; Resultado: 
+;;         calorías equivalentes a julios.
+;;
+;; Funciones a las que llama: ninguna.
+;;
+(define (caloriasajulios x)
+  (* x 4.18)
+)
+
+;; 
+;; Nombre: CelsiusaFahrenheit
+;; Objetivo: transformar grados celsius a fahrenheit.
+;; Parámetro:
+;;         x: Grados celsius.
+;; Resultado: 
+;;         Grados fahrenheit
+;;
+;; Funciones a las que llama: ninguna.
+;;
+(define (CelsiusaFahrenheit x)
+  (+ 32 (* x 1.8))
+)
+
+;; 
+;; Nombre: FarenheitaCelsius
+;; Objetivo: transformar grados farenheit a celsius.
+;; Parámetro:
+;;         x: grados farenheit.
+;; Resultado: 
+;;         grados celsius.
+;;
+;; Funciones a las que llama: ninguna
+;;
+(define (FarenheitaCelsius x)
+  (/ (- x 32) 1.8)
+)
+
+;EJERCICIO 9
+;; 
+;; Nombre: areaTriangulo
+;; Objetivo: Calcula el área del triángulo a partir de sus lados empleando la fórmula Herón.
+;; Parámetro:
+;;         a: medida del lado a.
+;;         b: medida del lado b.
+;;         c: medida del lado c.
+;; Resultado: 
+;;         área del triángulo.
+;;
+;; Funciones a las que llama: sqrt.
+;;
+(define (areaTriangulo a b c)
+   (define s (/ (+ a b c) 2))
+   (sqrt (* s (- s a) (- s b) (- s c)  ) )  
+)
+
+
+;; 
+;; Nombre: areaRombo
+;; Objetivo: Calcula el área del rombo a partir de sus diagonales.
+;; Parámetro:
+;;         a: medida de la diagonal a.
+;;         b: medida de la diagonal b.
+;; Resultado: 
+;;         área del rombo.
+;;
+;; Funciones a las que llama: ninguna.
+;;
+(define (areaRombo a b)
+  (/ (* a b) 2)
+)
+
+
+;; 
+;; Nombre: areaTrapecio
+;; Objetivo: Calcula el área del trapecio a partir de sus bases y altura.
+;; Parámetro:
+;;         a: medida de la base a.
+;;         b: medida de la base b.
+;;         h: medida de la altura.
+;; Resultado: 
+;;         área del trapecio.
+;;
+;; Funciones a las que llama: ninguna.
+;;
+(define (areaTrapecio a b h)
+  (/ (* h (+ a b)) 2)
+)
+
+;EJERCICIO 10
+;; 
+;; Nombre: distanciaEuclidiana
+;; Objetivo: Calcula la distancia euclidiana entre dos puntos
+;; Parámetro:
+;;         x1: coordenada x del punto 1.
+;;         y1: coordenada y del punto 1.
+;;         x2: coordenada x del punto 2.
+;;         y1: coordenada y del punto 2.
+;; Resultado: 
+;;         distancia euclidiana.
+;;
+;; Funciones a las que llama: sqrt.
+;;
+(define (distanciaEuclidiana x1 y1 x2 y2)
+  (sqrt (+ (* (- x2 x1) (- x2 x1) ) (* (- y2 y1) (- y2 y1) )))
+)
+
+;; 
+;; Nombre: distanciaManhattan
+;; Objetivo: Calcula la distancia de Manhattan entre dos puntos
+;; Parámetro:
+;;         x1: coordenada x del punto 1.
+;;         y1: coordenada y del punto 1.
+;;         x2: coordenada x del punto 2.
+;;         y1: coordenada y del punto 2.
+;; Resultado: 
+;;         distancia de Manhattan.
+;;
+;; Funciones a las que llama: abs.
+;;
+(define (distanciaManhattan x1 y1 x2 y2)
+  (+ (abs (- x2 x1)) (abs (- y2 y1)))
+)
+
+;; 
+;; Nombre: distanciaAjedrez
+;; Objetivo: Calcula la distancia de ajedrez entre dos puntos
+;; Parámetro:
+;;         x1: coordenada x del punto 1.
+;;         y1: coordenada y del punto 1.
+;;         x2: coordenada x del punto 2.
+;;         y1: coordenada y del punto 2.
+;; Resultado: 
+;;         distancia de ajedrez.
+;;
+;; Funciones a las que llama: abs y max.
+;;
+(define (distanciaAjedrez x1 y1 x2 y2)
+  (max (abs(- x2 x1) ) (abs(- y2 y1)) ) 
+)
+
+;EJERCICIO 11
+;; 
+;; Nombre: areaTrianguloVertices
+;; Objetivo: Calcula el área de un triángulo a partir de sus vértices.
+;; Parámetro:
+;;         x1: coordenada x del punto 1.
+;;         y1: coordenada y del punto 1.
+;;         x2: coordenada x del punto 2.
+;;         y1: coordenada y del punto 2.
+;;         x3: coordenada x del punto 3.
+;;         y3: coordenada y del punto 3.
+;;         Los parámetros se introducen de forma cíclica.
+;; Resultado: 
+;;         área del triángulo.
+;;
+;; Funciones a las que llama:
+;;         areaTriangulo
+;;         distanciaEuclidiana
+;;
+(define (areaTrianguloVertices x1 y1 x2 y2 x3 y3)
+  (areaTriangulo (distanciaEuclidiana x1 y1 x2 y2) (distanciaEuclidiana x2 y2 x3 y3) (distanciaEuclidiana x3 y3 x1 y1) )
+)
+
+;; Nombre: areaRomboVertices
+;; Objetivo: Calcula el área de un rombo a partir de sus vértices.
+;; Parámetro:
+;;         x1: coordenada x del punto 1.
+;;         y1: coordenada y del punto 1.
+;;         x2: coordenada x del punto 2.
+;;         y1: coordenada y del punto 2.
+;;         x3: coordenada x del punto 3.
+;;         y3: coordenada y del punto 3.
+;;         x4: coordenada x del punto 4.
+;;         y4: coordenada y del punto 4.
+;;         Los parámetros se introducen de forma cíclica y en orden. La primera diagonal la forman los puntos P1 y P3 y la segunda los puntos P2 y P4.
+;; Resultado: 
+;;         área del rombo.
+;;
+;; Funciones a las que llama:
+;;         areaRombo
+;;         distanciaEuclidiana
+;;
+(define (areaRomboVertices x1 y1 x2 y2 x3 y3 x4 y4)
+  (areaRombo (distanciaEuclidiana x1 y1 x3 y3) (distanciaEuclidiana x2 y2 x4 y4))
+)
+
+;EJERCICIO 12
+;; Nombre: distanciaPuntoRecta
+;; Objetivo: Calcula la distancia de un punto P a una recta R dada por su ecuación general.
+;; Parámetro:
+;;         x0: coordenada x del punto P.
+;;         y0: coordenada y del punto P.
+;;          a: coeficiente Ax de la recta R.
+;;          b: coeficiente By de la recta R.
+;;          c: coeficiente C de la recta R.
+;;         
+;; Resultado: 
+;;         Distancia en línea recta de P a R.
+;;
+;; Funciones a las que llama:
+;;         abs
+;;         sqrt
+;;
+(define (distanciaPuntoRecta x0 y0 a b c)
+  (/ (abs( + (* a x0) (* b y0) c )) (sqrt (+ (* a a) (* b b)) ) )
+)
+
+;; Nombre: distanciaPuntoRecta2
+;; Objetivo: Calcula la distancia de un punto P a una recta R que pasa por dos puntos.
+;; Parámetro:
+;;         x0: coordenada x del punto P.
+;;         y0: coordenada y del punto P.
+;;         x1: coordenada x del punto P1 por el que pasa la recta R.
+;;         y1: coordenada y del punto P1 por el que pasa la recta R.
+;;         x2: coordenada x del punto P2 por el que pasa la recta R.
+;;         y2: coordenada y del punto P2 por el que pasa la recta R.
+;;         
+;; Resultado: 
+;;         Distancia en línea recta de P a R.
+;;
+;; Funciones a las que llama:
+;;         distanciaPuntoRecta
+;;
+(define (distanciaPuntoRecta2 x0 y0 x1 y1 x2 y2)
+  (let (
+        (A (- y2 y1))
+        (B (- x1 x2))
+        (C (- (* y1 x2) (* x1 y2)))
+        )
+        
+         (distanciaPuntoRecta x0 y0 A B C)
+         
+    )
+)
+
+;EJERCICIO 13
+;; Nombre: areaTrapecioLetVertices
+;; Objetivo: Calcula el área de un trapecio a partir de sus vértices.
+;; Parámetro:
+;;         x1: coordenada x del vértice 1.
+;;         y1: coordenada y del vértice 1.
+;;         x2: coordenada x del vértice 2.
+;;         y2: coordenada y del vértice 2.
+;;         x3: coordenada x del vértice 3.
+;;         y3: coordenada y del vértice 3.
+;;         x4: coordenada x del vértice 4.
+;;         y4: coordenada y del vértice 4.
+;;         Los puntos se introducen cíclicamente y en orden, conformando el vértice 1 y 2 la primera base y los vértices 3 y 4 la segunda.       
+;; Resultado: 
+;;         área del trapecio.
+;;
+;; Funciones a las que llama:
+;;         distanciaEuclidiana
+;;         distanciaPuntoRecta2
+;;         areaTrapecio
+;;
+(define (areaTrapecioLetVertices x1 y1 x2 y2 x3 y3 x4 y4)
+  (let (
+        (P1-P2 (distanciaEuclidiana x1 y1 x2 y2))
+        (P3-P4 (distanciaEuclidiana x3 y3 x4 y4))
+        (h (distanciaPuntoRecta2 x1 y1 x4 y4 x3 y3))
+        )
+        (areaTrapecio P1-P2 P3-P4 h)
+    )
+)
