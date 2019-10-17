@@ -28,8 +28,6 @@
   )
  )
 
-;(letraDNI 31028160)
-
 ;EJERCICIO 4
 (define (posicionCircunferenciaRecta r x0 y0 A B C)
   (define (distanciaPuntoRecta x0 y0 a b c)
@@ -37,16 +35,17 @@
     )
   
   (if (= r (distanciaPuntoRecta x0 y0 A B C) )
-      3 ;tangente
+    ;(display "tangente")
+      3
      (if (< r (distanciaPuntoRecta x0 y0 A B C))
-     1 ;exterior
-     2 ;secante
+     ;(display "exterior")
+     1
+     ;(display "secante")
+     2
    
      )
    )
 )
-
-;(posicionCircunferenciaRecta 3 0 0 3 5 4) ;Secante
 
 ;EJERCICIO 5
 (define (distanciaEuclidiana x1 y1 x2 y2)
@@ -166,33 +165,75 @@
    )
   )
 
-;EJERCICIO 10 REVISAR (poner la cota de error)
-(define (tipoTrianguloPorAngulos x1 y1 x2 y2 x3 y3) ;los puntos se introducen ABC
- ; (if (= (propiedadTriangular? (distanciaEuclidiana x1 y1 x2 y2) (distanciaEuclidiana x2 y2 x3 y3) (distanciaEuclidiana x3 y3 x1 y1)) 0)
+;EJERCICIO 10 REVISAR
+(define (distanciaEuclidiana x1 y1 x2 y2)
+   (sqrt (+ (* (- x2 x1) (- x2 x1) ) (* (- y2 y1) (- y2 y1) )))
+)
+  
+(define (tipoTrianguloPorAngulos x1 y1 x2 y2 x3 y3 )
 
+          (define ABx (- x1 x2))
+          (define ABy (- y1 y2))
+
+          ;LADO BC
+          (define BCx (- x2 x3))
+          (define BCy (- y2 y3))
+
+          ;LADO CA
+          (define CAx (- x3 x1))
+          (define CAy (- y3 y1))
+
+  
+          (define cosA (/ (+ (* ABx CAx) (* ABy CAy)) (* (sqrt (+ (cuadrado ABx) (cuadrado ABy))) (sqrt (+ (cuadrado CAx) (cuadrado CAy))))) )
+  (display cosA)
+          (define cosB (/ (+ (* BCx ABx) (* BCy ABy)) (* (sqrt (+ (cuadrado BCx) (cuadrado BCy))) (sqrt (+ (cuadrado ABx) (cuadrado ABy))))) )
+   (display cosB)
+          (define cosC (/ (+ (* CAx BCx) (* CAy BCy)) (* (sqrt (+ (cuadrado CAx) (cuadrado CAy))) (sqrt (+ (cuadrado BCx) (cuadrado BCy))))) )
+   (display cosC)
+  
+  ;compruebo si los lados forman un triangulo
   (let (
-        ;Variables del let
-        (AnguloAByAC (anguloVectores x1 y1 x2 y2 x1 y1 x3 y3))
-        (AnguloAByBC (anguloVectores x1 y1 x2 y2 x2 y2 x3 y3))
-        (AnguloACyBC (anguloVectores x1 y1 x3 y3 x2 y2 x3 y3))
+        ;;Variables del let
+        (A (distanciaEuclidiana x1 y1 x2 y2))
+        (B (distanciaEuclidiana x2 y2 x3 y3))
+        (C (distanciaEuclidiana x3 y3 x1 y2))
         )
-    ;Cuerpo del let
-    (if (= (propiedadTriangular? (distanciaEuclidiana x1 y1 x2 y2) (distanciaEuclidiana x2 y2 x3 y3) (distanciaEuclidiana x3 y3 x1 y1)) 0)
-        (display "No forman un triangulo")
-        (if (or (> 1e-6 (abs(- AnguloAByAC (/ pi 2)))) (> 1e-6 (abs (- AnguloAByBC (/ pi 2)))) (> 1e-6 (abs( - AnguloACyBC (/ pi 2)))))
-            (display "Triangulo Rectangulo")
-            (if (and (< AnguloAByAC (/ pi 2)) (< AnguloAByBC (/ pi 2)) (< AnguloACyBC (/ pi 2)))
-                (display "Triangulo Acutangulo")
-                (if (and (or (> AnguloAByAC (/ pi 2)) (> AnguloAByBC (/pi 2)) (> AnguloACyBC (/pi 2))) (or (< AnguloAByAC pi) (< AnguloAByBC pi) (< AnguloACyBC pi)))
-                    (display "Triangulo Obtusangulo")
-                    (display "Nulo")
-                    )
-                )
-            )
-        )
+        ;;Cuerpo del let
+    (if (= (propiedadTriangular? A B C) 0)
+        (begin 0 (display "Los lados no forman un triangulo"))
+    
+    
+          ;calculo los vectores de cada lado
+        (begin 
+          ;LADO AB
+          ;(define ABx (- x1 x2))
+          ;(define ABy (- y1 y2))
+
+          ;LADO BC
+          ;(define BCx (- x2 x3))
+          ;(define BCy (- y2 y3))
+
+          ;LADO CA
+          ;(define CAx (- x3 x1))
+          ;(define CAy (- y3 y1))
+
+          ;Calculo el coseno de cada angulo que se corresponde con el angulo
+
+          ;(define cosA (/ (+ (* ABx CAx) (* ABy CAy)) (* (sqrt (+ (cuadrado ABx) (cuadrado ABy))) (sqrt (+ (cuadrado CAx) (cuadrado CAy))))) )
+          ;(define cosB (/ (+ (* BCx ABx) (* BCy ABy)) (* (sqrt (+ (cuadrado BCx) (cuadrado BCy))) (sqrt (+ (cuadrado ABx) (cuadrado ABy))))) )
+          ;(define cosC (/ (+ (* CAx BCx) (* CAy BCy)) (* (sqrt (+ (cuadrado CAx) (cuadrado CAy))) (sqrt (+ (cuadrado BCx) (cuadrado BCy))))) )
+
+          (if (or (= cosA 1.5708) (= cosB 1.5708) (= cosC 1.5708))
+              (begin 1 (display "Recto / Rectangulo"))
+              (if (and (< cosA 1.5708) (< cosB 1.5708) (< cosC 1.5708))
+                  (begin 2 (display "Acutangulo"))
+                  (begin 3 (display "Obtusangulo"))
+                  )
+              )            
+          ) 
     )
   )
-
+  )
 
 ;EJERCICIO 11
 (define (ladosParalelos? x1 y1 x2 y2 x3 y3 x4 y4)
@@ -260,7 +301,7 @@
      )
 )
 
-;EJERCICIO 13
+;EJERCICIO 13 RREVISAR (hay que probarlo mas)
 (define (areaTrapecio a b h)
   (/ (* h (+ a b)) 2)
 )
@@ -291,17 +332,17 @@
     )
 )
 
-(define (areaTrapecio2 x1 y1 x2 y2 x3 y3 x4 y4)
+(define (areaTrapecio3 x1 y1 x2 y2 x3 y3 x4 y4)
   ;Buscamos las bases
   ;P1-P2 con P3-P4
   (if(= (ladosParalelos? x1 y1 x2 y2 x3 y3 x4 y4) 1)
      (areaTrapecioLetVertices x1 y1 x2 y2 x3 y3 x4 y4)
      ;P1-P3 con P2-P4
      (if(= (ladosParalelos? x1 y1 x3 y3 x2 y2 x4 y4) 1)
-        (areaTrapecioLetVertices x1 y1 x3 y3 x2 y2 x4 y4)
+        (areaTrapecioLetVertices? x1 y1 x3 y3 x2 y2 x4 y4)
         ;P1-P4 con P2-P3
         (if(= (ladosParalelos? x1 y1 x4 y4 x2 y2 x3 y3) 1)
-           (areaTrapecioLetVertices x1 y1 x4 y4 x2 y2 x3 y3)
+           (areaTrapecioLetVertices? x1 y1 x3 y3 x2 y2 x4 y4)
            (display "Los vertices introducidos no forman un trapecio")
            )
         )
@@ -309,36 +350,6 @@
 )
 
 ;EJERCICIO 14
-(define (clasificarCuadrilaterosConvexos x1 y1 x2 y2 x3 y3 x4 y4) ; los puntos se introducen de forma secuencial
-  (if (and (= (distanciaEuclidiana x1 y1 x2 y2) (distanciaEuclidiana x2 y2 x3 y3) (distanciaEuclidiana x3 y3 x4 y4) (distanciaEuclidiana x4 y4 x1 y1)) (= 1 (perpendiculares? x1 y1 x2 y2 x2 y2 x3 y3) (perpendiculares? x2 y2 x3 y3 x3 y3 x4 y4) (perpendiculares? x3 y3 x4 y4 x4 y4 x1 y1) (perpendiculares? x4 y4 x1 y1 x1 y1 x2 y2)))
-      (display "Cuadrado")
-      (if (and (= 1 (perpendiculares? x1 y1 x2 y2 x2 y2 x3 y3) (perpendiculares? x2 y2 x3 y3 x3 y3 x4 y4) (perpendiculares? x3 y3 x4 y4 x4 y4 x1 y1) (perpendiculares? x4 y4 x1 y1 x1 y1 x2 y2)) (not (= (distanciaEuclidiana x1 y1 x2 y2) (distanciaEuclidiana x2 y2 x3 y3) (distanciaEuclidiana x3 y3 x4 y4) (distanciaEuclidiana x4 y4 x1 y1))))
-          (display "Rectangulo")
-          (if (and (= (distanciaEuclidiana x1 y1 x2 y2) (distanciaEuclidiana x2 y2 x3 y3) (distanciaEuclidiana x3 y3 x4 y4) (distanciaEuclidiana x4 y4 x1 y1)) (and (= (anguloVectores x1 y1 x2 y1 x1 y1 x4 y4) (anguloVectores x2 y2 x3 y3 x3 y3 x4 y4)) (= (anguloVectores x1 y1 x4 y4 x4 y4 x3 y3) (anguloVectores x1 y1 x2 y2 x2 y2 x3 y3))))
-              (display "Rombo")
-              (if (and (= (distanciaEuclidiana x1 y1 x2 y2) (distanciaEuclidiana x3 y3 x4 y4)) (= (distanciaEuclidiana x1 y1 x4 y4) (distanciaEuclidiana x2 y2 x3 y3)) (= (anguloVectores x1 y1 x2 y2 x1 y1 x4 y4) (anguloVectores x2 y2 x3 y3 x3 y3 x4 y4)) (= (anguloVectores x1 y1 x2 y2 x2 y2 x3 y3) (anguloVectores x1 y1 x4 y4 x4 y4 x3 y3) ))
-                  (display "Romboide")
-                  (if (and (or (= 1 (perpendiculares? x1 y1 x2 y2 x2 y2 x3 y3)) (= 1 (perpendiculares? x2 y2 x3 y3 x3 y3 x4 y4)) (= 1 (perpendiculares? x3 y3 x4 y4 x4 y4 x1 y1)) (= 1 (perpendiculares? x4 y4 x1 y1 x1 y1 x2 y2))) (or (= 1 (ladosParalelos? x1 y1 x2 y2 x4 y4 x3 y3)) (= 1 (ladosParalelos? x2 y2 x3 y3 x4 y4 x1 y1))))
-                      (display "Trapecio rectangular")
-                      (if (and (or (= 1 (ladosParalelos? x1 y1 x2 y2 x3 y3 x4 y4)) (= 1 (ladosParalelos? x2 y2 x3 y3 x1 y1 x4 y4))) (or (= (distanciaEuclidiana x1 y1 x2 y2) (distanciaEuclidiana x3 y3 x4 y4)) (= (distanciaEuclidiana x1 y1 x4 y4) (distanciaEuclidiana x2 y2 x3 y3)) ))
-                          (display "Trapecio isosceles")
-                          (if (and (or (= 1 (ladosParalelos? x1 y1 x2 y2 x3 y3 x4 y4)) (= 1 (ladosParalelos? x2 y2 x3 y3 x1 y1 x4 y4))) (or (not(= (distanciaEuclidiana x1 y1 x2 y2) (distanciaEuclidiana x3 y3 x4 y4))) (not(= (distanciaEuclidiana x1 y1 x4 y4) (distanciaEuclidiana x2 y2 x3 y3))) ))
-                              (display "Trapecio escaleno")
-                              (if (and (= (distanciaEuclidiana x1 y1 x2 y2) (distanciaEuclidiana x1 y1 x4 y4)) (= (distanciaEuclidiana x4 y4 x3 y3) (distanciaEuclidiana x2 y2 x3 y3)) )
-                                  (display "Cometa")
-                                  (if (or (= (distanciaEuclidiana x1 y1 x2 y2) (distanciaEuclidiana x1 y1 x4 y4)) (= (distanciaEuclidiana x4 y4 x3 y3) (distanciaEuclidiana x2 y2 x3 y3)) )
-                                      (display "Cometa oblicuo")
-                                      (if (not ( = (distanciaEuclidiana x1 y1 x2 y2) (distanciaEuclidiana x2 y2 x3 y3) (distanciaEuclidiana x3 y3 x4 y4) (distanciaEuclidiana x4 y4 x1 y1)))
-                                          (display "Trapezoide")
-                                          (display "No es un paralelogramo")
-                                          )
-                                      )
-                                  )
-                              )
-                          )
-                      )
-                  )
-              )
-          )
-      )
-  ) 
+;(define (clasificarCuadrilaterosConvexos x1 y1 x2 y2 x3 y3 x4 y4)
+ ; (if(and ( = (distanciaEuclidiana x1 y1 x2 y2) (distanciaEuclidiana x2 y2 x3 y3) (distanciaEuclidiana x3 y3 x4 y4) (distancia x4 y4 x1 y2)) ( )
+;)
