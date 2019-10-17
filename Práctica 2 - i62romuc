@@ -1,0 +1,733 @@
+;EJERCICIO 3 
+;; 
+;; Nombre: letraDNI
+;; Objetivo: calcula la letra correspondiente a un DNI introducido.
+;; Parámetro:
+;;         n: Campo numérico del DNI. 
+;; Resultado: 
+;;         Letra asociada al DNI.
+;; Funciones a las que llama: ninguna.
+;;
+(define (letraDNI n)
+  (case (modulo n 23)
+    ( (0) "T")
+    ( (1) "R")
+    ( (2) "W")
+    ( (3) "A")
+    ( (4) "G")
+    ( (5) "M")
+    ( (6) "Y")
+    ( (7) "F")
+    ( (8) "P")
+    ( (9) "D")
+    ( (10) "X")
+    ( (11) "B")
+    ( (12) "N")
+    ( (13) "J")
+    ( (14) "Z")
+    ( (15) "S")
+    ( (16) "Q")
+    ( (17) "V")
+    ( (18) "H")
+    ( (19) "L")
+    ( (20) "C")
+    ( (21) "K")
+    ( (22) "E")   
+  )
+ )
+
+;(letraDNI 31028160)
+
+;EJERCICIO 4
+;; 
+;; Nombre: posiciónCircunferenciaRecta
+;; Objetivo: Determina la posición relativa entre una circunferencia y una recta.
+;; Parámetro:
+;;         r: radio de la circunferencia.
+;;         x0: coordenada x del centro de la circunferencia.
+;;         y0: coordenada y del centro de la circunferencia.
+;;          A: Coeficiente A de la recta.
+;;          B: Coeficiente B de la recta.
+;;          C: Coeficiente C de la recta.
+;; Resultado: 
+;;         Posición relativa entre la recta y la circunferencia.
+;; Descripción:
+;;          Se obtiene un valor numérico que representa la posición 1 si exterior, 2 si secante y 3 si tangente
+;; Funciones a las que llama: distanciaPuntoRecta.
+;;
+
+;; 
+;; Nombre: distanciaPuntoRecta
+;; Objetivo: Determina la distancia en línea recta entre un punto y una recta.
+;; Parámetro:
+;;         x0: coordenada x del punto.
+;;         y0: coordenada y del punto.
+;;          a: Coeficiente A de la recta.
+;;          b: Coeficiente B de la recta.
+;;          c: Coeficiente C de la recta.
+;; Resultado: 
+;;         Distancia en línea recta entre el punto  y la recta.
+;; Funciones a las que llama: abs y sqrt.
+;;
+
+(define (posicionCircunferenciaRecta r x0 y0 A B C)
+  (define (distanciaPuntoRecta x0 y0 a b c)
+       (/ (abs( + (* a x0) (* b y0) c )) (sqrt (+ (* a a) (* b b)) ) )
+    )
+  
+  (if (= r (distanciaPuntoRecta x0 y0 A B C) )
+      3 ;tangente
+     (if (< r (distanciaPuntoRecta x0 y0 A B C))
+     1 ;exterior
+     2 ;secante
+   
+     )
+   )
+)
+
+;(posicionCircunferenciaRecta 3 0 0 3 5 4) ;Secante
+;(posicionCircunferenciaRecta 1 9 2 9 7 8) ;Exterior
+
+
+;EJERCICIO 5
+;; 
+;; Nombre: distanciaEuclidiana
+;; Objetivo: Calcula la distancia euclidiana entre dos puntos
+;; Parámetro:
+;;         x1: coordenada x del punto 1.
+;;         y1: coordenada y del punto 1.
+;;         x2: coordenada x del punto 2.
+;;         y1: coordenada y del punto 2.
+;; Resultado: 
+;;         distancia euclidiana.
+;;
+;; Funciones a las que llama: sqrt.
+;;
+(define (distanciaEuclidiana x1 y1 x2 y2)
+  (sqrt (+ (* (- x2 x1) (- x2 x1) ) (* (- y2 y1) (- y2 y1) )))
+)
+
+;; 
+;; Nombre: posicionRelativaDosEsferas
+;; Objetivo: Calcula la posición relativa entre dos esferas.
+;; Parámetro:
+;;         x0: coordenada x del centro de la esfera 1.
+;;         y0: coordenada y del centro de la esfera 1.
+;;         r0: radio de la esfera 1.
+;;         x1: coordenada x del centro de la esfera 2.
+;;         y1: coordenada y del centro de la esfera 2.
+;;         r1: radio de la esfera 2.
+;; Resultado: 
+;;         posición relativa entre las esferas.
+;; Descripción:
+;; Iguales: 1
+;; Secantes: 2
+;; Tangentes por dentro: 3
+;; Tangentes por fuera: 4
+;; Interiores: 5
+;; Exteriores: 6
+;; Concéntricas: 7
+;; 
+;;
+;; Funciones a las que llama: distanciaEuclidiana.
+;;
+(define (posicionRelativaDosEsferas x0 y0 r0 x1 y1 r1)
+  (if ( and (= x0 x1) (= y0 y1) (= r0 r1))
+      1 ; son iguales
+      (if ( = (+ r0 r1) (distanciaEuclidiana x0 y0 x1 y1))
+          4 ;tangentes exteriores
+          (if ( = ( abs(- r0 r1)) (distanciaEuclidiana x0 y0 x1 y1))
+              3; tangentes interiores
+              (if ( and (= x0 x1) (= y0 y1))
+                 7; concentricas
+                 (if ( and (not (= x0 x1)) (not (= y0 y1))  (not (>= (+ r1 r0) (distanciaEuclidiana x0 y0 x1 y1))) )
+                     6; exteriores
+                      (if (and (and not(= x0 x1) (not (= y0 y1)) )  (not(<= (+ r1 r0) (distanciaEuclidiana x0 y0 x1 y1))))
+                          5; interiores
+                          2;secantes
+                          )
+                      )
+                 )
+              )
+          )
+      )
+  )
+
+;(posicionRelativaDosEsferas 0 0 1 0 0 1) ;Iguales
+;(posicionRelativaDosEsferas 0 0 1 1 1 1) ;Secantes
+;(posicionRelativaDosEsferas 0 0 1 2 1 1) ;Exteriores
+;(posicionRelativaDosEsferas 0 0 1 2 0 1) ;Tangentes exteriores
+;(posicionRelativaDosEsferas 0 0 5 2 0 3) ;Tangentes interiores
+;(posicionRelativaDosEsferas 0 0 1 0 0 3) ; Concéntricas
+;(posicionRelativaDosEsferas 0 1 40 0 0 1) ;Interiores
+
+;EJERCICIO 6
+;; 
+;; Nombre: distanciaManhattan
+;; Objetivo: Calcula la distancia de Manhattan entre dos puntos
+;; Parámetro:
+;;         x1: coordenada x del punto 1.
+;;         y1: coordenada y del punto 1.
+;;         x2: coordenada x del punto 2.
+;;         y1: coordenada y del punto 2.
+;; Resultado: 
+;;         distancia de Manhattan.
+;;
+;; Funciones a las que llama: abs.
+;;
+(define (distanciaManhattan x1 y1 x2 y2)
+  (+ (abs (- x2 x1)) (abs (- y2 y1)))
+)
+
+;; 
+;; Nombre: distanciaAjedrez
+;; Objetivo: Calcula la distancia de ajedrez entre dos puntos
+;; Parámetro:
+;;         x1: coordenada x del punto 1.
+;;         y1: coordenada y del punto 1.
+;;         x2: coordenada x del punto 2.
+;;         y1: coordenada y del punto 2.
+;; Resultado: 
+;;         distancia de ajedrez.
+;;
+;; Funciones a las que llama: abs y max.
+;;
+
+(define (distanciaAjedrez x1 y1 x2 y2)
+  (max (abs(- x2 x1) ) (abs(- y2 y1)) ) 
+)
+
+;; 
+;; Nombre: posicionPunto 
+;; Objetivo: Asigna a un punto dado la posición relativa respecto a unas figuras geométricas definidas previamente.
+;; Parámetro:
+;;         x: coordenada x del punto.
+;;         y: coordenada y del punto.
+;; Resultado: 
+;;         Posición del punto en el plano respecto a las figuras.
+;; Descripción:
+;; 1. El punto pertenece a la circunferencia o a uno de los lados delcuadrado o del rombo.
+;; 2. El punto está dentro del rombo y fuera del cuadrado
+;; 3. El punto está dentro del rombo y dentro del cuadrado
+;; 4. El punto está dentro del cuadrado y fuera del rombo y del círculo
+;; 5. El punto está dentro del cuadrado y del círculo
+;; 6. El punto está dentro del círculo y fuera del cuadrado
+;; 7. En otro caso.
+;;
+;; Funciones a las que llama: distanciaEuclidiana, distanciaManhattan, distnaciaAjedrez.
+;;
+(define (posicionPunto x y)
+  (let (
+        ;Declaración de variables
+        (Euclidiana (distanciaEuclidiana x y -1. 0.))
+        (Manhattan (distanciaManhattan x y 1. 0.))
+        (Ajedrez (distanciaAjedrez x y 0. 0.))
+        )
+        ;Cuerpo del let
+        (if  (or (= Euclidiana 1.) (= Manhattan 1.) (= Ajedrez 1.))
+             1
+             (if (and (< Manhattan 1.) (> Ajedrez 1.))
+                 2
+                 (if (and (< Manhattan 1.) (< Ajedrez 1.))
+                     3
+                     (if (and (< Ajedrez 1.) (> Manhattan 1.) (> Euclidiana 1.))
+                         4
+                         (if (and (< Ajedrez 1.) (< Euclidiana 1.))
+                             5
+                             (if (and (< Euclidiana 1.) (> Ajedrez 1.))
+                                 6
+                                 7
+                                 )
+                             )
+                         )
+                     )
+                 )
+             )
+    )
+  )    
+
+;(posicionPunto 0 0); 1
+;(posicionPunto 1 75); 7
+;(posicionPunto 1.9 0); 2
+;(posicionPunto 0 0.1); 4
+
+
+;EJERCICIO 7
+;; 
+;; Nombre: propiedadTriangular?
+;; Objetivo: Calcula si tres lados pueden formar un triángulo.
+;; Parámetro:
+;;         a: medida del lado a.
+;;         b: medida del lado b.
+;;         c: medida del lado c.
+;; Resultado: 
+;;         1 (true) o 0 (false).
+;;
+;; Funciones a las que llama: abs.
+;;
+(define (propiedadTriangular? a b c)
+  (if (and (< (abs (- a b)) c) ( < c (+ a b)))
+      1 ;true
+      0 ;false
+  )
+)
+
+;(propiedadTriangular? 2 4 32); 0
+;(propiedadTriangular? 2 2 2); 1
+
+;EJERCICIO 8
+;; 
+;; Nombre: tipoTrianguloPorLados
+;; Objetivo: Clasifica un triangulo según sus lados.
+;; Parámetro:
+;;         a: medida del lado a.
+;;         b: medida del lado b.
+;;         c: medida del lado c.
+;; Resultado: 
+;;         Triangulo clasificado por sus lados.
+;;
+;; Funciones a las que llama: propiedadTriangular?.
+;;
+(define (tipoTrianguloPorLados a b c)
+  (if ( = (propiedadTriangular? a b c) 1)
+      (if(and (= a b) (= b c))
+         (display "Equilatero")
+         (if(and (not (= a b)) (not (= b c)))
+            (display "Escaleno")
+            (display "Isósceles")
+            )
+         )
+      (display "Nulo")
+      )
+)
+
+;(tipoTrianguloPorLados 2 2 2) ;equilatero
+;(tipoTrianguloPorLados 2 4 4) Isósceles
+;(tipoTrianguloPorLados 4 2 3) ;Escaleno
+;(tipoTrianguloPorLados 4 1 2) ;Nulo
+
+;EJERCICIO 9
+;; 
+;; Nombre: cuadrado
+;; Objetivo: Calcula el cuadrado de un número.
+;; Parámetro:
+;;         x: número al que calcular el cuadrado.
+;; Resultado: 
+;;         Cuadrado del número.
+;;
+;; Funciones a las que llama: ninguna.
+;;
+(define (cuadrado x)
+  (* x x)
+)
+;; 
+;; Nombre: anguloVectores
+;; Objetivo: Calcula el angulo que forman dos vectores, los cuales se introducen por sus puntos del plano.
+;; Parámetro:
+;;         x1: coordenada x del punto 1.
+;;         y1: coordenada y del punto 1.
+;;         x2: coordenada x del punto 2.
+;;         y2: coordenada y del punto 2.
+;;         x3: coordenada x del punto 3.
+;;         y3: coordenada y del punto 3.
+;;         x4: coordenada x del punto 4.
+;;         y4: coordenada y del punto 4.
+;; Resultado: 
+;;         Ángulo en radianes formado por los vectores.
+;;
+;; Funciones a las que llama: cuadrado y sqrt.
+;;
+
+(define (anguloVectores x1 y1 x2 y2 x3 y3 x4 y4)
+  ;Calculo el vector u
+  (define u1 (- x2 x1))
+  (define u2 (- y2 y1))
+  ;calculo el vector v
+  (define v1 (- x4 x3))
+  (define v2 (- y4 y3))
+
+  ;compruebo que los vectores no sean nulos:
+  (if (and (= 0 u1) (= 0 u2) (= 0 v1) (= 0 v2))
+      0.0
+      ;calculo el angulo
+      ( acos (/ (+ (* u1 v1) (* u2 v2)) (* (sqrt(+ (cuadrado u1) (cuadrado u2))) (sqrt( + (cuadrado v1) (cuadrado v2))))))
+   )
+  )
+
+;(anguloVectores 1 0 2 0 0 1 0 2 ); pi/2
+
+;EJERCICIO 10
+;; 
+;; Nombre: tipoTrianguloPorAngulos
+;; Objetivo: Clasifica un triangulo por sus ángulos. Los vértices del triángulo se introducen de forma secuencial.
+;; Parámetro:
+;;         x1: coordenada x del vértice 1.
+;;         y1: coordenada y del vértice 1.
+;;         x2: coordenada x del vértice 2.
+;;         y2: coordenada y del vértice 2.
+;;         x3: coordenada x del vértice 3.
+;;         y3: coordenada y del véritce 3.
+;; Resultado: 
+;;         Clasificación del triángulo.
+;;
+;; Funciones a las que llama: anguloVectores, propiedadTriangular?, distancia Euclidiana y abs.
+;;
+
+(define (tipoTrianguloPorAngulos x1 y1 x2 y2 x3 y3) 
+  (let (
+        ;Variables del let
+        (AnguloAByAC (anguloVectores x1 y1 x2 y2 x1 y1 x3 y3))
+        (AnguloAByBC (anguloVectores x1 y1 x2 y2 x2 y2 x3 y3))
+        (AnguloACyBC (anguloVectores x1 y1 x3 y3 x2 y2 x3 y3))
+        )
+    ;Cuerpo del let
+    (if (= (propiedadTriangular? (distanciaEuclidiana x1 y1 x2 y2) (distanciaEuclidiana x2 y2 x3 y3) (distanciaEuclidiana x3 y3 x1 y1)) 0)
+        (display "No forman un triangulo")
+        (if (or (> 1e-6 (abs(- AnguloAByAC (/ pi 2)))) (> 1e-6 (abs (- AnguloAByBC (/ pi 2)))) (> 1e-6 (abs( - AnguloACyBC (/ pi 2)))))
+            (display "Triangulo Rectangulo")
+            (if (and (< AnguloAByAC (/ pi 2)) (< AnguloAByBC (/ pi 2)) (< AnguloACyBC (/ pi 2)))
+                (display "Triangulo Acutangulo")
+                (if (and (or (> AnguloAByAC (/ pi 2)) (> AnguloAByBC (/pi 2)) (> AnguloACyBC (/pi 2))) (or (< AnguloAByAC pi) (< AnguloAByBC pi) (< AnguloACyBC pi)))
+                    (display "Triangulo Obtusangulo")
+                    (display "Nulo")
+                    )
+                )
+            )
+        )
+    )
+  )
+
+;(tipoTrianguloPorAngulos 1 1 2 1 3 2);Acutángulo
+;(tipoTrianguloPorAngulos 1 1 3 1 2 1) ;no forman un triangulo
+;(tipoTrianguloPorAngulos 1 1 3 1 2 2); Rectángulo
+
+;EJERCICIO 11
+;; 
+;; Nombre: ladosParalelos?
+;; Objetivo: Determina si dos rectas son parelelas. Las rectas se definen por dos puntos.
+;; Parámetro:
+;;         x1: coordenada x del vértice 1 de la recta 1.
+;;         y1: coordenada y del vértice 1 de la recta 1.
+;;         x2: coordenada x del vértice 2 de la recta 1.
+;;         y2: coordenada y del vértice 2 de la recta 1.
+;;         x3: coordenada x del vértice 1 de la recta 2.
+;;         y3: coordenada y del véritce 1 de la recta 2.
+;;         x4: coordenada x del vértice 2 de la recta 2.
+;;         y4: coordenada y del véritce 2 de la recta 2.
+;; Resultado: 
+;;         1 (true) o 0 (false).
+;;
+;; Funciones a las que llama: abs.
+;;
+
+(define (ladosParalelos? x1 y1 x2 y2 x3 y3 x4 y4)
+  ;Calculo los vectores de las rectas
+  (define R1x (abs(- x1 x2)))
+  (define R1y (abs(- y1 y2)))
+
+  (define R2x (abs(- x3 x4)))
+  (define R2y (abs(- y3 y4)))
+
+  (if(and (= R1x R2x) (= R1y R2y))
+     ;Paralelas
+     1
+    ;no son paralelas
+     0
+  )
+  
+)
+;(ladosParalelos? 0 1 0 2 1 0 1 1); 1
+;(ladosParalelos? 0 1 0 2 1 0 1 9); 0
+
+;; 
+;; Nombre: perpendiculares?
+;; Objetivo: Determina si dos rectas son perpendiculares. Las rectas se definen por dos puntos.
+;; Parámetro:
+;;         x1: coordenada x del vértice 1 de la recta 1.
+;;         y1: coordenada y del vértice 1 de la recta 1.
+;;         x2: coordenada x del vértice 2 de la recta 1.
+;;         y2: coordenada y del vértice 2 de la recta 1.
+;;         x3: coordenada x del vértice 1 de la recta 2.
+;;         y3: coordenada y del véritce 1 de la recta 2.
+;;         x4: coordenada x del vértice 2 de la recta 2.
+;;         y4: coordenada y del véritce 2 de la recta 2.
+;; Resultado: 
+;;         1 (true) o 0 (false).
+;;
+;; Funciones a las que llama: ninguna.
+;;
+
+(define (perpendiculares? x1 y1 x2 y2 x3 y3 x4 y4)
+  ;Calculo los vectores de las rectas
+  (define R1x (- x1 x2))
+  (define R1y (- y1 y2))
+
+  (define R2x (- x3 x4))
+  (define R2y (- y3 y4))
+
+  ;calculo el producto escalar de sus vectores
+  (let (
+        ;Variables del let
+        (productoEscalar (+ (* R1x R2x) (* R1y R2y)))
+        )
+    ;Cuerpo del let
+    (if(= productoEscalar 0)
+       1 ;Perpendiculares
+   
+       0 ;No son perpendiculares
+       )
+    )  
+)
+
+;(perpendiculares? 0 0 0 0 0 0 0 0); 1
+;(perpendiculares? 0 0 0 1 0 0 1 1); 0
+
+;EJERCICIO 12
+;; 
+;; Nombre: areaRombo
+;; Objetivo: Calcula el área del rombo a partir de sus diagonales.
+;; Parámetro:
+;;         a: medida de la diagonal a.
+;;         b: medida de la diagonal b.
+;; Resultado: 
+;;         área del rombo.
+;;
+;; Funciones a las que llama: ninguna.
+;;
+(define (areaRombo a b)
+  (/ (* a b) 2)
+)
+
+;; Nombre: areaRomboVertices
+;; Objetivo: Calcula el área de un rombo a partir de sus vértices.
+;; Parámetro:
+;;         x1: coordenada x del punto 1.
+;;         y1: coordenada y del punto 1.
+;;         x2: coordenada x del punto 2.
+;;         y1: coordenada y del punto 2.
+;;         x3: coordenada x del punto 3.
+;;         y3: coordenada y del punto 3.
+;;         x4: coordenada x del punto 4.
+;;         y4: coordenada y del punto 4.
+;;         Los parámetros se introducen de forma cíclica y en orden. La primera diagonal la forman los puntos P1 y P3 y la segunda los puntos P2 y P4.
+;; Resultado: 
+;;         área del rombo.
+;;
+;; Funciones a las que llama:
+;;         areaRombo
+;;         distanciaEuclidiana
+;;
+(define (areaRomboVertices x1 y1 x2 y2 x3 y3 x4 y4)
+  (areaRombo (distanciaEuclidiana x1 y1 x3 y3) (distanciaEuclidiana x2 y2 x4 y4))
+)
+
+;; Nombre: areaRombo2
+;; Objetivo: Calcula el área de un rombo a partir de sus vértices, los vértices se introducen sin especificar un orden.
+;; Parámetro:
+;;         x1: coordenada x del vértice 1.
+;;         y1: coordenada y del vértice 1.
+;;         x2: coordenada x del vértice 2.
+;;         y1: coordenada y del vértice 2.
+;;         x3: coordenada x del vértice 3.
+;;         y3: coordenada y del vértice 3.
+;;         x4: coordenada x del vértice 4.
+;;         y4: coordenada y del vértice 4.
+;;        
+;; Resultado: 
+;;         área del rombo.
+;;
+;; Funciones a las que llama: perpendiculares? y areaRomboVertices
+;;
+(define (areaRombo2 x1 y1 x2 y2 x3 y3 x4 y4)
+  ;Buscamos las diagonales
+  
+  ;RECTA P1->P2 CON RECTA P3->P4
+  (if(= (perpendiculares? x1 y1 x2 y2 x3 y3 x4 y4) 1)
+     (areaRomboVertices x1 y1 x3 y3 x2 y2 x4 y4)
+     ;RECTA P1->P3 CON RECTA P2->P4
+     (if(= (perpendiculares? x1 y1 x3 y3 x2 y2 x4 y4) 1)
+        (areaRomboVertices x1 y1 x2 y2 x3 y3 x4 y4)
+        ;RECTA P2->P3 CON RECTA P1->P4
+        (if(= (perpendiculares? x2 y2 x3 y3 x1 y1 x4 y4) 1)
+           (areaRomboVertices x2 y2 x1 y1 x3 y3 x4 y4)
+           (display "Los puntos indicados no forman un rombo")
+           )
+        )
+     )
+)
+
+;(areaRombo2 3 4 5 6 2 1 9 3); no forman un rombo
+;(areaRombo2 0 -1 0 1 2 0 -2 0); 4
+
+;EJERCICIO 13
+;; 
+;; Nombre: areaTrapecio
+;; Objetivo: Calcula el área del trapecio a partir de sus bases y altura.
+;; Parámetro:
+;;         a: medida de la base a.
+;;         b: medida de la base b.
+;;         h: medida de la altura.
+;; Resultado: 
+;;         área del trapecio.
+;;
+;; Funciones a las que llama: ninguna.
+;;
+(define (areaTrapecio a b h)
+  (/ (* h (+ a b)) 2)
+)
+
+;; 
+;; Nombre: distanciaPuntoRecta2
+;; Objetivo: Calcula la distancia entre un punto y una recta.
+;; Parámetro:
+;;         x0: coordenada x del punto.
+;;         y0: coordenada y del punto.
+;;         x1: coordenada x del vértice 1 de la recta.
+;;         y1: coordenada y del vértice 1 de la recta.
+;;         x2: coordenada x del vértice 2 de la recta.
+;;         y2: coordenada y del vértice 2 de la recta.
+;; Resultado: 
+;;         Distancia entre el punto y la recta.
+;;
+;; Funciones a las que llama: distanciaPuntoRecta.
+;;
+(define (distanciaPuntoRecta2 x0 y0 x1 y1 x2 y2)
+  (define (distanciaPuntoRecta x0 y0 a b c)
+       (/ (abs( + (* a x0) (* b y0) c )) (sqrt (+ (* a a) (* b b)) ) )
+    )
+  (let (
+        (A (- y2 y1))
+        (B (- x1 x2))
+        (C (- (* y1 x2) (* x1 y2)))
+        )
+        
+         (distanciaPuntoRecta x0 y0 A B C)
+         
+    )
+)
+
+;; Nombre: areaTrapecioLetVertices
+;; Objetivo: Calcula el área de un trapecio a partir de sus vértices.
+;; Parámetro:
+;;         x1: coordenada x del vértice 1.
+;;         y1: coordenada y del vértice 1.
+;;         x2: coordenada x del vértice 2.
+;;         y2: coordenada y del vértice 2.
+;;         x3: coordenada x del vértice 3.
+;;         y3: coordenada y del vértice 3.
+;;         x4: coordenada x del vértice 4.
+;;         y4: coordenada y del vértice 4.
+;;         Los puntos se introducen cíclicamente y en orden, conformando el vértice 1 y 2 la primera base y los vértices 3 y 4 la segunda.       
+;; Resultado: 
+;;         área del trapecio.
+;;
+;; Funciones a las que llama:
+;;         distanciaEuclidiana
+;;         distanciaPuntoRecta2
+;;         areaTrapecio
+;;
+
+(define (areaTrapecioLetVertices x1 y1 x2 y2 x3 y3 x4 y4)
+  (let (
+        (P1-P2 (distanciaEuclidiana x1 y1 x2 y2))
+        (P3-P4 (distanciaEuclidiana x3 y3 x4 y4))
+        (h (distanciaPuntoRecta2 x1 y1 x4 y4 x3 y3))
+        )
+        (areaTrapecio P1-P2 P3-P4 h)
+    )
+)
+
+;; Nombre: areaTrapecio2
+;; Objetivo: Calcula el área de un trapecio.
+;; Parámetro:
+;;         x1: coordenada x del vértice 1.
+;;         y1: coordenada y del vértice 1.
+;;         x2: coordenada x del vértice 2.
+;;         y1: coordenada y del vértice 2.
+;;         x3: coordenada x del vértice 3.
+;;         y3: coordenada y del vértice 3.
+;;         x4: coordenada x del vértice 4.
+;;         y4: coordenada y del vértice 4.
+;;         Los vértices se introducen sin seguir un orden
+;;        
+;; Resultado: 
+;;         área del trapecio.
+;;
+;; Funciones a las que llama: ladosParalelos? y areaTrapecioLetVertices
+;;
+(define (areaTrapecio2 x1 y1 x2 y2 x3 y3 x4 y4)
+  ;Buscamos las bases
+  ;P1->P2 con P3->P4
+  (if(= (ladosParalelos? x1 y1 x2 y2 x3 y3 x4 y4) 1)
+     (areaTrapecioLetVertices x1 y1 x2 y2 x3 y3 x4 y4)
+     ;P1->P3 con P2->P4
+     (if(= (ladosParalelos? x1 y1 x3 y3 x2 y2 x4 y4) 1)
+        (areaTrapecioLetVertices x1 y1 x3 y3 x2 y2 x4 y4)
+        ;P1->P4 con P2->P3
+        (if(= (ladosParalelos? x1 y1 x4 y4 x2 y2 x3 y3) 1)
+           (areaTrapecioLetVertices x1 y1 x4 y4 x2 y2 x3 y3)
+           (display "Los vertices introducidos no forman un trapecio")
+           )
+        )
+     )
+)
+
+;(areaTrapecio2 2 3 5 6 8 3 4 0); No forman un trapecio.
+;(areaTrapecio2 0 0 5 0 1 1 4 1); 5.0
+
+;EJERCICIO 14
+;; Nombre: clasificarCuadrilaterosConvexos
+;; Objetivo: Clasificar el cuadrilátero formado por los puntos dados.
+;; Parámetro:
+;;         x1: coordenada x del vértice 1.
+;;         y1: coordenada y del vértice 1.
+;;         x2: coordenada x del vértice 2.
+;;         y1: coordenada y del vértice 2.
+;;         x3: coordenada x del vértice 3.
+;;         y3: coordenada y del vértice 3.
+;;         x4: coordenada x del vértice 4.
+;;         y4: coordenada y del vértice 4.
+;;         Los vértices se introducen de forma cíclica
+;;        
+;; Resultado: 
+;;         clasificación en cuadriláteros convexos.
+;;
+;; Funciones a las que llama: distanciaEuclidiana, anguloVectores perpendiculares? y ladosParalelos?
+;;
+(define (clasificarCuadrilaterosConvexos x1 y1 x2 y2 x3 y3 x4 y4) 
+  (if (and (and ( = (distanciaEuclidiana x1 y1 x2 y2) (distanciaEuclidiana x2 y2 x3 y3) (distanciaEuclidiana x3 y3 x4 y4) (distanciaEuclidiana x4 y4 x1 y1))) (and (= 1 (perpendiculares? x1 y1 x2 y2 x2 y2 x3 y3)) (= 1 (perpendiculares? x2 y2 x3 y3 x3 y3 x4 y4))= (= 1 (perpendiculares? x3 y3 x4 y4 x4 y4 x1 y1)) (= 1 (perpendiculares? x4 y4 x1 y1 x1 y1 x2 y2))))
+      (display "Cuadrado")
+      (if (and (= 1 (perpendiculares? x1 y1 x2 y2 x2 y2 x3 y3) (perpendiculares? x2 y2 x3 y3 x3 y3 x4 y4) (perpendiculares? x3 y3 x4 y4 x4 y4 x1 y1) (perpendiculares? x4 y4 x1 y1 x1 y1 x2 y2)) (not (= (distanciaEuclidiana x1 y1 x2 y2) (distanciaEuclidiana x2 y2 x3 y3) (distanciaEuclidiana x3 y3 x4 y4) (distanciaEuclidiana x4 y4 x1 y1))))
+          (display "Rectangulo")
+          (if (and (= (distanciaEuclidiana x1 y1 x2 y2) (distanciaEuclidiana x2 y2 x3 y3) (distanciaEuclidiana x3 y3 x4 y4) (distanciaEuclidiana x4 y4 x1 y1)) (and (= (anguloVectores x1 y1 x2 y1 x1 y1 x4 y4) (anguloVectores x2 y2 x3 y3 x3 y3 x4 y4)) (= (anguloVectores x1 y1 x4 y4 x4 y4 x3 y3) (anguloVectores x1 y1 x2 y2 x2 y2 x3 y3))))
+              (display "Rombo")
+              (if (and (= (distanciaEuclidiana x1 y1 x2 y2) (distanciaEuclidiana x3 y3 x4 y4)) (= (distanciaEuclidiana x1 y1 x4 y4) (distanciaEuclidiana x2 y2 x3 y3)) (= (anguloVectores x1 y1 x2 y2 x1 y1 x4 y4) (anguloVectores x2 y2 x3 y3 x3 y3 x4 y4)) (= (anguloVectores x1 y1 x2 y2 x2 y2 x3 y3) (anguloVectores x1 y1 x4 y4 x4 y4 x3 y3) ))
+                  (display "Romboide")
+                  (if (and (or (= 1 (perpendiculares? x1 y1 x2 y2 x2 y2 x3 y3)) (= 1 (perpendiculares? x2 y2 x3 y3 x3 y3 x4 y4)) (= 1 (perpendiculares? x3 y3 x4 y4 x4 y4 x1 y1)) (= 1 (perpendiculares? x4 y4 x1 y1 x1 y1 x2 y2))) (or (= 1 (ladosParalelos? x1 y1 x2 y2 x4 y4 x3 y3)) (= 1 (ladosParalelos? x2 y2 x3 y3 x4 y4 x1 y1))))
+                      (display "Trapecio rectangular")
+                      (if (and (or (= 1 (ladosParalelos? x1 y1 x2 y2 x3 y3 x4 y4)) (= 1 (ladosParalelos? x2 y2 x3 y3 x1 y1 x4 y4))) (or (= (distanciaEuclidiana x1 y1 x2 y2) (distanciaEuclidiana x3 y3 x4 y4)) (= (distanciaEuclidiana x1 y1 x4 y4) (distanciaEuclidiana x2 y2 x3 y3)) ))
+                          (display "Trapecio isosceles")
+                          (if (and (or (= 1 (ladosParalelos? x1 y1 x2 y2 x3 y3 x4 y4)) (= 1 (ladosParalelos? x2 y2 x3 y3 x1 y1 x4 y4))) (or (not(= (distanciaEuclidiana x1 y1 x2 y2) (distanciaEuclidiana x3 y3 x4 y4))) (not(= (distanciaEuclidiana x1 y1 x4 y4) (distanciaEuclidiana x2 y2 x3 y3))) ))
+                              (display "Trapecio escaleno")
+                              (if (and (= (distanciaEuclidiana x1 y1 x2 y2) (distanciaEuclidiana x1 y1 x4 y4)) (= (distanciaEuclidiana x4 y4 x3 y3) (distanciaEuclidiana x2 y2 x3 y3)) )
+                                  (display "Cometa")
+                                  (if (or (= (distanciaEuclidiana x1 y1 x2 y2) (distanciaEuclidiana x1 y1 x4 y4)) (= (distanciaEuclidiana x4 y4 x3 y3) (distanciaEuclidiana x2 y2 x3 y3)) )
+                                      (display "Cometa oblicuo")
+                                      (if (not ( = (distanciaEuclidiana x1 y1 x2 y2) (distanciaEuclidiana x2 y2 x3 y3) (distanciaEuclidiana x3 y3 x4 y4) (distanciaEuclidiana x4 y4 x1 y1)))
+                                          (display "Trapezoide")
+                                          (display "No es un paralelogramo")
+                                          )
+                                      )
+                                  )
+                              )
+                          )
+                      )
+                  )
+              )
+          )
+      )
+  )
+
+;(clasificarCuadrilaterosConvexos 2 3 3 3 3 2 2 2); cuadrado
+;(clasificarCuadrilaterosConvexos 2 3 6 3 6 2 2 2); Rectangulo
+;(clasificarCuadrilaterosConvexos 1 1 2 0 1 -1 0 0) ;Romboide
