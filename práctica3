@@ -1,0 +1,50 @@
+;EJERCICIO 1
+(define (contarCifrasIterativo n)
+  (define (resultado n i)
+    (/ n i)
+    )
+ 
+    (do
+        ;;variables del bucle
+        (
+         (i 10 (* 10 i))
+         (contador 1 (+ contador 1))
+         )
+      ;;condición y sentencia de salida
+      ((< (resultado (abs n) i) 1) contador)
+      )
+  )
+
+
+(define (contarCifrasRecursivo n)
+  
+  (define (auxContar absoluto contador)
+    (if (> 1 (/ absoluto (expt 10 contador)))
+        contador ;devuelve el contador (número de cifras)
+        (auxContar absoluto ( + 1 contador))
+        )
+    )
+
+  (let(
+       (absoluto (abs n))
+       )
+    
+    (auxContar absoluto 1)
+    )
+  )
+
+;EJERCICIO 2
+(define (extraerCifraRecursivo n c)
+  
+  (define (aux n)
+    (if (= (contarCifrasIterativo n) 1)
+        n
+        (aux (/ (- n (modulo n 10)) 10))
+        )
+    )
+
+ 
+  (define divisor (expt 10 c))
+  (define resto (modulo n divisor))
+  (aux resto)
+)
