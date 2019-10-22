@@ -730,4 +730,4 @@
 
 ;(clasificarCuadrilaterosConvexos 2 3 3 3 3 2 2 2); cuadrado
 ;(clasificarCuadrilaterosConvexos 2 3 6 3 6 2 2 2); Rectangulo
-;(clasificarCuadrilaterosConvexos 1 1 2 0 1 -1 0 0) ;Romboideprueba
+;(clasificarCuadrilaterosConvexos 1 1 2 0 1 -1 0 0) ;Romboide
