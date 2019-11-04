@@ -160,7 +160,7 @@
 ;(primoRecursivo? 112) ;#f
 ;(primoRecursivo? 11) ; #t
 
-;EJERCICIO 6
+;EJERCICIO 6 HACER APARTADO 6
 (define (integral a b f n)
   (define h (/ (- b a) n))
   (do
@@ -179,7 +179,9 @@
   (+ 1 (* 3 x x))
 )
 
-(integral 0 3 funcionApartadoB 100000)
+;(integral 0 3 funcionApartadoB 100000) ;29.99919000944992
 
 ;EJERCICIO 7
-(define 
+(define (sumaSerie f inicial siguiente cota)
+  
+)

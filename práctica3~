@@ -34,17 +34,152 @@
   )
 
 ;EJERCICIO 2
+(define (extraerCifraIterativo n c)
+  
+  (define divisor (expt 10 c))
+  (define resto (modulo n divisor))
+
+  (do
+      ;;variables del bucle
+      (
+       (aux1 resto (/ (- n (modulo n 10)) 10) )
+      )
+  ;;condicion y sentencia de salida
+  ((= (contarCifrasIterativo aux1) 1) aux1)
+  )
+)
+
+
 (define (extraerCifraRecursivo n c)
   
   (define (aux n)
     (if (= (contarCifrasIterativo n) 1)
         n
-        (aux (/ (- n (modulo n 10)) 10))
+        (aux (quotient n 10))
         )
     )
 
  
-  (define divisor (expt 10 c))
-  (define resto (modulo n divisor))
+  (define divisor (expt 10 (abs c)))
+  (define resto (modulo (abs n) divisor))
   (aux resto)
 )
+;(extraerCifraRecursivo 678 3) ;6
+
+;EJERCICIO 3
+
+(define (sumarDigitosIterativo n)  
+  (define numeroCifras (contarCifrasIterativo n))
+  (do
+      ( ;;variables del bucle
+       (i numeroCifras (- i 1))
+       (resultado 0 (+ resultado (extraerCifraRecursivo (abs n) i)) )
+       )
+    ;;condicion y sentencia de salida
+    ( (= 0 i) resultado)
+    )
+  )
+
+(define (sumarDigitosRecursivo n)
+  
+    (define (aux2 n resultado)
+      (define numeroCifras (contarCifrasIterativo n))
+      (define res (+ resultado  (extraerCifraRecursivo n 1) ))
+      (if (= numeroCifras 1)
+          res
+          (aux2 (quotient n 10) res)
+       )
+      
+      )
+  
+  (aux2 (abs n) 0)
+)
+
+; (sumarDigitosRecursivo 1458) ;18
+
+
+;EJERCICIO 4
+(define (reducirNumeroIterativo n)
+  (do
+      (;variables del bucle
+       (suma (sumarDigitosIterativo n) (sumarDigitosIterativo suma))
+       )
+    ;condicion y sentecia de salida
+    ( (= 1 (contarCifrasIterativo suma)) suma)
+    )
+)
+
+;(reducirNumeroIterativo 19875) ;3
+
+(define (reducirNumeroRecursivo n)
+  (define (aux3 n)
+    (if (= (contarCifrasIterativo n) 1)
+        n
+        (aux3 (sumarDigitosIterativo n) )
+        )
+    )
+  
+  (aux3 (abs n))
+)
+
+;(reducirNumeroRecursivo 19875) ;3
+
+;EJERCICIO 5
+(define (primoIterativo? n)
+  (define (aux4 n)
+    (do
+        (;variables del bucle
+         (contador 2 (+ contador 1))
+         )
+      ;condicion y sentencia de salida
+      ( (= (modulo n contador) 0) contador)
+      )
+    )
+  (if ( = (aux4 (abs n)) n)
+      true
+      false
+      )
+)
+
+;(primoIterativo? 11) ;#t
+
+(define (primoRecursivo? n)
+  (define (aux5 n contador)
+    (if (= contador n)
+        true
+    
+        (if  (= (modulo n contador) 0)
+             false
+             (aux5 n (+ contador 1))
+        )
+    )
+   )
+  
+  (aux5 (abs n) 2)        
+)
+;(primoRecursivo? 112) ;#f
+;(primoRecursivo? 11) ; #t
+
+;EJERCICIO 6
+(define (integral a b f n)
+  (define h (/ (- b a) n))
+  (do
+      (;variables del bucle
+       (i 0 (+ i 1))
+       (xi a (+ (* i h) a))
+       (xi+1 (+ a h) (+ (*  (+ 1 i) h) a ))
+       (suma 0. (+ suma (* (/ (+ (f xi) (f xi+1)) 2) h) ))
+       )
+    ;condicion y sentencia de salida
+    ( (= i n) suma )
+    )
+)
+
+(define (funcionApartadoB x)
+  (+ 1 (* 3 x x))
+)
+
+(integral 0 3 funcionApartadoB 100000)
+
+;EJERCICIO 7
+(define 
