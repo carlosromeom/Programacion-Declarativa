@@ -288,4 +288,56 @@
 
 ;(sumaAureoIterativo 454)
 
+(define (sumaAureoRecursivo n)
+  (define (aux n i actual)
+    (if(not (= n i))
+       (aux n (+ i 1) (sqrt (+ actual 1)))
+       actual
+       )
+  )
+  (aux n 1 1) 
+)
+
+;(sumaAureoRecursivo 45)
+
 ;EJERCICIO 11
+(define (fraccionContinua n)
+  (do
+      (;variables del bucle
+       (i (- n 1) (- i 1))
+       (sumando (+ (* 2. n) 1) (+ ( / (* (+ 1 i) (+ 1 i) ) sumando) ( + 1 ( * 2 i))))  
+       )
+    ;condicion y sentencia de salida
+    
+    ( (= i -1) (/ 4 sumando))
+    
+    )
+)
+
+;EJERCICIO 12
+(define (calcularArriba i actualArriba)
+  (display i)
+  (if (even? i)
+      (+ actualArriba 2)
+      actualArriba
+      )    
+)
+
+(define (calcularAbajo i actualAbajo)
+  (if (odd? i)
+      actualAbajo
+      (+ actualAbajo 2)
+      )
+)
+
+(define (factorWallis n)
+  (do
+      (;variables del bucle
+       (i 1 (+ i 1))
+       (actualArriba 2 (calcularArriba (+ i 1) actualArriba) )
+       (actualAbajo 3 (calcularAbajo (+ i 1) actualAbajo) )
+       )
+    ;condicion y sentencia de salida
+    ( (= i n) (/ actualArriba actualAbajo))
+    )
+)
