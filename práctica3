@@ -314,9 +314,10 @@
     )
 )
 
+;(fraccionContinua 778)
+
 ;EJERCICIO 12
 (define (calcularArriba i actualArriba)
-  (display i)
   (if (even? i)
       (+ actualArriba 2)
       actualArriba
@@ -324,20 +325,63 @@
 )
 
 (define (calcularAbajo i actualAbajo)
-  (if (odd? i)
+  (if (even? i)
       actualAbajo
       (+ actualAbajo 2)
       )
 )
 
 (define (factorWallis n)
+  (if (= n 0)
+      (set! n 1)
+      )
   (do
       (;variables del bucle
        (i 1 (+ i 1))
-       (actualArriba 2 (calcularArriba (+ i 1) actualArriba) )
-       (actualAbajo 3 (calcularAbajo (+ i 1) actualAbajo) )
+       (actualArriba 2. (calcularArriba (+ i 1) actualArriba) )
+       (actualAbajo 3. (calcularAbajo (+ i 1) actualAbajo) )
        )
     ;condicion y sentencia de salida
-    ( (= i n) (/ actualArriba actualAbajo))
+    ( (= i (abs n)) (/ actualArriba actualAbajo))
     )
 )
+
+;(factorWallis 3)
+
+(define (WallisIterativa n)
+  (do
+      (;variables del bucle
+       (i 0 (+ i 1))
+       (suma 1 (* suma (factorWallis (+ i 1)))  )
+       ) 
+    ;condicion y sentencia de salida
+    ( (= i (abs n)) suma)
+    )
+  )
+
+;(WallisIterativa 4)
+
+
+(define (wallisRecursiva cota)
+  (define (aux cota resultado contador factor)
+       (if (and  (< (- 1 cota) factor) (< factor (+ 1 cota)))
+        resultado
+        )
+  
+    (aux cota (WallisIterativa contador) (+ contador 1) (factorWallis contador)) 
+    )
+
+  (aux cota 0 1 1)
+  )
+
+
+;EJERCICIO 13
+(define (funcionApartadoB x)
+  (+ 1 (* 3 x x))
+)
+
+(define (incrementoFuncional f x)
+  (/ (+ (- (f (+ x 1.)) (* 2 (f x))) (f(- x 1))) 4)
+)
+
+;(incrementoFuncional funcionApartadoB 2)
