@@ -364,12 +364,11 @@
 
 (define (wallisRecursiva cota)
   (define (aux cota resultado contador factor)
-       (if (and  (< (- 1 cota) factor) (< factor (+ 1 cota)))
-        resultado
+       (if (and  (< (- (/ pi 4) cota) factor) (< factor (+ (/ pi 4) cota)))
+        resultado  
+        (aux cota (WallisIterativa contador) (+ contador 1) (factorWallis contador)) 
         )
-  
-    (aux cota (WallisIterativa contador) (+ contador 1) (factorWallis contador)) 
-    )
+     )
 
   (aux cota 0 1 1)
   )
