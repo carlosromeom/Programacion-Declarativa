@@ -1,4 +1,26 @@
 ;EJERCICIO 1
+;; 
+;; Nombre: contarCifrasIterativo
+;; Objetivo: Cuenta cuantas cifras tiene un número dado. Versión iterativa.
+;; Parámetro:
+;;         n: Número al que contar sus cifras.
+;; Resultado: 
+;;         Número de cifras del número pasado.
+;; Funciones a las que llama: resultado.
+;;
+
+
+;; 
+;; Nombre: resultado
+;; Objetivo: Función auxilar para calcular un cociente.
+;; Parámetro:
+;;         n: numerador.
+;;         i: divisor.
+;; Resultado: 
+;;         Cociente entre n e i.
+;; Funciones a las que llama: ninguna.
+;;
+
 (define (contarCifrasIterativo n)
   (define (resultado n i)
     (/ n i)
@@ -15,6 +37,18 @@
       )
   )
 
+;(contarCifrasIterativo 234) ;3
+
+
+;; 
+;; Nombre: contarCifrasRecursivo
+;; Objetivo: Cuenta cuantas cifras tiene un número dado. Versión recursiva.
+;; Parámetro:
+;;         n: Número al que contar sus cifras.
+;; Resultado: 
+;;         Número de cifras del número pasado.
+;; Funciones a las que llama: auxContar (función auxiliar).
+;;
 
 (define (contarCifrasRecursivo n)
   
@@ -33,7 +67,20 @@
     )
   )
 
+;(contarCifrasRecursivo 234323) ;6
+
 ;EJERCICIO 2
+;; 
+;; Nombre: extraerCifraIterativo
+;; Objetivo: Extrae la cifra que ocupa la posición indicada en un número entero indicado. Versión iterativa.
+;; Parámetro:
+;;         n: Número del que se extrae la cifra.
+;;         c: Posición de la cifra indicada.
+;; Resultado: 
+;;         Cifra indicada.
+;; Funciones a las que llama: contarCifrasIterativo.
+;;
+
 (define (extraerCifraIterativo n c)
   
   (define divisor (expt 10 c))
@@ -48,7 +95,19 @@
   ((= (contarCifrasIterativo aux1) 1) aux1)
   )
 )
+;(extraerCifraIterativo 456 1) ;6
 
+
+;; 
+;; Nombre: extraerCifraRecursivo
+;; Objetivo: Extrae la cifra que ocupa la posición indicada en un número entero indicado. Versión recursiva.
+;; Parámetro:
+;;         n: Número del que se extrae la cifra.
+;;         c: Posición de la cifra indicada.
+;; Resultado: 
+;;         Cifra indicada.
+;; Funciones a las que llama: contarCifrasIterativo.
+;;
 
 (define (extraerCifraRecursivo n c)
   
@@ -68,6 +127,16 @@
 
 ;EJERCICIO 3
 
+;; 
+;; Nombre: sumarDigitosIterativo
+;; Objetivo: Suma los dígitos de un número entero indicado. Versión iterativa.
+;; Parámetro:
+;;         n: Número del que se sumarán sus dígitos.
+;; Resultado: 
+;;         Suma de los dígitos del número
+;; Funciones a las que llama: contarCifrasIterativo y extraerCifraRecursivo.
+;;
+
 (define (sumarDigitosIterativo n)  
   (define numeroCifras (contarCifrasIterativo n))
   (do
@@ -80,6 +149,17 @@
     )
   )
 
+ ;(sumarDigitosIterativo 1458) ;18
+
+;; 
+;; Nombre: sumarDigitosRecursivo
+;; Objetivo: Suma los dígitos de un número entero indicado. Versión recursiva.
+;; Parámetro:
+;;         n: Número del que se sumarán sus dígitos.
+;; Resultado: 
+;;         Suma de los dígitos del número
+;; Funciones a las que llama: contarCifrasIterativo y extraerCifraRecursivo.
+;;
 (define (sumarDigitosRecursivo n)
   
     (define (aux2 n resultado)
@@ -95,10 +175,20 @@
   (aux2 (abs n) 0)
 )
 
-; (sumarDigitosRecursivo 1458) ;18
+ ;(sumarDigitosRecursivo 1458) ;18
 
 
 ;EJERCICIO 4
+;; 
+;; Nombre: reducirNumeroIterativo
+;; Objetivo: Reduce un número entero a una cifra entre 0 y 9. Versión iterativa.
+;; Parámetro:
+;;         n: Número el cual se reducirá.
+;; Resultado: 
+;;         Cifra entre 0 y 9.
+;; Funciones a las que llama: sumarDigitosIterativo y contarCifrasIterativo.
+;;
+
 (define (reducirNumeroIterativo n)
   (do
       (;variables del bucle
@@ -110,6 +200,16 @@
 )
 
 ;(reducirNumeroIterativo 19875) ;3
+
+;; 
+;; Nombre: reducirNumeroRecursivo
+;; Objetivo: Reduce un número entero a una cifra entre 0 y 9. Versión recursiva.
+;; Parámetro:
+;;         n: Número el cual se reducirá.
+;; Resultado: 
+;;         Cifra entre 0 y 9.
+;; Funciones a las que llama: sumarDigitosIterativo y contarCifrasIterativo.
+;;
 
 (define (reducirNumeroRecursivo n)
   (define (aux3 n)
@@ -125,6 +225,16 @@
 ;(reducirNumeroRecursivo 19875) ;3
 
 ;EJERCICIO 5
+;; 
+;; Nombre: primoIterativo?
+;; Objetivo: Comprueba si un número indicado es primo o no. Versión iterativa.
+;; Parámetro:
+;;         n: Número para comprobar.
+;; Resultado: 
+;;         True o False.
+;; Funciones a las que llama: aux4 (función auxiliar).
+;;
+
 (define (primoIterativo? n)
   (define (aux4 n)
     (do
@@ -142,6 +252,18 @@
 )
 
 ;(primoIterativo? 11) ;#t
+;(primoIterativo? 12) ;#f
+
+
+;; 
+;; Nombre: primoRecursivo?
+;; Objetivo: Comprueba si un número indicado es primo o no. Versión recursiva.
+;; Parámetro:
+;;         n: Número para comprobar.
+;; Resultado: 
+;;         True o False.
+;; Funciones a las que llama: aux5 (función auxiliar).
+;;
 
 (define (primoRecursivo? n)
   (define (aux5 n contador)
@@ -160,7 +282,20 @@
 ;(primoRecursivo? 112) ;#f
 ;(primoRecursivo? 11) ; #t
 
-;EJERCICIO 6 
+;EJERCICIO 6
+;; 
+;; Nombre: integral
+;; Objetivo: Calcula una aproximación a la integral de la función dada por el método de los trapecios.
+;; Parámetro:
+;;         a: Extremo inferior del intervalo.
+;;         b: Extremo superior del intervalo.
+;;         f: Función para calcular su integral. Positiva en el intervalo entre a y b.
+;;         n: límite para el método de los trapecios.
+;; Resultado: 
+;;         Valor de la integral.
+;; Funciones a las que llama: ninguna.
+;;
+
 (define (integral a b f n)
   (define h (/ (- b a) n))
   (do
@@ -182,6 +317,19 @@
 ;(integral 0 3 funcionApartadoB 100000) ;29.99919000944992
 
 ;APARTADO C
+;; 
+;; Nombre: sumar-serie
+;; Objetivo: Función que suma cualquier serie numérica convergente.
+;; Parámetro:
+;;         termino: término general de la serie.
+;;         siguiente: Expresión para calcular el siguiente término de la serie.
+;;         inicial: Valor desde el que empieza la serie.
+;;         final: Valor final de la serie.
+;; Resultado: 
+;;         Suma de la serie.
+;; Funciones a las que llama: ninguna.
+;;
+
 (define (sumar-serie termino siguiente inicial final)
   (if(> inicial final)
      0
@@ -197,6 +345,20 @@
 ;(integral funcionApartadoB 0 3 0.001)
 
 ;EJERCICIO 7
+
+;; 
+;; Nombre: sumaSerie
+;; Objetivo: Calcula la suma de cualquier serie numérica convergente teniendo en cuenta una cota de error. Versión iterativa.
+;; Parámetro:
+;;         f: Función que representa el término general de la serie.
+;;         inicial: Índice del primer término.
+;;         siguiente: Función que permite pasar al siguiente término de la serie.
+;;         cota: Cota de error.
+;; Resultado: 
+;;         Suma de la serie.
+;; Funciones a las que llama: ninguna.
+;;
+
 (define (sumaSerie f siguiente inicial cota)
  
   (do
@@ -221,6 +383,18 @@
 
 ;(sumaSerie leibniz siguiente 0 0.000001)
 
+;; 
+;; Nombre: sumaSerieRecursiva
+;; Objetivo: Calcula la suma de cualquier serie numérica convergente teniendo en cuenta una cota de error. Versión recursiva.
+;; Parámetro:
+;;         f: Función que representa el término general de la serie.
+;;         inicial: Índice del primer término.
+;;         siguiente: Función que permite pasar al siguiente término de la serie.
+;;         cota: Cota de error.
+;; Resultado: 
+;;         Suma de la serie.
+;; Funciones a las que llama: aux (función auxiliar).
+;;
 
 (define (sumaSerieRecursiva  f siguiente inicial cota)
   (define (aux f siguiente n cota suma)
@@ -237,9 +411,30 @@
 
 
 ;EJERCICIO 8
+;; 
+;; Nombre: terminoNumeroE
+;; Objetivo: Calcula el n-ésimo término de e.
+;; Parámetro:
+;;         n: Término de la sucesión a calcular.
+;; Resultado: 
+;;         Término de e buscado.
+;; Funciones a las que llama: ninguna.
+;;
+
 (define (terminoNumeroE n)
    (expt (+ 1. (/ 1 n)) n) 
 )
+
+
+;; 
+;; Nombre: limiteSucesionNumeroE
+;; Objetivo: Calcula el límite de la sucesión numérica que converge a e.
+;; Parámetro:
+;;         cota: cota de error.
+;; Resultado: 
+;;         Límite de la sucesión.
+;; Funciones a las que llama: terminoNumeroE.
+;;
 
 (define (limiteSucesionNumeroE cota)
   (do
@@ -256,7 +451,16 @@
 ;(limiteSucesionNumeroE 0.0000000000000000000000000000000000000000000000000000000000000000000000001) 
 
 ;EJERCICIO 9
-
+;; 
+;; Nombre: limiteIterativa
+;; Objetivo: Calcula una aproximación al límite de cualquier sucesión.
+;; Parámetro:
+;;         terminogeneral: Término general de la sucesión.
+;;         cota: Cota de error.
+;; Resultado: 
+;;         Aproximación al límite de la sucesión.
+;; Funciones a las que llama: ninguna.
+;;
 (define (limiteIterativa terminogeneral cota)
   (do
       (;variables del bucle
@@ -274,6 +478,16 @@
 ;(limiteIterativa terminoNumeroE 0.0000000000001)
 
 ;EJERCICIO 10
+;; 
+;; Nombre: sumaAureoIterativo
+;; Objetivo: Calcula el número áureo mediante suma infinita de raíces. Versión iterativa.
+;; Parámetro:
+;;         n: Número de sumandos.
+;; Resultado: 
+;;         Número áureo.
+;; Funciones a las que llama: ninguna.
+;;
+
 (define (sumaAureoIterativo n)
   (do
       (;variables del bucle
@@ -288,6 +502,15 @@
 
 ;(sumaAureoIterativo 454)
 
+;; 
+;; Nombre: sumaAureoRecursivo
+;; Objetivo: Calcula el número áureo mediante suma infinita de raíces. Versión recursiva.
+;; Parámetro:
+;;         n: Número de sumandos.
+;; Resultado: 
+;;         Número áureo.
+;; Funciones a las que llama: ninguna.
+;;
 (define (sumaAureoRecursivo n)
   (define (aux n i actual)
     (if(not (= n i))
@@ -301,6 +524,16 @@
 ;(sumaAureoRecursivo 45)
 
 ;EJERCICIO 11
+;; 
+;; Nombre: fraccionContinua
+;; Objetivo: Calcula una aproximación a pi mediante una fracción continua.
+;; Parámetro:
+;;         n: Número de fracciones continuas a sumar.
+;; Resultado: 
+;;         Aproximación a pi.
+;; Funciones a las que llama: ninguna.
+;;
+
 (define (fraccionContinua n)
   (do
       (;variables del bucle
@@ -317,6 +550,16 @@
 ;(fraccionContinua 778)
 
 ;EJERCICIO 12
+;; 
+;; Nombre: factorWallis
+;; Objetivo: Calcula el n-ésimo término de la sucesión de Wallis.
+;; Parámetro:
+;;         n: Término a calcular de la sucesión.
+;; Resultado: 
+;;         Término de la sucesión deseado.
+;; Funciones a las que llama: calcularArriba y calcularAbajo (funciones auxiliares).
+;;
+
 (define (calcularArriba i actualArriba)
   (if (even? i)
       (+ actualArriba 2)
@@ -348,6 +591,16 @@
 
 ;(factorWallis 3)
 
+;; 
+;; Nombre: WallisIterativa
+;; Objetivo: Calcula el producto de un número indicado de factores en la sucesión de Wallis.
+;; Parámetro:
+;;         n: Número de factores a multiplicar.
+;; Resultado: 
+;;         Producto de los factores indicados.
+;; Funciones a las que llama: factorWallis.
+;;
+
 (define (WallisIterativa n)
   (do
       (;variables del bucle
@@ -361,6 +614,15 @@
 
 ;(WallisIterativa 4)
 
+;; 
+;; Nombre: WallisRecursiva
+;; Objetivo: Calcula la sucesión de Wallis hasta que satisfaga una cota de error.
+;; Parámetro:
+;;         cota: Cota de error.
+;; Resultado: 
+;;         Valor de la sucesión de Wallis.
+;; Funciones a las que llama: aux (función auxiliar), factorWallis y WallisIterativa.
+;;
 
 (define (wallisRecursiva cota)
   (define (aux cota resultado contador factor)
@@ -372,12 +634,19 @@
 
   (aux cota 0 1 1)
   )
-
+;(wallisRecursiva 0.1)
 
 ;EJERCICIO 13
-(define (funcionApartadoB x)
-  (+ 1 (* 3 x x))
-)
+;; 
+;; Nombre: incrementoFuncional
+;; Objetivo: Calcula la expresión definida a una función recibida como párametro con el valor recibido.
+;; Parámetro:
+;;         f: Función para aplicarle la expresión.
+;;         x: Valor para sustituir en la función recibida como parámetro.
+;; Resultado: 
+;;         Valor numérico
+;; Funciones a las que llama: ninguna.
+;;
 
 (define (incrementoFuncional f x)
   (/ (+ (- (f (+ x 1.)) (* 2 (f x))) (f(- x 1))) 4)
