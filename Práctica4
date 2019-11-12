@@ -80,20 +80,71 @@
 ;(meanVector #(2. 4. 8. 5. 7.))
 
 
-;ME QUEDO AQUI, TERMINAR O REHACER ESTA FUNCION
-(define (sacarMinimoFila m fila)
-  (do
-      (;definición de variables
-       (i 0 (+ i 1))
-       (minimo (vector-ref (vector-ref m fila) 0) (vector-ref (vector-ref m fila) (+ i 1)))
-       )
-    ;condición y sentencia de salida
-    ( (
-)
+
+(define (cambiarValorMinimo fila minimo i)
+  (if ( = (- (vector-length fila) 1) i)
+      minimo
+      (if (> minimo (vector-ref fila (+ i 1)))
+          (and (set! minimo (vector-ref fila (+ i 1))) (cambiarValorMinimo fila minimo (+ i 1)) )
+          (cambiarValorMinimo fila minimo (+ i 1))
+          )
+      )
+  )
+
+(define (sacarMaximoVector v maximo i)
+  (if ( = (- (vector-length v) 1) i)
+      maximo
+      (if (< maximo (vector-ref v (+ i 1)))
+          (and (set! maximo (vector-ref v (+ i 1))) (sacarMaximoVector v maximo (+ i 1)) )
+          (sacarMaximoVector v maximo (+ i 1))
+          )
+      )
+  )
 
 (define (maxMin m )
   (do
-      (fila 0 (+ fila 1))
-      (minimosFilas #() (vector-append  minimosFilas (sacarMinimoFila m fila)))
-    
+      (;definicion de variables
+       (fila 0 (+ fila 1))
+       (minimosFilas #() (vector-append minimosFilas (vector (cambiarValorMinimo (vector-ref m fila) (vector-ref (vector-ref m fila) 0) 0))))
+       )
+    ;condicion y sentencia de salida
+    ( (= (vector-length minimosFilas) (vector-length m) ) (sacarMaximoVector minimosFilas (vector-ref minimosFilas 0) 0))
+    )
+  )
+
+;(maxMin #(#(910. 91. 93.) #(4. 5. 6.) #(7. 8. 9.))) ;91.0
+
+
+;EJERCICIO 5
+(define (primo? n)
+  (define (aux4 n)
+    (do
+        (;variables del bucle
+         (contador 2 (+ contador 1))
+         )
+      ;condicion y sentencia de salida
+      ( (= (modulo n contador) 0) contador)
+      )
+    )
+  (if ( = (aux4 (abs n)) n)
+      true
+      false
+      )
 )
+
+
+(define (filtrarPrimos lista)
+  
+  (define (aux lista primos i)
+    (if (= i (length lista) )
+        primos
+        (if (primo? (list-ref lista i))
+            (and (append primos (list-ref lista i)) (aux lista primos (+ i 1)))
+            (aux lista primos (+ i 1))
+            )
+        )
+    )
+  (aux lista '() 0)
+
+  )
+(filtrarPrimos '(2 4 5 15 17 33))
