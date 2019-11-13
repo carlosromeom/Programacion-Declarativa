@@ -213,12 +213,11 @@
 (define (mergeSort lista)
   ;primero se le hace un split
   (define listaDividida (split lista) )
-  ;(display "La lista dividida es: ")
-  ;(display listaDividida)
 
   ;ahora se hace un merge
   (merge (car listaDividida) (car (cdr listaDividida))) 
 )
+
 ;(mergeSort  '(5 4 9 3 2))
 
 
@@ -256,14 +255,26 @@
 ;(ordenados? 3 1 2 ) ; #f
 
 ;EJERCICIO 10
+
 (define (aplicarLista f lista)
-  (do
-      (
-       (i 0 (+ 1 i))
-       (lista2 '() (build-list (list-ref lista i)  f))
-       )
-    ( (= i (- (length lista) 1)) lista2)
-)
+  (if (not (procedure? f))
+      '()
+      (if (not (list? lista))
+          '()
+          (map f lista) 
+          )
+      )
   )
-  
-       
+;(aplicarLista sqrt '(1 2 3 4))
+;(aplicarLista sqrt '())
+;(aplicarLista "a" '(1 2 3 4))
+
+(define aplicar
+  (lambda (f . lista)
+    (aplicarLista f lista)
+    )
+  )
+
+;(aplicar sqrt 1 2 3 4)
+;(aplicar "a" 1 2 3 4)
+;(aplicar sqrt )
