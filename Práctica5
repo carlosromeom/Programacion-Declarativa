@@ -1,0 +1,61 @@
+;EJERCICIO 1
+
+;funcion de creacion
+(define (crearCancion titulo cantante año)
+  (list
+   (list 'titulo titulo)
+   (list 'cantante cantante)
+   (list 'año año)
+   )
+    
+  ) 
+
+;funciones de acceso
+(define (ver-titulo cancion)
+  (cadr (assoc 'titulo cancion))
+)
+
+(define (ver-cantante cancion)
+  (cadr (assoc 'cantante cancion))
+)
+
+(define (ver-año cancion)
+  (cadr (assoc 'año cancion))
+)
+
+
+;funcion de consulta
+(define (consultarCancion cancion)
+  (display (ver-titulo cancion))
+  (newline)
+  (display (ver-cantante cancion))
+  (newline)
+  (display (ver-año cancion))
+)
+
+;funciones de modificacion
+(define (cambiar-titulo! cancion nuevo)
+  (set-cdr! (assoc 'titulo cancion) (list nuevo))
+  )
+
+(define (cambiar-cantante! cancion nuevo)
+  (set-cdr! (assoc 'cantante cancion) (list nuevo))
+  )
+
+(define (cambiar-año! cancion nuevo)
+  (set-cdr! (assoc 'año cancion) (list nuevo))
+  )
+
+
+;EJERCICIO 2
+(define (crear-discoteca )
+  (list )
+  )
+
+(define (discoteca-vacía? discoteca)
+  (equal? discoteca '() )
+  )
+
+(define (insertar-canción! discoteca cancion)
+  
+)
