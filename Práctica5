@@ -26,11 +26,15 @@
 
 ;funcion de consulta
 (define (consultarCancion cancion)
+  (display "Título: ")
   (display (ver-titulo cancion))
   (newline)
+  (display "Cantante: ")
   (display (ver-cantante cancion))
   (newline)
+  (display "Año: ")
   (display (ver-año cancion))
+  (newline)
 )
 
 ;funciones de modificacion
@@ -56,6 +60,47 @@
   (equal? discoteca '() )
   )
 
+
+
+
+
+
+
+
+      
+(define (intersec discoteca listaOrdenada lista)
+  (if (= (lengt lista) (abs (- (length discoteca) (length listaOrdenada))))
+      lista
+      (if (= (ver-titulo (car discoteca)) (ver-titulo (car listaOrdenada)))
+          ((cdr discoteca) (cdr listaOrdenada) (car discoteca))
+          )
+      )
+  )
+      
+(define (cambiarMinimo minimo discoteca i)
+  (if (> i (length discoteca))
+      minimo
+      (if (< (cdr (car minimo)) (cdr(car(list-ref discoteca (+ i 1)))))
+          (cambiarMinimo minimo discoteca (+ i 0))
+          (cambiarMinimo (cdr(car(list-ref discoteca (+ i 1)))) discoteca (+ i 1))
+          )
+      )
+  )
+                
+                  
+      
 (define (insertar-canción! discoteca cancion)
+  (cons cancion discoteca)
   
-)
+  (do
+      (;definicion de variables
+       (i 0 (+ i 1))
+       ;(minimoSiguiente (list-ref discoteca (+ i 1)) (list-ref discoteca (+ i 1)))
+       (minimo (crearCancion (cadr (assoc 'titulo (car (intersec discoteca listaOrdenada (crear-discoteca))))) (cadr (assoc 'cantante (car (intersec discoteca listaOrdenada (crear-discoteca))))) (cadr (assoc 'año (car (intersec discoteca listaOrdenada (crear-discoteca))))) )   (crearCancion (cadr (assoc 'titulo (car (intersec discoteca listaOrdenada (crear-discoteca))))) (cadr (assoc 'cantante (car (intersec discoteca listaOrdenada)))) (cadr (assoc 'año (car (intersec discoteca listaOrdenada (crear-discoteca))))) ) )
+       (listaOrdenada (crear-discoteca) (cons (crearCancion (cdr (car (cambiarMinimo minimo discoteca i))) (cdr (car (cdr (cambiarMinimo minimo discoteca i)))) (cdr (cdr (cdr (cambiarMinimo minimo discoteca i)))))))
+   )
+   ;condicion y sentencia de salida
+    ( (= (length listaOrdenada) (length discoteca)) listaOrdenada)
+    )
+  )
+        
