@@ -1,5 +1,3 @@
-(require racket/vector)
-(require racket/list)
 ;EJERCICIO 1
 
 ;funcion de creacion
@@ -57,30 +55,31 @@
   (set-cdr!(assoc 'titulo cancion) (list nuevo))
   )
 
-(cambiar-titulo! (crearCancion "Algorithm" "Muse" 2018) "Pressure")
+;(cambiar-titulo! (crearCancion "Algorithm" "Muse" 2018) "Pressure")
 
 (define (cambiar-cantante! cancion nuevo)
   (set-cdr! (assoc 'cantante cancion) (list nuevo))
   )
 
-(cambiar-titulo! (crearCancion "Algorithm" "Muse" 2018) "Matt Bellamy")
+;(cambiar-titulo! (crearCancion "Algorithm" "Muse" 2018) "Matt Bellamy")
 
 (define (cambiar-año! cancion nuevo)
   (set-cdr! (assoc 'año cancion) (list nuevo))
   )
 
-(cambiar-titulo! (crearCancion "Algorithm" "Muse" 2018) "2019")
+;(cambiar-titulo! (crearCancion "Algorithm" "Muse" 2018) "2019")
 
 
 ;EJERCICIO 2
 (define (crear-discoteca )
   (list )
   )
+;(crear-discoteca)
 
 (define (discoteca-vacía? discoteca)
   (equal? discoteca '() )
   )
-
+;(discoteca-vacía? (crear-discoteca) )
 
 
 
@@ -90,7 +89,7 @@
 
       
 (define (intersec discoteca listaOrdenada lista)
-  (if (= (lengt lista) (abs (- (length discoteca) (length listaOrdenada))))
+  (if (= (length lista) (abs (- (length discoteca) (length listaOrdenada))))
       lista
       (if (= (ver-titulo (car discoteca)) (ver-titulo (car listaOrdenada)))
           ((cdr discoteca) (cdr listaOrdenada) (car discoteca))
@@ -111,17 +110,21 @@
                   
       
 (define (insertar-canción! discoteca cancion)
-  (cons cancion discoteca)
-  
+
+  (define discoteca2 (cons discoteca2 cancion)) ;ERROR
+  ;(display discoteca2)
   (do
       (;definicion de variables
        (i 0 (+ i 1))
        ;(minimoSiguiente (list-ref discoteca (+ i 1)) (list-ref discoteca (+ i 1)))
-       (minimo (crearCancion (cadr (assoc 'titulo (car (intersec discoteca listaOrdenada (crear-discoteca))))) (cadr (assoc 'cantante (car (intersec discoteca listaOrdenada (crear-discoteca))))) (cadr (assoc 'año (car (intersec discoteca listaOrdenada (crear-discoteca))))) )   (crearCancion (cadr (assoc 'titulo (car (intersec discoteca listaOrdenada (crear-discoteca))))) (cadr (assoc 'cantante (car (intersec discoteca listaOrdenada)))) (cadr (assoc 'año (car (intersec discoteca listaOrdenada (crear-discoteca))))) ) )
-       (listaOrdenada (crear-discoteca) (cons (crearCancion (cdr (car (cambiarMinimo minimo discoteca i))) (cdr (car (cdr (cambiarMinimo minimo discoteca i)))) (cdr (cdr (cdr (cambiarMinimo minimo discoteca i)))))))
+       (listaOrdenada (crear-discoteca) (cons (crearCancion (cdr (car (cambiarMinimo minimo discoteca2 i))) (cdr (car (cdr (cambiarMinimo minimo discoteca2 i)))) (cdr (cdr (cdr (cambiarMinimo minimo discoteca2 i)))))))
+       (minimo (car discoteca2)       (crearCancion (cadr (assoc 'titulo (car (intersec discoteca2 listaOrdenada (crear-discoteca))))) (cadr (assoc 'cantante (car (intersec discoteca2 listaOrdenada)))) (cadr (assoc 'año (car (intersec discoteca2 listaOrdenada (crear-discoteca))))) ) )
+       ;(listaOrdenada (crear-discoteca) (cons (crearCancion (cdr (car (cambiarMinimo minimo discoteca i))) (cdr (car (cdr (cambiarMinimo minimo discoteca i)))) (cdr (cdr (cdr (cambiarMinimo minimo discoteca i)))))))
    )
    ;condicion y sentencia de salida
     ( (= (length listaOrdenada) (length discoteca)) listaOrdenada)
     )
   )
+
+
         
