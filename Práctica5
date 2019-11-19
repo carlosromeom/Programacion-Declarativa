@@ -1,3 +1,5 @@
+(require racket/vector)
+(require racket/list)
 ;EJERCICIO 1
 
 ;funcion de creacion
@@ -10,18 +12,29 @@
     
   ) 
 
+;(crearCancion "Algorithm" "Muse" 2018)
+;(crearCancion "Holiday" "Green Day" 2004)
+;(crearCancion "Do I Wanna Know?" "Artic Monkeys" 2013)
+
+
 ;funciones de acceso
 (define (ver-titulo cancion)
   (cadr (assoc 'titulo cancion))
 )
 
+;(ver-titulo (crearCancion "Algorithm" "Muse" 2018))
+
 (define (ver-cantante cancion)
   (cadr (assoc 'cantante cancion))
 )
 
+;(ver-cantante (crearCancion "Algorithm" "Muse" 2018))
+
 (define (ver-año cancion)
   (cadr (assoc 'año cancion))
 )
+
+;(ver-año (crearCancion "Algorithm" "Muse" 2018))
 
 
 ;funcion de consulta
@@ -37,18 +50,26 @@
   (newline)
 )
 
+;(consultarCancion (crearCancion "Algorithm" "Muse" 2018))
+
 ;funciones de modificacion
 (define (cambiar-titulo! cancion nuevo)
-  (set-cdr! (assoc 'titulo cancion) (list nuevo))
+  (set-cdr!(assoc 'titulo cancion) (list nuevo))
   )
+
+(cambiar-titulo! (crearCancion "Algorithm" "Muse" 2018) "Pressure")
 
 (define (cambiar-cantante! cancion nuevo)
   (set-cdr! (assoc 'cantante cancion) (list nuevo))
   )
 
+(cambiar-titulo! (crearCancion "Algorithm" "Muse" 2018) "Matt Bellamy")
+
 (define (cambiar-año! cancion nuevo)
   (set-cdr! (assoc 'año cancion) (list nuevo))
   )
+
+(cambiar-titulo! (crearCancion "Algorithm" "Muse" 2018) "2019")
 
 
 ;EJERCICIO 2
