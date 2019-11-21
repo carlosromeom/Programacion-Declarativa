@@ -110,19 +110,25 @@
                   
       
 (define (insertar-canción! discoteca cancion)
-
-  (define discoteca2 (cons discoteca2 cancion)) ;ERROR
-  ;(display discoteca2)
-  (do
-      (;definicion de variables
-       (i 0 (+ i 1))
-       ;(minimoSiguiente (list-ref discoteca (+ i 1)) (list-ref discoteca (+ i 1)))
-       (listaOrdenada (crear-discoteca) (cons (crearCancion (cdr (car (cambiarMinimo minimo discoteca2 i))) (cdr (car (cdr (cambiarMinimo minimo discoteca2 i)))) (cdr (cdr (cdr (cambiarMinimo minimo discoteca2 i)))))))
-       (minimo (car discoteca2)       (crearCancion (cadr (assoc 'titulo (car (intersec discoteca2 listaOrdenada (crear-discoteca))))) (cadr (assoc 'cantante (car (intersec discoteca2 listaOrdenada)))) (cadr (assoc 'año (car (intersec discoteca2 listaOrdenada (crear-discoteca))))) ) )
-       ;(listaOrdenada (crear-discoteca) (cons (crearCancion (cdr (car (cambiarMinimo minimo discoteca i))) (cdr (car (cdr (cambiarMinimo minimo discoteca i)))) (cdr (cdr (cdr (cambiarMinimo minimo discoteca i)))))))
-   )
-   ;condicion y sentencia de salida
-    ( (= (length listaOrdenada) (length discoteca)) listaOrdenada)
+  (let (
+        (discoteca2 (cons discoteca cancion))
+        )
+    (if (discoteca-vacía? discoteca)
+        discoteca2
+        ;(define discoteca2 (cons discoteca2 cancion)) ;ERROR
+        ;(display discoteca2)
+        (do
+            (;definicion de variables
+             (i 0 (+ i 1))
+             ;(minimoSiguiente (list-ref discoteca (+ i 1)) (list-ref discoteca (+ i 1)))
+             (listaOrdenada (crear-discoteca) (cons (crearCancion (cdr (car (cambiarMinimo minimo discoteca2 i))) (cdr (car (cdr (cambiarMinimo minimo discoteca2 i)))) (cdr (cdr (cdr (cambiarMinimo minimo discoteca2 i)))))))
+             (minimo (car discoteca2)       (crearCancion (cadr (assoc 'titulo (car (intersec discoteca2 listaOrdenada (crear-discoteca))))) (cadr (assoc 'cantante (car (intersec discoteca2 listaOrdenada)))) (cadr (assoc 'año (car (intersec discoteca2 listaOrdenada (crear-discoteca))))) ) )
+             ;(listaOrdenada (crear-discoteca) (cons (crearCancion (cdr (car (cambiarMinimo minimo discoteca i))) (cdr (car (cdr (cambiarMinimo minimo discoteca i)))) (cdr (cdr (cdr (cambiarMinimo minimo discoteca i)))))))
+             )
+          ;condicion y sentencia de salida
+          ( (= (length listaOrdenada) (length discoteca)) listaOrdenada)
+          )
+        )
     )
   )
 
