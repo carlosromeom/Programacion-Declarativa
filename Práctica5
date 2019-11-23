@@ -88,49 +88,364 @@
 
 
       
-(define (intersec discoteca listaOrdenada lista)
-  (if (= (length lista) (abs (- (length discoteca) (length listaOrdenada))))
-      lista
-      (if (= (ver-titulo (car discoteca)) (ver-titulo (car listaOrdenada)))
-          ((cdr discoteca) (cdr listaOrdenada) (car discoteca))
-          )
-      )
-  )
+;(define (intersec discoteca listaOrdenada lista)
+ ; (if (= (length lista) (abs (- (length discoteca) (length listaOrdenada))))
+  ;    lista
+   ;   (if (= (ver-titulo (car discoteca)) (ver-titulo (car listaOrdenada)))
+    ;      ((cdr discoteca) (cdr listaOrdenada) (car discoteca))
+     ;     )
+      ;)
+  ;)
       
-(define (cambiarMinimo minimo discoteca i)
-  (if (> i (length discoteca))
-      minimo
-      (if (< (cdr (car minimo)) (cdr(car(list-ref discoteca (+ i 1)))))
-          (cambiarMinimo minimo discoteca (+ i 0))
-          (cambiarMinimo (cdr(car(list-ref discoteca (+ i 1)))) discoteca (+ i 1))
-          )
-      )
-  )
+;(define (cambiarMinimo minimo discoteca i)
+ ; (if (> i (length discoteca))
+  ;    minimo
+   ;   (if (< (cdr (car minimo)) (cdr(car(list-ref discoteca (+ i 1)))))
+    ;      (cambiarMinimo minimo discoteca (+ i 0))
+     ;     (cambiarMinimo (cdr(car(list-ref discoteca (+ i 1)))) discoteca (+ i 1))
+      ;    )
+      ;)
+  ;)
                 
                   
       
-(define (insertar-canción! discoteca cancion)
-  (let (
-        (discoteca2 (cons discoteca cancion))
-        )
-    (if (discoteca-vacía? discoteca)
-        discoteca2
+;(define (insertar-canción! discoteca cancion)
+ ; (let (
+  ;      (discoteca2 (cons discoteca cancion))
+   ;     )
+    ;(if (discoteca-vacía? discoteca)
+     ;   discoteca2
         ;(define discoteca2 (cons discoteca2 cancion)) ;ERROR
         ;(display discoteca2)
-        (do
-            (;definicion de variables
-             (i 0 (+ i 1))
-             ;(minimoSiguiente (list-ref discoteca (+ i 1)) (list-ref discoteca (+ i 1)))
-             (listaOrdenada (crear-discoteca) (cons (crearCancion (cdr (car (cambiarMinimo minimo discoteca2 i))) (cdr (car (cdr (cambiarMinimo minimo discoteca2 i)))) (cdr (cdr (cdr (cambiarMinimo minimo discoteca2 i)))))))
-             (minimo (car discoteca2)       (crearCancion (cadr (assoc 'titulo (car (intersec discoteca2 listaOrdenada (crear-discoteca))))) (cadr (assoc 'cantante (car (intersec discoteca2 listaOrdenada)))) (cadr (assoc 'año (car (intersec discoteca2 listaOrdenada (crear-discoteca))))) ) )
+      ;  (do
+       ;     (;definicion de variables
+        ;     (i 0 (+ i 1))
+         ;    ;(minimoSiguiente (list-ref discoteca (+ i 1)) (list-ref discoteca (+ i 1)))
+          ;   (listaOrdenada (crear-discoteca) (cons (crearCancion (cdr (car (cambiarMinimo minimo discoteca2 i))) (cdr (car (cdr (cambiarMinimo minimo discoteca2 i)))) (cdr (cdr (cdr (cambiarMinimo minimo discoteca2 i)))))))
+           ;  (minimo (car discoteca2)       (crearCancion (cadr (assoc 'titulo (car (intersec discoteca2 listaOrdenada (crear-discoteca))))) (cadr (assoc 'cantante (car (intersec discoteca2 listaOrdenada)))) (cadr (assoc 'año (car (intersec discoteca2 listaOrdenada (crear-discoteca))))) ) )
              ;(listaOrdenada (crear-discoteca) (cons (crearCancion (cdr (car (cambiarMinimo minimo discoteca i))) (cdr (car (cdr (cambiarMinimo minimo discoteca i)))) (cdr (cdr (cdr (cambiarMinimo minimo discoteca i)))))))
-             )
+            ; )
           ;condicion y sentencia de salida
-          ( (= (length listaOrdenada) (length discoteca)) listaOrdenada)
-          )
+          ;( (= (length listaOrdenada) (length discoteca)) listaOrdenada)
+          ;)
+        ;)
+    ;)
+  ;)
+
+
+
+(define (insertar-canción! discoteca cancion)
+  (define (ordenada discoteca cancion discoyavista)
+    (if (discoteca-vacía? discoteca)
+        (append discoyavista (list cancion))
+        (if (string>? (ver-titulo (car discoteca)) (ver-titulo cancion))
+            (append discoyavista (list cancion) discoteca)
+            (ordenada (cdr discoteca) cancion (append discoyavista (list (car discoteca))))
+            )
         )
     )
+  (if (discoteca-vacía? discoteca)
+      (list cancion)
+      (ordenada discoteca cancion '())
+      )  
   )
 
+(define disco (insertar-canción! (crear-discoteca) (crearCancion "Do I Wanna Know?" "Artic Monkeys" 2013) ) )
+(define disco (insertar-canción! disco (crearCancion "Smell like teen spirit" "Nirvana" 1993) ) )
+(define disco (insertar-canción! disco (crearCancion "Algorithm" "Muse" 2018) ) )
+disco
 
-        
+
+
+(define (existe-cancion? discoteca cancion)
+  (if (discoteca-vacía? discoteca )
+      false
+      (if (equal? (car discoteca) cancion)
+          true
+          (existe-cancion? (cdr discoteca) cancion)
+          )
+      )
+  )
+
+;(existe-cancion? disco (crearCancion "Smell like teen spirit" "Nirvana" 1993) ) ;true
+;(existe-cancion? disco (crearCancion "Smell like teen spiritfdasfdsf" "Nirvana" 1993) ) ;false
+
+(define (consultar-cancion discoteca nombreCancion)
+   (if (discoteca-vacía? discoteca )
+      false
+      (if (equal? (ver-titulo (car discoteca))  nombreCancion)
+          (consultarCancion (car discoteca))
+          (consultar-cancion (cdr discoteca) nombreCancion)
+          )
+      )
+)
+;(consultar-cancion disco "Algorithm")
+
+(define (borrar-cancion! discoteca cancion)
+  
+  (define (aux discoteca cancion nuevaDiscoteca)
+    (if (discoteca-vacía? discoteca )
+        nuevaDiscoteca
+        (if (not (equal? (car discoteca) cancion))
+            (aux (cdr discoteca) cancion (append nuevaDiscoteca (car discoteca)) )
+            (aux (cdr discoteca) cancion nuevaDiscoteca)
+            )
+        )
+    )
+  
+  (if (existe-cancion? discoteca cancion)
+      (aux discoteca cancion (crear-discoteca))
+      false
+      )
+  )
+
+;(newline)
+;(define disco2 (borrar-cancion! disco (crearCancion "Do I Wanna Know?" "Artic Monkeys" 2013)) )
+;disco2
+
+(define (modificar-cancion! discoteca cancion nombreCancionaModificar)
+  (if (discoteca-vacía? discoteca )
+      discoteca
+      (if (equal? (ver-titulo (car discoteca)) nombreCancionaModificar)
+          (set-car! discoteca cancion)
+          (modificar-cancion! (cdr discoteca) cancion nombreCancionaModificar)
+          )
+      )
+)
+
+;(newline)
+;(modificar-cancion! disco (crearCancion "Pressure" "Muse" 2018) "Algorithm")
+;disco
+
+(define (consultar-canciones discoteca)
+  (if (not (discoteca-vacía? discoteca ))
+     (and (consultarCancion (car discoteca)) (consultar-canciones (cdr discoteca)) )
+     )
+  )
+
+;(consultar-canciones disco)
+
+(define (consultar-canciones-cantante discoteca cantante)
+  (if (not (discoteca-vacía? discoteca ))
+      (if (equal? (ver-cantante (car discoteca))  cantante)
+          (and (consultarCancion (car discoteca))  (consultar-canciones-cantante (cdr discoteca) cantante) )
+          (consultar-canciones-cantante (cdr discoteca) cantante)
+          )
+      )
+)
+
+;(define disco (insertar-canción! disco (crearCancion "Plug in Baby" "Muse" 2003) ) )
+;(define disco (insertar-canción! disco (crearCancion "Uprising" "Muse" 2008) ) )
+;(consultar-canciones-cantante disco "Muse")
+
+
+(define (cargar-canciones fichero)
+  (define puerto (open-input-file fichero))
+  (do
+      (
+       ;(discoteca (crear-discoteca) (append discoteca (list (crearCancion (read puerto) (read puerto) (read puerto)))))
+       (titulo (read puerto) (read puerto))
+       (cantante (read puerto) (read puerto))
+       (anyo (read puerto) (read puerto))
+       ;(cancion '() (crearCancion titulo cantante anyo ) )
+       (discoteca (crear-discoteca) (append discoteca (list (crearCancion titulo cantante anyo ))     )  )
+       )
+    
+    ( (eof-object? anyo)
+      (close-input-port puerto)
+      discoteca
+      )
+    )
+  )
+  
+
+;(cargar-canciones "canciones.txt")
+
+
+(define (grabar-canciones discoteca nombreFichero)
+  (if (file-exists? nombreFichero)
+      (display "El fichero ya existe, introduzca otro")
+  
+      (do
+          (;variables del bucle
+           (puerto (open-output-file nombreFichero))
+           (lista_auxiliar discoteca (cdr lista_auxiliar))
+           )
+        ;condicion de salida del bucle
+        ((null? lista_auxiliar)
+         (close-output-port puerto)
+         )
+        ;cuerpo del bucle
+        (display (ver-titulo (car lista_auxiliar)) puerto)
+        (display " " puerto)
+        (display (ver-cantante (car lista_auxiliar)) puerto)
+        (display " " puerto)
+        (display (ver-año (car lista_auxiliar)) puerto)
+        (display " " puerto)
+        (newline puerto)
+        )
+      )
+  )
+    
+;(grabar-canciones disco "Prueba.txt")
+
+
+;EJERCICIO 3
+;FUNCIONES AUXILARES PARA EL MENU
+(define (nuevaCancion discoteca)
+  (display "Introduzca el titulo: (use comillas) ")
+  (define titulo (read))
+  (newline)
+  (display "Introduzca el cantante: (use comillas) ")
+  (define cantante (read))
+  (newline)
+  (display "Introduzca el anyo: ")
+  (define anyo (read))
+  (newline)
+  (insertar-canción! discoteca (crearCancion titulo cantante anyo))
+  )
+;(nuevaCancion disco)
+
+(define (consultarAux discoteca)
+  (display "Introduzca el titulo: (use comillas) ")
+  (define titulo (read))
+  (newline)
+  (consultar-cancion discoteca titulo)
+)
+;(consultarAux disco)
+
+(define (modificarAux discoteca)
+  (display "Introduzca los nuevos datos de la cancion: ")
+  (newline)
+  
+  (display "Introduzca el titulo: (use comillas) ")
+  (define titulo (read))
+  (newline)
+  (display "Introduzca el cantante: (use comillas) ")
+  (define cantante (read))
+  (newline)
+  (display "Introduzca el anyo: ")
+  (define anyo (read))
+  (newline)
+
+  (display "Introduzca el titulo de la cancion a modificar: (use comillas) ")
+  (define tituloAntiguo (read))
+  (newline)
+  
+  (modificar-cancion! discoteca (crearCancion titulo cantante anyo) tituloAntiguo)
+)
+;(modificarAux disco)
+
+
+(define (borrarAux discoteca)
+  (display "Introduzca los datos de la cancion a borrar: ")
+  (newline)
+  
+  (display "Introduzca el titulo: (use comillas) ")
+  (define titulo (read))
+  (newline)
+  (display "Introduzca el cantante: (use comillas) ")
+  (define cantante (read))
+  (newline)
+  (display "Introduzca el anyo: ")
+  (define anyo (read))
+  (newline)
+  
+  (borrar-cancion! discoteca (crearCancion titulo cantante anyo))
+)
+;(borrarAux disco)
+
+
+
+(define (programa)
+  (define (pedir-opcion)
+		(newline)
+		(display "Elige una opcion" )
+		(newline)
+		(display "1 -> Crear una discoteca" )
+		(newline)
+		(display "2 -> Comprobar si una discoteca esta vacia" )
+		(newline)
+		(display "3 -> Insertar una cancion" )
+		(newline)
+		(display "4 -> Consultar una cancion" )
+		(newline)
+       		(display "5 -> Modificar una cancion" )
+		(newline)
+           	(display "6 -> Borrar una cancion" )
+		(newline)
+                (display "7 -> Consultar las canciones" )
+		(newline)
+                (display "8 -> Consultar las canciones de un cantante" )
+		(newline)
+                (display "7 -> Cargar las canciones desde un fichero" )
+		(newline)
+                (display "8 -> Grabar las canciones en un fichero" )
+		(newline)
+		(display "0 -> Salir" )
+		(newline)
+		
+		(newline)
+                (display " --> ")
+                ;; lee la opción elegida
+		(read)
+	)
+
+  (do
+      (;variables del bucle
+       (discoteca (crear-discoteca) )
+       (opcion (pedir-opcion) (pedir-opcion))
+       )
+    ;;condicion de salida
+    ( (= opcion 0) ("Fin del programa"))
+    
+    ;;cuerpo del bucle
+    (cond
+      ;;CREAR UNA DISCOTECA
+      ( (= opcion 1)
+        (display "Crear una discoteca")
+        (newline)
+        )
+
+      ;;COMPROBAR SI UNA DISCOTECA ESTA VACIA
+      ( (= opcion 2)
+        (display "Comprobar si una discoteca esta vacia")
+        (discoteca-vacia? discoteca)
+        (newline)
+        )
+
+      ;;INSERTAR UNA CANCION
+      ( (= opcion 3)
+        (display "Insertar una cancion")
+        (nuevaCancion discoteca )
+        (newline)
+        )
+
+       ;;CONSULTAR UNA CANCION
+      ( (= opcion 4)
+        (display "Consultar una cancion")
+        (consultarAux discoteca)
+        (newline)
+        )
+
+      ;;MODIFICAR UNA CANCION
+      ( (= opcion 5)
+        (display "Modificar una cancion")
+        (ModificarAux discoteca)
+        (newline)
+        )
+
+      ;;BORRAR UNA CANCION
+      ( (= opcion 6)
+        (display "Borrar una cancion")
+        (set! discoteca (BorrarAux discoteca))
+        (newline)
+        )
+
+      ;aqui
+      
+
+      
+   )
+    )
+  )
