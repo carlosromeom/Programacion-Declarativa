@@ -150,18 +150,18 @@
       )  
   )
 
-(define disco (insertar-canción! (crear-discoteca) (crearCancion "Do I Wanna Know?" "Artic Monkeys" 2013) ) )
-(define disco (insertar-canción! disco (crearCancion "Smell like teen spirit" "Nirvana" 1993) ) )
-(define disco (insertar-canción! disco (crearCancion "Algorithm" "Muse" 2018) ) )
-disco
+;(define disco (insertar-canción! (crear-discoteca) (crearCancion "Do I Wanna Know?" "Artic Monkeys" 2013) ) )
+;(define disco (insertar-canción! disco (crearCancion "Smell like teen spirit" "Nirvana" 1993) ) )
+;(define disco (insertar-canción! disco (crearCancion "Algorithm" "Muse" 2018) ) )
+;disco
 
 
 
 (define (existe-cancion? discoteca cancion)
   (if (discoteca-vacía? discoteca )
-      false
+      #f
       (if (equal? (car discoteca) cancion)
-          true
+          #t
           (existe-cancion? (cdr discoteca) cancion)
           )
       )
@@ -172,7 +172,7 @@ disco
 
 (define (consultar-cancion discoteca nombreCancion)
    (if (discoteca-vacía? discoteca )
-      false
+      #f
       (if (equal? (ver-titulo (car discoteca))  nombreCancion)
           (consultarCancion (car discoteca))
           (consultar-cancion (cdr discoteca) nombreCancion)
@@ -195,12 +195,12 @@ disco
   
   (if (existe-cancion? discoteca cancion)
       (aux discoteca cancion (crear-discoteca))
-      false
+      #f
       )
   )
 
 ;(newline)
-;(define disco2 (borrar-cancion! disco (crearCancion "Do I Wanna Know?" "Artic Monkeys" 2013)) )
+;(define disco2 (borrar-cancion! disco (crearCancion "Do I Wanna Know?" "Artic Monkjjeys" 2013)) )
 ;disco2
 
 (define (modificar-cancion! discoteca cancion nombreCancionaModificar)
@@ -310,8 +310,11 @@ disco
   (display "Introduzca el titulo: (use comillas) ")
   (define titulo (read))
   (newline)
-  (consultar-cancion discoteca titulo)
-)
+  (define res (consultar-cancion discoteca titulo))
+  (if (equal? res #f)
+      (display "La discoteca esta vacia o no contiene la cancion")
+      )
+  )
 ;(consultarAux disco)
 
 (define (modificarAux discoteca)
@@ -351,11 +354,37 @@ disco
   (define anyo (read))
   (newline)
   
-  (borrar-cancion! discoteca (crearCancion titulo cantante anyo))
-)
+  (define res (borrar-cancion! discoteca (crearCancion titulo cantante anyo)))
+    (if (not (equal? res #f))
+        res
+        )
+      
+    )
 ;(borrarAux disco)
 
+(define (auxCancionesCantante discoteca)
+  (display "Introduzca el cantante: (use comillas) ")
+  (define cantante (read))
+  (newline)
+  (consultar-canciones-cantante discoteca cantante)
+  )
+;(auxCancionesCantante disco )
 
+(define (auxCargarFichero)
+  (display "Introduzca el nombre del fichero: (use comillas) ")
+  (define fichero (read))
+  (newline)
+  (cargar-canciones fichero)
+  )
+;(auxCargarFichero)
+
+(define (auxGrabarFichero discoteca)
+  (display "Introduzca el nombre del fichero: (use comillas) ")
+  (define fichero (read))
+  (newline)
+  (grabar-canciones discoteca fichero)
+  )
+;(auxGrabarFichero disco)
 
 (define (programa)
   (define (pedir-opcion)
@@ -378,9 +407,9 @@ disco
 		(newline)
                 (display "8 -> Consultar las canciones de un cantante" )
 		(newline)
-                (display "7 -> Cargar las canciones desde un fichero" )
+                (display "9 -> Cargar las canciones desde un fichero" )
 		(newline)
-                (display "8 -> Grabar las canciones en un fichero" )
+                (display "10 -> Grabar las canciones en un fichero" )
 		(newline)
 		(display "0 -> Salir" )
 		(newline)
@@ -397,7 +426,7 @@ disco
        (opcion (pedir-opcion) (pedir-opcion))
        )
     ;;condicion de salida
-    ( (= opcion 0) ("Fin del programa"))
+    ( (= opcion 0) (display "Fin del programa"))
     
     ;;cuerpo del bucle
     (cond
@@ -405,25 +434,36 @@ disco
       ( (= opcion 1)
         (display "Crear una discoteca")
         (newline)
+        (set! discoteca (crear-discoteca))
+        (display "Discoteca creada")
+        (newline)
         )
 
       ;;COMPROBAR SI UNA DISCOTECA ESTA VACIA
       ( (= opcion 2)
         (display "Comprobar si una discoteca esta vacia")
-        (discoteca-vacia? discoteca)
+        (newline)
+        (if (discoteca-vacía? discoteca)
+            (display "Discoteca vacia")
+            (display "Discoteca NO vacia")
+            )
         (newline)
         )
 
       ;;INSERTAR UNA CANCION
       ( (= opcion 3)
         (display "Insertar una cancion")
-        (nuevaCancion discoteca )
+        (newline)
+        (set! discoteca (nuevaCancion discoteca ))
+        (newline)
+        (display "Cancion insertada")
         (newline)
         )
 
        ;;CONSULTAR UNA CANCION
       ( (= opcion 4)
         (display "Consultar una cancion")
+        (newline)
         (consultarAux discoteca)
         (newline)
         )
@@ -431,21 +471,70 @@ disco
       ;;MODIFICAR UNA CANCION
       ( (= opcion 5)
         (display "Modificar una cancion")
+        (newline)
         (ModificarAux discoteca)
+        (newline)
+        (display "Cancion modificada")
         (newline)
         )
 
       ;;BORRAR UNA CANCION
       ( (= opcion 6)
         (display "Borrar una cancion")
-        (set! discoteca (BorrarAux discoteca))
+        (newline)
+        (set! discoteca (BorrarAux discoteca)) ;OJO
+        (newline)
+        (display "Cancion borrada")
         (newline)
         )
 
-      ;aqui
-      
+      ;;CONSULTAR LAS CANCIONES
+       ( (= opcion 7)
+        (display "Consultar las canciones")
+        (newline)
+        (consultar-canciones discoteca)
+        (newline)
+        )
 
-      
-   )
+       ;;CONSULTAR LAS CANCIONES DE UN CANTANTE
+        ( (= opcion 8)
+        (display "Consultar las canciones de un cantante")
+        (newline)
+        (auxCancionesCantante discoteca)
+        (newline)
+        )
+
+        ;;CARGAR LAS CANCIONES DESDE UN FICHERO
+        ( (= opcion 9)
+        (display "Cargar las canciones desde un fichero")
+        (newline)
+        (set! discoteca (auxCargarFichero ))
+        (newline)
+        (display "Canciones cargadas desde un fichero")
+        (newline)
+        )
+
+        ;;GRABAR LAS CANCIONES EN UN FICHERO
+        ( (= opcion 10)
+        (display "Grabar las canciones en un fichero")
+        (newline)
+        (auxGrabarFichero discoteca)
+        (newline)
+        (display "Canciones grabadas en un fichero")
+        (newline)
+        )
+
+        (else (display "Opcion incorrecta")
+              (newline)
+              )
+        )
+    
+         (display "Pulse 1 para continuar")
+         (newline)
+         (read)
+         (newline)
     )
   )
+
+
+(programa)  
