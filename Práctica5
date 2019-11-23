@@ -1,3 +1,4 @@
+;(require racket/vector)
 ;EJERCICIO 1
 
 ;funcion de creacion
@@ -537,4 +538,136 @@
   )
 
 
-(programa)  
+;(programa)
+
+
+;EJERCICIO 4
+;funcion de creacion
+(define (crearMonomio a literal exponente)
+  (list
+   (list 'numero a)
+   (list 'literal literal)
+   (list 'exponente exponente)
+   )
+  )
+;(crearMonomio 3 "X" 2)
+(define (ver-coeficiente monomio)
+  (cadr (assoc 'numero monomio))
+  )
+
+(define (ver-literal monomio)
+  (cadr (assoc 'literal monomio))
+  )
+
+(define (ver-grado monomio)
+  (cadr (assoc 'exponente monomio))
+  )
+;(ver-grado (crearMonomio 3 "X" 2))
+
+(define (crear-polinomio )
+  (list)
+  ;(define polinomio (list))
+  ;(set-car! polinomio (crearMonomio 0 0 0))
+  )
+;(crear-polinomio)
+
+(define (polinomio-nulo? polinomio)
+  (equal? polinomio '() )
+  )
+;(polinomio-nulo? (crear-polinomio))
+
+(define (existe-monomio? polinomio exponente)
+  (if (polinomio-nulo? polinomio)
+      #f
+      (if (equal? (ver-grado (car polinomio)) exponente)
+          #t
+          (existe-monomio? (cdr polinomio) exponente)
+          )
+      )
+  )
+;(existe-monomio? (crear-polinomio) 3)
+
+
+(define (sumarMonomiosIgualGrado polinomio monomio nuevoPolinomio)
+  (if (polinomio-nulo? polinomio)
+      nuevoPolinomio
+      (if (= (ver-grado (car polinomio)) (ver-grado monomio))
+          (sumarMonomiosIgualGrado (cdr polinomio) monomio (append nuevoPolinomio (crearMonomio (+ (ver-coeficiente (car polinomio)) (ver-coeficiente monomio)) (ver-literal monomio) (ver-grado monomio))))
+          (sumarMonomiosIgualGrado (cdr polinomio) monomio (append nuevoPolinomio (car polinomio)))
+          )
+      )
+  )
+
+(define (sumar-monomio! polinomio monomio)
+  (if (polinomio-nulo? polinomio)
+      (list monomio)
+      (if (existe-monomio? polinomio (ver-grado monomio))
+          (sumarMonomiosIgualGrado polinomio monomio (crear-polinomio))
+          (append polinomio (list monomio))
+          )
+      )
+  )
+
+;(define poli (sumar-monomio! (crear-polinomio) (crearMonomio 3 "X" 2)))
+;poli
+;(define poli (sumar-monomio! poli (crearMonomio 3 "X" 5)))
+;poli
+;(define poli (sumar-monomio! poli (crearMonomio 6 "X" 3)))
+;poli
+;(define poli (sumar-monomio! poli (crearMonomio 2 "X" 2)))
+;poli
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+;(define (rellenar monomio)
+ ; (display "Introduzca el coeficiente (si es negativo, incluya signo -) ")
+  ;(define numero (read))
+  ;(newline)
+  
+  ;(display "Introduzca la parte literal (Use comillas) ")
+  ;(define literal (read))
+  ;(newline)
+  
+  ;(display "Introduzca el exponente (si es negativo, incluya signo -) ")
+  ;(define exp (read))
+  ;(newline)
+  
+  ;(define res(monomio numero literal exp))
+ ;res
+  ;)
+;(rellenar monomio)
+
+;(define (crearPolinomio n)
+ ; (define polinomio (make-vector n))
+ ; (do
+   ;   (;definicion de variables
+  ;     (i 0 (+ i 1))
+    ;   (polinomio #() (vector-append polinomio (vector(rellenar monomio))))
+     ;  )
+    ;condicion y sentencia de salida
+    ;( (= i n) polinomio)
+    ;)
+  ;)
+
+;(crearPolinomio 3)
