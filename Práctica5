@@ -1,5 +1,16 @@
-;(require racket/vector)
 ;EJERCICIO 1
+;; 
+;; Nombre: crearCancion
+;; Objetivo: Crea una nueva cancion mediante listas de asociación con los parámetros dados.
+;; Parámetros:
+;;         titulo: título de la canción.
+;;         cantante: cantante de la canción.
+;;         año: año de debut de la canción
+;; Resultado: 
+;;         Lista de asociación que forma una canción.
+;; Funciones a las que llama: ninguna.
+;;
+
 
 ;funcion de creacion
 (define (crearCancion titulo cantante año)
@@ -16,6 +27,17 @@
 ;(crearCancion "Do I Wanna Know?" "Artic Monkeys" 2013)
 
 
+;; 
+;; Nombre: ver-titulo
+;; Objetivo: Devuelve el título de una canción recibida.
+;; Parámetros:
+;;         cancion: lista de asociación que conforma una canción.
+;; Resultado: 
+;;         Título de la canción.
+;; Funciones a las que llama: ninguna.
+;;
+
+
 ;funciones de acceso
 (define (ver-titulo cancion)
   (cadr (assoc 'titulo cancion))
@@ -23,18 +45,48 @@
 
 ;(ver-titulo (crearCancion "Algorithm" "Muse" 2018))
 
+
+;; 
+;; Nombre: ver-cantante
+;; Objetivo: Devuelve el cantante de una canción recibida.
+;; Parámetros:
+;;         cancion: lista de asociación que conforma una canción.
+;; Resultado: 
+;;         Cantante de la canción.
+;; Funciones a las que llama: ninguna.
+;;
 (define (ver-cantante cancion)
   (cadr (assoc 'cantante cancion))
 )
 
 ;(ver-cantante (crearCancion "Algorithm" "Muse" 2018))
 
+
+;; 
+;; Nombre: ver-año
+;; Objetivo: Devuelve el año de una canción recibida.
+;; Parámetros:
+;;         canción: lista de asociación que conforma una canción.
+;; Resultado: 
+;;         Año de la canción.
+;; Funciones a las que llama: ninguna.
+;;
 (define (ver-año cancion)
   (cadr (assoc 'año cancion))
 )
 
 ;(ver-año (crearCancion "Algorithm" "Muse" 2018))
 
+
+;; 
+;; Nombre: consultarCancion
+;; Objetivo: Muestra por pantalla los datos de una canción.
+;; Parámetros:
+;;         cancion: lista de asociación que conforma una canción.
+;; Resultado: 
+;;         Datos de la canción
+;; Funciones a las que llama: ver-titulo, ver-cantante y ver-año.
+;;
 
 ;funcion de consulta
 (define (consultarCancion cancion)
@@ -51,6 +103,18 @@
 
 ;(consultarCancion (crearCancion "Algorithm" "Muse" 2018))
 
+
+;; 
+;; Nombre: cambiar-titulo!
+;; Objetivo: Cambia el título de una canción recibida por otro que recibe.
+;; Parámetros:
+;;         cancion: lista de asociación que conforma una canción.
+;;         nuevo: nuevo título de la canción.
+;; Resultado: 
+;;         Canción con nuevo título.
+;; Funciones a las que llama: ninguna.
+;;
+
 ;funciones de modificacion
 (define (cambiar-titulo! cancion nuevo)
   (set-cdr!(assoc 'titulo cancion) (list nuevo))
@@ -58,25 +122,65 @@
 
 ;(cambiar-titulo! (crearCancion "Algorithm" "Muse" 2018) "Pressure")
 
+
+;; 
+;; Nombre: cambiar-cantante!
+;; Objetivo: Cambia el cantante de una canción recibida por otro que recibe.
+;; Parámetros:
+;;         cancion: lista de asociación que conforma una canción.
+;;         nuevo: nuevo cantante de la canción.
+;; Resultado: 
+;;         Canción con nuevo cantante.
+;; Funciones a las que llama: ninguna.
+;;
 (define (cambiar-cantante! cancion nuevo)
   (set-cdr! (assoc 'cantante cancion) (list nuevo))
   )
 
-;(cambiar-titulo! (crearCancion "Algorithm" "Muse" 2018) "Matt Bellamy")
+;(cambiar-cantante! (crearCancion "Algorithm" "Muse" 2018) "Matt Bellamy")
 
+
+;; 
+;; Nombre: cambiar-año!
+;; Objetivo: Cambia el año de una canción recibida por otro que recibe.
+;; Parámetros:
+;;         cancion: lista de asociación que conforma una canción.
+;;         nuevo: nuevo año de la canción.
+;; Resultado: 
+;;         Canción con nuevo año.
+;; Funciones a las que llama: ninguna.
+;;
 (define (cambiar-año! cancion nuevo)
   (set-cdr! (assoc 'año cancion) (list nuevo))
   )
 
-;(cambiar-titulo! (crearCancion "Algorithm" "Muse" 2018) "2019")
+;(cambiar-año! (crearCancion "Algorithm" "Muse" 2018) "2019")
 
 
 ;EJERCICIO 2
+
+;; 
+;; Nombre: crear-discoteca
+;; Objetivo: Crea una discoteca vacía.
+;; Resultado: 
+;;         Nueva discoteca vacía.
+;; Funciones a las que llama: ninguna.
+;;
 (define (crear-discoteca )
   (list )
   )
 ;(crear-discoteca)
 
+
+;; 
+;; Nombre: discoteca-vacía?
+;; Objetivo: Comprueba si una discoteca que recibe está vacía
+;; Parámetros:
+;;         discoteca: lista de asociación que forma una discoteca.
+;; Resultado: 
+;;         true o false
+;; Funciones a las que llama: ninguna.
+;;
 (define (discoteca-vacía? discoteca)
   (equal? discoteca '() )
   )
@@ -84,56 +188,16 @@
 
 
 
-
-
-
-
-      
-;(define (intersec discoteca listaOrdenada lista)
- ; (if (= (length lista) (abs (- (length discoteca) (length listaOrdenada))))
-  ;    lista
-   ;   (if (= (ver-titulo (car discoteca)) (ver-titulo (car listaOrdenada)))
-    ;      ((cdr discoteca) (cdr listaOrdenada) (car discoteca))
-     ;     )
-      ;)
-  ;)
-      
-;(define (cambiarMinimo minimo discoteca i)
- ; (if (> i (length discoteca))
-  ;    minimo
-   ;   (if (< (cdr (car minimo)) (cdr(car(list-ref discoteca (+ i 1)))))
-    ;      (cambiarMinimo minimo discoteca (+ i 0))
-     ;     (cambiarMinimo (cdr(car(list-ref discoteca (+ i 1)))) discoteca (+ i 1))
-      ;    )
-      ;)
-  ;)
-                
-                  
-      
-;(define (insertar-canción! discoteca cancion)
- ; (let (
-  ;      (discoteca2 (cons discoteca cancion))
-   ;     )
-    ;(if (discoteca-vacía? discoteca)
-     ;   discoteca2
-        ;(define discoteca2 (cons discoteca2 cancion)) ;ERROR
-        ;(display discoteca2)
-      ;  (do
-       ;     (;definicion de variables
-        ;     (i 0 (+ i 1))
-         ;    ;(minimoSiguiente (list-ref discoteca (+ i 1)) (list-ref discoteca (+ i 1)))
-          ;   (listaOrdenada (crear-discoteca) (cons (crearCancion (cdr (car (cambiarMinimo minimo discoteca2 i))) (cdr (car (cdr (cambiarMinimo minimo discoteca2 i)))) (cdr (cdr (cdr (cambiarMinimo minimo discoteca2 i)))))))
-           ;  (minimo (car discoteca2)       (crearCancion (cadr (assoc 'titulo (car (intersec discoteca2 listaOrdenada (crear-discoteca))))) (cadr (assoc 'cantante (car (intersec discoteca2 listaOrdenada)))) (cadr (assoc 'año (car (intersec discoteca2 listaOrdenada (crear-discoteca))))) ) )
-             ;(listaOrdenada (crear-discoteca) (cons (crearCancion (cdr (car (cambiarMinimo minimo discoteca i))) (cdr (car (cdr (cambiarMinimo minimo discoteca i)))) (cdr (cdr (cdr (cambiarMinimo minimo discoteca i)))))))
-            ; )
-          ;condicion y sentencia de salida
-          ;( (= (length listaOrdenada) (length discoteca)) listaOrdenada)
-          ;)
-        ;)
-    ;)
-  ;)
-
-
+;; 
+;; Nombre: insertar-canción!
+;; Objetivo: Inserta una nueva canción en la discoteca ordenada alfabéticamente según el nombre de la canción.
+;; Parámetros:
+;;         cancion: nueva canción a introducir
+;;         discoteca: Discoteca donde introducir la nueva canción.
+;; Resultado: 
+;;         Discoteca ordenada y con la nueva canción.
+;; Funciones a las que llama: función auxiliar.
+;;
 
 (define (insertar-canción! discoteca cancion)
   (define (ordenada discoteca cancion discoyavista)
@@ -157,6 +221,16 @@
 ;disco
 
 
+;; 
+;; Nombre: existe-cancion?
+;; Objetivo: Predicado que comprueba si una canción está introducida en una discoteca.
+;; Parámetros:
+;;         cancion: canción a buscar en la discoteca.
+;;         discoteca: lista con todas las canciones.
+;; Resultado: 
+;;         true o false
+;; Funciones a las que llama: discoteca-vacía?.
+;;
 
 (define (existe-cancion? discoteca cancion)
   (if (discoteca-vacía? discoteca )
@@ -171,6 +245,18 @@
 ;(existe-cancion? disco (crearCancion "Smell like teen spirit" "Nirvana" 1993) ) ;true
 ;(existe-cancion? disco (crearCancion "Smell like teen spiritfdasfdsf" "Nirvana" 1993) ) ;false
 
+
+
+;; 
+;; Nombre: consultar-cancion
+;; Objetivo: Función que muestra información de una una canción buscada por su nombre
+;; Parámetros:
+;;         nombreCancion: nombre de la canción de la que buscar su información.
+;;         discoteca: lista con todas las canciones.
+;; Resultado: 
+;;         Datos de la canción
+;; Funciones a las que llama: discoteca-vacía?.
+;;
 (define (consultar-cancion discoteca nombreCancion)
    (if (discoteca-vacía? discoteca )
       #f
@@ -182,6 +268,17 @@
 )
 ;(consultar-cancion disco "Algorithm")
 
+
+;; 
+;; Nombre: borrar-cancion!
+;; Objetivo: Borra una canción de la discoteca.
+;; Parámetros:
+;;         cancion: canción a borrar de la discoteca.
+;;         discoteca: lista con todas las canciones.
+;; Resultado: 
+;;         nueva lista de canciones sin a la borrada.
+;; Funciones a las que llama: discoteca-vacía?, crear-discoteca.
+;;
 (define (borrar-cancion! discoteca cancion)
   
   (define (aux discoteca cancion nuevaDiscoteca)
@@ -204,6 +301,18 @@
 ;(define disco2 (borrar-cancion! disco (crearCancion "Do I Wanna Know?" "Artic Monkjjeys" 2013)) )
 ;disco2
 
+
+;; 
+;; Nombre: modificar-cancion!
+;; Objetivo: Funcion que modifica los datos de una cancion identificada por su nombre antiguo
+;; Parámetros:
+;;         cancion: contiene los datos nuevos.
+;;         discoteca: lista con todas las canciones.
+;;         nombreCancionaModificar: nombre de la canción a modificar.
+;; Resultado: 
+;;         Discoteca modificada
+;; Funciones a las que llama: discoteca-vacía?, ver-titulo .
+;;
 (define (modificar-cancion! discoteca cancion nombreCancionaModificar)
   (if (discoteca-vacía? discoteca )
       discoteca
@@ -218,6 +327,14 @@
 ;(modificar-cancion! disco (crearCancion "Pressure" "Muse" 2018) "Algorithm")
 ;disco
 
+
+;; 
+;; Nombre: consultar-canciones
+;; Objetivo: Funcion que presenta todas las canciones almacenadas en la discoteca
+;; Parámetros:
+;;         discoteca: lista con todas las canciones.
+;; Funciones a las que llama: discoteca-vacía?, consultarCancion.
+;;
 (define (consultar-canciones discoteca)
   (if (not (discoteca-vacía? discoteca ))
      (and (consultarCancion (car discoteca)) (consultar-canciones (cdr discoteca)) )
@@ -226,6 +343,15 @@
 
 ;(consultar-canciones disco)
 
+
+;; 
+;; Nombre: consultar-canciones-cantante
+;; Objetivo: Funcion que muestra todas las canciones de un cantante recibido.
+;; Parámetros:
+;;         cantante: cantante cuyas canciones buscar.
+;;         discoteca: lista con todas las canciones.
+;; Funciones a las que llama: discoteca-vacía?, ver-cantante, consultarCancion .
+;;
 (define (consultar-canciones-cantante discoteca cantante)
   (if (not (discoteca-vacía? discoteca ))
       (if (equal? (ver-cantante (car discoteca))  cantante)
@@ -240,15 +366,23 @@
 ;(consultar-canciones-cantante disco "Muse")
 
 
+
+;; 
+;; Nombre: cargar-canciones
+;; Objetivo: Funcion que introduce en el programa una nueva discoteca de canciones a partir de un fichero de texto.
+;; Parámetros:
+;;         fichero: fichero con las canciones que formarán la discoteca.
+;; Resultado: 
+;;         Nueva discoteca.
+;; Funciones a las que llama: crear-discoteca, crearCancion.
+;;
 (define (cargar-canciones fichero)
   (define puerto (open-input-file fichero))
   (do
       (
-       ;(discoteca (crear-discoteca) (append discoteca (list (crearCancion (read puerto) (read puerto) (read puerto)))))
        (titulo (read puerto) (read puerto))
        (cantante (read puerto) (read puerto))
        (anyo (read puerto) (read puerto))
-       ;(cancion '() (crearCancion titulo cantante anyo ) )
        (discoteca (crear-discoteca) (append discoteca (list (crearCancion titulo cantante anyo ))     )  )
        )
     
@@ -263,6 +397,16 @@
 ;(cargar-canciones "canciones.txt")
 
 
+
+;; 
+;; Nombre: grabar-canciones
+;; Objetivo: Funcion que graba la discoteca de canciones en un fichero de texto.
+;; Parámetros:
+;;         nombreFichero: Nombre del fichero a crear para guardar la discoteca.
+;; Resultado: 
+;;         Fichero con la discoteca.
+;; Funciones a las que llama: ver-titulo, ver-cantante, ver-año.
+;;
 (define (grabar-canciones discoteca nombreFichero)
   (if (file-exists? nombreFichero)
       (display "El fichero ya existe, introduzca otro")
@@ -293,6 +437,16 @@
 
 ;EJERCICIO 3
 ;FUNCIONES AUXILARES PARA EL MENU
+
+;; 
+;; Nombre: nuevaCancion
+;; Objetivo: Funcion auxiliar para el menú principal, rellena los datos de la nueva canción a introducir en la discoteca.
+;; Parámetros:
+;;         discoteca: Aquí se introduce la nueva canción
+;; Resultado: 
+;;         Discoteca con la nueva canción agregada.
+;; Funciones a las que llama: insertar-canción!, crearCancion.
+;;
 (define (nuevaCancion discoteca)
   (display "Introduzca el titulo: (use comillas) ")
   (define titulo (read))
@@ -307,6 +461,16 @@
   )
 ;(nuevaCancion disco)
 
+
+;; 
+;; Nombre: consultarAux
+;; Objetivo: Funcion auxiliar para el menú principal, rellena los datos del título de la canción a buscar en la discoteca
+;; Parámetros:
+;;         discoteca: es donde se busca la canción
+;; Resultado: 
+;;         canción
+;; Funciones a las que llama: consultar-cancion.
+;;
 (define (consultarAux discoteca)
   (display "Introduzca el titulo: (use comillas) ")
   (define titulo (read))
@@ -318,6 +482,16 @@
   )
 ;(consultarAux disco)
 
+
+;; 
+;; Nombre: modificarAux
+;; Objetivo: Funcion auxiliar para el menú principal, rellena los datos de las canciones para su modificación
+;; Parámetros:
+;;         discoteca: Aquí se introduce la modificación.
+;; Resultado: 
+;;         Discoteca con la canción modificada.
+;; Funciones a las que llama: modificar-cancion!, crearCancion.
+;;
 (define (modificarAux discoteca)
   (display "Introduzca los nuevos datos de la cancion: ")
   (newline)
@@ -341,6 +515,15 @@
 ;(modificarAux disco)
 
 
+;; 
+;; Nombre: nuevaCancion
+;; Objetivo: Funcion auxiliar para el menú principal, rellena los datos de la  canción a borrar de la discoteca.
+;; Parámetros:
+;;         discoteca: Aquí se borra la canción
+;; Resultado: 
+;;         Discoteca con la canción borrada.
+;; Funciones a las que llama: borrar-cancion!, crearCancion.
+;;
 (define (borrarAux discoteca)
   (display "Introduzca los datos de la cancion a borrar: ")
   (newline)
@@ -363,6 +546,14 @@
     )
 ;(borrarAux disco)
 
+
+;; 
+;; Nombre: auxCancionesCantante
+;; Objetivo: Funcion auxiliar para el menú principal, rellena los datos del cantante para buscar sus canciones.
+;; Parámetros:
+;;         discoteca: Aquí se buscan las canciones del cantante.
+;; Funciones a las que llama: consultar-canciones-cantante
+;;
 (define (auxCancionesCantante discoteca)
   (display "Introduzca el cantante: (use comillas) ")
   (define cantante (read))
@@ -371,6 +562,15 @@
   )
 ;(auxCancionesCantante disco )
 
+
+
+;; 
+;; Nombre: auxCargarFichero
+;; Objetivo: Funcion auxiliar para el menú principal, rellena los datos del fichero del que cargar la nueva discoteca.
+;; Resultado: 
+;;         Discoteca con canciones del fichero
+;; Funciones a las que llama: cargar-canciones
+;;
 (define (auxCargarFichero)
   (display "Introduzca el nombre del fichero: (use comillas) ")
   (define fichero (read))
@@ -379,6 +579,15 @@
   )
 ;(auxCargarFichero)
 
+
+
+;; 
+;; Nombre: auxGrabarFichero
+;; Objetivo: Funcion auxiliar para el menú principal, rellena los datos del fichero al que grabar la discoteca.
+;; Resultado: 
+;;         Fichero con canciones de la discoteca.
+;; Funciones a las que llama: grabar-canciones
+;;
 (define (auxGrabarFichero discoteca)
   (display "Introduzca el nombre del fichero: (use comillas) ")
   (define fichero (read))
@@ -387,6 +596,18 @@
   )
 ;(auxGrabarFichero disco)
 
+
+;; 
+;; Nombre: programa
+;; Objetivo: Funcion del programa principal.
+;; Funciones a las que llama: pedir-opcion
+;;
+
+;; 
+;; Nombre: pedir-opcion
+;; Objetivo: Funcion auxiliar que muestra las opciones en pantalla y registra la opción escogida por el usuario
+;; Funciones a las que llama: Funciones auxiliares y de discoteca.
+;;
 (define (programa)
   (define (pedir-opcion)
 		(newline)
@@ -483,7 +704,7 @@
       ( (= opcion 6)
         (display "Borrar una cancion")
         (newline)
-        (set! discoteca (BorrarAux discoteca)) ;OJO
+        (set! discoteca (BorrarAux discoteca)) 
         (newline)
         (display "Cancion borrada")
         (newline)
@@ -542,6 +763,20 @@
 
 
 ;EJERCICIO 4
+
+;; 
+;; Nombre: crearMonomio
+;; Objetivo: Crea un nuevo monomio mediante listas de asociación con los parámetros dados.
+;; Parámetros:
+;;         a: coeficiente del monomio
+;;         literal: literal del monomio
+;;         exponente: exponente del monomio
+;; Resultado: 
+;;         Lista de asociación que forma un monomio.
+;; Funciones a las que llama: ninguna.
+;;
+
+
 ;funcion de creacion
 (define (crearMonomio a literal exponente)
   (list
@@ -551,31 +786,92 @@
    )
   )
 ;(crearMonomio 3 "X" 2)
+
+
+;; 
+;; Nombre: ver-coeficiente
+;; Objetivo: Devuelve el coeficiente de un monomio recibido.
+;; Parámetros:
+;;         monomio: lista de asociación que conforma un monomio.
+;; Resultado: 
+;;         Coeficiente de la canción.
+;; Funciones a las que llama: ninguna.
+;;
 (define (ver-coeficiente monomio)
   (cadr (assoc 'numero monomio))
   )
 
+
+;; 
+;; Nombre: ver-literal
+;; Objetivo: Devuelve el literal de un monomio recibido.
+;; Parámetros:
+;;         monomio: lista de asociación que conforma un monomio.
+;; Resultado: 
+;;         Literal de la canción.
+;; Funciones a las que llama: ninguna.
+;;
 (define (ver-literal monomio)
   (cadr (assoc 'literal monomio))
   )
 
+
+;; 
+;; Nombre: ver-grado
+;; Objetivo: Devuelve el grado de un monomio recibido.
+;; Parámetros:
+;;         monomio: lista de asociación que conforma un monomio.
+;; Resultado: 
+;;         Grado de la canción.
+;; Funciones a las que llama: ninguna.
+;;
 (define (ver-grado monomio)
   (cadr (assoc 'exponente monomio))
   )
 ;(ver-grado (crearMonomio 3 "X" 2))
 
+
+
+;; 
+;; Nombre: crear-polinomio
+;; Objetivo: Crea un polinomio mediante una lista
+;; Resultado: 
+;;         polinomio
+;; Funciones a las que llama: ninguna.
+;;
 (define (crear-polinomio )
   (list)
-  ;(define polinomio (list))
-  ;(set-car! polinomio (crearMonomio 0 0 0))
   )
 ;(crear-polinomio)
 
+
+;; 
+;; Nombre: polinomio-nulo?
+;; Objetivo: Comprueba si un polinomio es nulo.
+;; Parámetros:
+;;         polinomio: lista de asociación que conforma un polinomio.
+;; Resultado: 
+;;         true o false.
+;; Funciones a las que llama: ninguna.
+;;
 (define (polinomio-nulo? polinomio)
   (equal? polinomio '() )
   )
 ;(polinomio-nulo? (crear-polinomio))
 
+
+
+;; 
+;; Nombre: existe-monomio?
+;; Objetivo: Comprueba si en un polinomio, existe un monomio con exponente igual al recibido.
+;; Parámetros:
+;;         polinomio: lista de asociación que conforma un polinomio, aquí busca el monomio.
+;;         exponente: exponente del monomio a buscar.
+;;
+;; Resultado: 
+;;         true o false.
+;; Funciones a las que llama: polinomio-nulo? y ver-grado.
+;;
 (define (existe-monomio? polinomio exponente)
   (if (polinomio-nulo? polinomio)
       #f
@@ -588,16 +884,38 @@
 ;(existe-monomio? (crear-polinomio) 3)
 
 
+;; 
+;; Nombre: sumarMonomiosIgualGrado
+;; Objetivo: Función auxiliar para sumar dos monomios de igual grado en un polinomio
+;; Parámetros:
+;;         polinomio: lista de asociación que conforma un polinomio.
+;;         monomio: Monomio a sumar.
+;;         nuevoPolinomio: nuevo polinomio resultante de la operación
+;; Resultado: 
+;;         Nuevo polinomio con la suma de los monomios de igual grado
+;; Funciones a las que llama: polinomio-nulo?, ver-grado, crearMonomio, ver-coeficiente, ver-literal.
+;;
 (define (sumarMonomiosIgualGrado polinomio monomio nuevoPolinomio)
   (if (polinomio-nulo? polinomio)
       nuevoPolinomio
       (if (= (ver-grado (car polinomio)) (ver-grado monomio))
-          (sumarMonomiosIgualGrado (cdr polinomio) monomio (append nuevoPolinomio (crearMonomio (+ (ver-coeficiente (car polinomio)) (ver-coeficiente monomio)) (ver-literal monomio) (ver-grado monomio))))
-          (sumarMonomiosIgualGrado (cdr polinomio) monomio (append nuevoPolinomio (car polinomio)))
+          (sumarMonomiosIgualGrado (cdr polinomio) monomio (append nuevoPolinomio (list (crearMonomio (+ (ver-coeficiente (car polinomio)) (ver-coeficiente monomio)) (ver-literal monomio) (ver-grado monomio)))))
+          (sumarMonomiosIgualGrado (cdr polinomio) monomio (append nuevoPolinomio (list(car polinomio))))
           )
       )
   )
 
+
+;; 
+;; Nombre: sumar-monomio!
+;; Objetivo: Función para sumar un monomio a un polinomio
+;; Parámetros:
+;;         polinomio: lista de asociación que conforma un polinomio.
+;;         monomio: Monomio a sumar.
+;; Resultado: 
+;;         Nuevo polinomio con la suma del monomio
+;; Funciones a las que llama: polinomio-nulo?, existe-monomio?, sumarMonomiosIgualGrado, crear-polinomio.
+;;
 (define (sumar-monomio! polinomio monomio)
   (if (polinomio-nulo? polinomio)
       (list monomio)
@@ -619,55 +937,395 @@
 
 
 
+;; 
+;; Nombre: consultarMonomio
+;; Objetivo: Función mostrar el monomio por pantalla
+;; Parámetros:
+;;         monomio: Monomio a mostrar.
+;; Resultado: 
+;;         Datos del monomio
+;; Funciones a las que llama: ver-grado, ver-coeficiente, ver-literal.
+;;
+(define (consultarMonomio monomio)
+  (if (>(ver-coeficiente monomio) 0)
+      (display "+")
+      )
+  (display (ver-coeficiente monomio))
+  (display (ver-literal monomio))
+  (display "^")
+  (display (ver-grado monomio))
+  )
+;(consultarMonomio (crearMonomio 3 "X" 5))
 
 
 
+;; 
+;; Nombre: mostrar-polinomio
+;; Objetivo: Función que muestra un polinomio por pantalla.
+;; Parámetros:
+;;         polinomio: lista de asociación que conforma un polinomio.
+;; Resultado: 
+;;         Impresión de polinomio por pantalla.
+;; Funciones a las que llama: polinomio-nulo?, consultarMonomio.
+;;
+(define (mostrar-polinomio polinomio)
+  (define (auxMostrar polinomio)
+    (if (not (polinomio-nulo? polinomio))
+        (and (consultarMonomio (car polinomio)) (auxMostrar (cdr polinomio)))
+        )
+    )
+
+  (display "P(X)=")
+  (if (polinomio-nulo? polinomio)
+      (display "0")
+      (auxMostrar polinomio)
+      )
+  )
+;(mostrar-polinomio poli)
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-;(define (rellenar monomio)
- ; (display "Introduzca el coeficiente (si es negativo, incluya signo -) ")
-  ;(define numero (read))
-  ;(newline)
+;; 
+;; Nombre: grabar-polinomio
+;; Objetivo: Función que graba un polinomio en un fichero de texto.
+;; Parámetros:
+;;         polinomio: polinomio a grabar en el fichero.
+;;         nombreFichero: nombre del fichero de texto donde grabar el polinomio.
+;; Resultado: 
+;;         Fichero de texto con el polinomio.
+;; Funciones a las que llama: ver-grado, ver-coeficiente, ver-literal.
+;;
+(define (grabar-polinomio polinomio nombreFichero)
+  (if (file-exists? nombreFichero)
+      (display "El fichero ya existe, introduzca otro")
   
-  ;(display "Introduzca la parte literal (Use comillas) ")
-  ;(define literal (read))
-  ;(newline)
-  
-  ;(display "Introduzca el exponente (si es negativo, incluya signo -) ")
-  ;(define exp (read))
-  ;(newline)
-  
-  ;(define res(monomio numero literal exp))
- ;res
-  ;)
-;(rellenar monomio)
+      (do
+          (;variables del bucle
+           (puerto (open-output-file nombreFichero))
+           (lista_auxiliar polinomio (cdr lista_auxiliar))
+           )
+        ;condicion de salida del bucle
+        ((null? lista_auxiliar)
+         (close-output-port puerto)
+         )
+        ;cuerpo del bucle
+        (display "+" puerto)
+        (display (ver-coeficiente (car lista_auxiliar)) puerto)
+        (display (ver-literal (car lista_auxiliar)) puerto)
+        (display "^" puerto)
+        (display (ver-grado (car lista_auxiliar)) puerto)
+        )
+      )
+  )
 
-;(define (crearPolinomio n)
- ; (define polinomio (make-vector n))
- ; (do
-   ;   (;definicion de variables
-  ;     (i 0 (+ i 1))
-    ;   (polinomio #() (vector-append polinomio (vector(rellenar monomio))))
-     ;  )
-    ;condicion y sentencia de salida
-    ;( (= i n) polinomio)
-    ;)
-  ;)
+;(grabar-polinomio poli "Pruebapolinomio.txt")
 
-;(crearPolinomio 3)
+
+
+;; 
+;; Nombre: cargar-polinomio
+;; Objetivo: Función que carga un polinomio desde fichero de texto.
+;; Parámetros:
+;;         fichero: nombre del fichero de texto desde donde cargar el polinomio.
+;; Resultado: 
+;;         Polinomio con los datos cargados del fichero.
+;; Funciones a las que llama: crear-polinomio, sumar-monomio!
+;;
+(define (cargar-polinomio fichero)
+  (define puerto (open-input-file fichero))
+  (do
+      (       
+       (coeficiente (read puerto) (read puerto))
+       (literal (read puerto) (read puerto))
+       (grado (read puerto) (read puerto))
+       
+       (polinomio (crear-polinomio) (sumar-monomio! polinomio (crearMonomio coeficiente literal grado )     )  )
+       )
+    
+    ( (eof-object? grado)
+      (close-input-port puerto)
+      polinomio
+      )
+    )
+  )
+
+;(define x (cargar-polinomio "polinomio.txt"))
+;(mostrar-polinomio x)
+
+
+
+;; 
+;; Nombre: calcular-valor
+;; Objetivo: Función que evalúa el polinomio en un valor dado.
+;; Parámetros:
+;;         polinomio: polinomio a evaluar.
+;;         valor: valor en el que evaluar el polinomio.
+;; Resultado: 
+;;         Resultado de evaluar el polinomio
+;; Funciones a las que llama: polinomio-nulo?, ver-grado, ver-coeficiente.
+;;
+(define (calcular-valor polinomio valor)
+  (define (aux polinomio valor resultado)
+    (if (polinomio-nulo? polinomio)
+        resultado
+        (aux (cdr polinomio) valor (+ resultado (* (expt valor (ver-grado (car polinomio))) (ver-coeficiente (car polinomio)))))
+        )
+    )
+  (if (polinomio-nulo? polinomio)
+      (display "Polinomio nulo")
+      (aux polinomio valor 0)
+      )
+  )
+
+
+;(calcular-valor poli 2) ;156
+
+
+;EJERCICIO 5
+;FUNCIONES AUXILIARES DEL MENU:
+
+;; 
+;; Nombre: auxComprobarMonomio
+;; Objetivo: Funcion auxiliar para el menú principal, rellena los datos del grado del monomio a buscar en el polinomio.
+;; Parámetros:
+;;         polinomio: polinomio donde buscar el monomio de igual grado que el seleccionado.
+;; Resultado: 
+;;         true o false.
+;; Funciones a las que llama: existe-monomio?
+;;
+(define (auxComprobarMonomio polinomio)
+  (display "Introduzca el grado del monomio a buscar: ")
+  (define grado (read))
+  (existe-monomio? polinomio grado)
+  )
+;(auxComprobarMonomio poli )
+
+
+
+;; 
+;; Nombre: SumarAux
+;; Objetivo: Funcion auxiliar para el menú principal, rellena los datos del monomio a sumar al polinomio.
+;; Parámetros:
+;;         polinomio: polinomio donde al que sumarle el monomio.
+;; Resultado: 
+;;         Polinomio con el resultado de la operación.
+;; Funciones a las que llama: sumar-monomio!
+;;
+(define (SumarAux polinomio)
+  (display "Introduzca el coeficiente del monomio a sumar: ")
+  (define coeficiente (read))
+  (newline)
+  (display "Introduzca el literal del monomio a sumar: (use comillas) ")
+  (define literal (read))
+  (newline)
+  (display "Introduzca el grado del monomio a sumar: ")
+  (define grado (read))
+  (newline)
+  (sumar-monomio! polinomio (crearMonomio coeficiente literal grado))
+  )
+;(SumarAux poli )
+
+
+
+;; 
+;; Nombre: AuxCargarfichero2
+;; Objetivo: Funcion auxiliar para el menú principal, rellena los datos del nombre del fichero para cargar el polinomio.
+;; Resultado: 
+;;         Nuevo polinomio con los datos del fichero
+;; Funciones a las que llama: cargar-polinomio
+;;
+(define (AuxCargarfichero2)
+  (display "Introduzca el nombre del fichero: (use comillas) ")
+  (define fichero (read))
+  (newline)
+  (cargar-polinomio fichero)
+  )
+;(AuxCargarfichero2 )
+
+
+
+;; 
+;; Nombre: auxGrabarFichero2
+;; Objetivo: Funcion auxiliar para el menú principal, rellena los datos del nombre del fichero donde grabar el polinomio.
+;; Parámetros:
+;;         polinomio: polinomio para grabar en el fichero
+;; Resultado: 
+;;         Fichero con el polinomio grabado.
+;; Funciones a las que llama: grabar-polinomio
+;;
+(define (auxGrabarFichero2 polinomio)
+  (display "Introduzca el nombre del fichero: (use comillas) ")
+  (define fichero (read))
+  (newline)
+  (grabar-polinomio polinomio fichero)
+  )
+;(auxGrabarFichero2 poli)
+
+
+
+;; 
+;; Nombre: auxEvaluar
+;; Objetivo: Funcion auxiliar para el menú principal, rellena los datos del valor en el que evaluar el polinomio
+;; Parámetros:
+;;         polinomio: polinomio para evaluar
+;; Resultado: 
+;;         Resultado de la evaluación
+;; Funciones a las que llama: calcular-valor
+;;
+(define (auxEvaluar polinomio)
+  (display "Introduzca un valor para evaluar el polinomio: ")
+  (define valor (read))
+  (newline)
+  (calcular-valor polinomio valor)
+  )
+;(auxEvaluar poli)
+
+
+
+;; 
+;; Nombre: programa2
+;; Objetivo: Funcion del programa principal.
+;; Funciones a las que llama: pedir-opcion
+;;
+
+;; 
+;; Nombre: pedir-opcion
+;; Objetivo: Funcion auxiliar que muestra las opciones en pantalla y registra la opción escogida por el usuario
+;; Funciones a las que llama: Funciones auxiliares y de polinomio.
+;;
+(define (programa2)
+  (define (pedir-opcion)
+		(newline)
+		(display "Elige una opcion" )
+		(newline)
+		(display "1 -> Crear un polinomio nulo" )
+		(newline)
+		(display "2 -> Comprobar si un polinomio es nulo" )
+		(newline)
+		(display "3 -> Comprobar si existe un monomio del grado indicado" )
+		(newline)
+		(display "4 -> Sumar un monomio al polinomio" )
+		(newline)
+       		(display "5 -> Mostrar un polinomio" )
+		(newline)
+           	(display "6 -> Cargar un polinomio desde un fichero" )
+		(newline)
+                (display "7 -> Grabar un polinomio en un fichero" )
+		(newline)
+                (display "8 -> Evaluar un polinomio para un valor" )
+		(newline)
+		(display "0 -> Salir" )
+		(newline)
+		
+		(newline)
+                (display " --> ")
+                ;; lee la opción elegida
+		(read)
+	)
+
+    (do
+      (;variables del bucle
+       (polinomio (crear-polinomio) )
+       (opcion (pedir-opcion) (pedir-opcion))
+       )
+    ;;condicion de salida
+    ( (= opcion 0) (display "Fin del programa"))
+    
+    ;;cuerpo del bucle
+    (cond
+      ;;CREAR UN POLINOMIO NULO
+      ( (= opcion 1)
+        (display "Crear un polinomio nulo")
+        (newline)
+        (set! polinomio (crear-polinomio))
+        (display "Polinomio creado")
+        (newline)
+        )
+
+      ;;COMPROBAR SI UN POLINOMIO ES NULO
+      ( (= opcion 2)
+        (display "Comprobar si un polinomio es nulo")
+        (newline)
+        (if (polinomio-nulo? polinomio)
+            (display "Polinomio nulo")
+            (display "Polinomio NO nulo")
+            )
+        (newline)
+        )
+
+      ;;COMPROBAR SI EXISTE UN MONOMIO DEL GRADO INDICADO
+      ( (= opcion 3)
+        (display "Comprobar si existe un monomio del grado indicado")
+        (newline)
+        (if (auxComprobarMonomio polinomio)
+            (display "Si existe un monomio con el grado indicado en el polinomio")
+            (display "No existe un monomio con el grado indicado en el polinomio")
+            )
+        (newline)
+        )
+
+       ;;SUMAR UN MONOMIO AL POLINOMIO
+      ( (= opcion 4)
+        (display "Sumar un monomio al polinomio")
+        (newline)
+        (set! polinomio (SumarAux polinomio))
+        (newline)
+        (display "Monomio sumado al polinomio")
+        (newline)
+        )
+
+      ;;MOSTRAR UN POLINOMIO
+      ( (= opcion 5)
+        (display "Mostrar un polinomio")
+        (newline)
+        (mostrar-polinomio polinomio)
+        (newline)
+        )
+
+      ;;CARGAR UN POLINOMIO DESDE UN FICHERO
+      ( (= opcion 6)
+        (display "Cargar un polinomio desde un fichero")
+        (newline)
+        (set! polinomio (AuxCargarfichero2))
+        (newline)
+        (display "Polinomio cargado")
+        (newline)
+        )
+
+      ;;GRABAR UN POLINOMIO EN UN FICHERO
+       ( (= opcion 7)
+        (display "Grabar un polinomio en un fichero")
+        (newline)
+        (auxGrabarFichero2 polinomio)
+        (newline)
+        (display "Polinomio grabado en un fichero")
+        (newline)
+        )
+
+       ;;EVALUAR UN POLINOMIO
+        ( (= opcion 8)
+        (display " Evaluar un polinomio para un valor")
+        (newline)
+        (define res (auxEvaluar polinomio))
+        (display res)
+        (newline)
+        )
+
+
+        (else (display "Opcion incorrecta")
+              (newline)
+              )
+        )
+    
+         (display "Pulse 1 para continuar")
+         (newline)
+         (read)
+         (newline)
+    )
+  )
+
+
+;(programa2)
+
+  
+
