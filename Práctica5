@@ -492,7 +492,7 @@
 ;;         Discoteca con la canción modificada.
 ;; Funciones a las que llama: modificar-cancion!, crearCancion.
 ;;
-(define (modificarAux discoteca)
+(define (ModificarAux discoteca)
   (display "Introduzca los nuevos datos de la cancion: ")
   (newline)
   
@@ -1306,8 +1306,8 @@
         ( (= opcion 8)
         (display " Evaluar un polinomio para un valor")
         (newline)
-        (define res (auxEvaluar polinomio))
-        (display res)
+       ; (define res (auxEvaluar polinomio))
+        (display (auxEvaluar polinomio))
         (newline)
         )
 
@@ -1325,7 +1325,7 @@
   )
 
 
-;(programa2)
+(programa2)
 
   
 
