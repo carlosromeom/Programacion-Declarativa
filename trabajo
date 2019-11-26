@@ -1,0 +1,6 @@
+(require (lib "graphics.ss" "graphics"))
+(open-graphics)
+(define ventana1 (open-viewport "Introducir cantidad" 700 100))
+(define objeto (make-posn 100.0 30))
+
+( (draw-string ventana1) objeto "Introduzca el numero de elementos a ordenar." )
