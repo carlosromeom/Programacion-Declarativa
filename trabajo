@@ -23,6 +23,7 @@
   )
 
 
+;sin usar aun
 (define (maximo-vector v)
   (do
       (
@@ -32,12 +33,12 @@
        )
     ;; Condiciónde salida
     ((> i n) maximo)
-    ;; No haycuerpodelbucle
+    ;; No hay cuerpo del bucle
     )
   )
 
 
-(define (mostrarVector vector)
+(define (mostrarVector vector )
   ;paso el vector a valor absoluto
   (define vector2 (vector-map abs vector))
   (open-graphics)
@@ -56,10 +57,153 @@
     ( (draw-solid-rectangle ventana1) (make-posn posicionenPantalla (- 750(* 10 (vector-ref vector2 i))) ) 9 (* 10 (vector-ref vector2 i)) "blue")
     ( (draw-string ventana1) (make-posn posicionenPantalla 770 ) (number->string(vector-ref vector2 i )  )     )
     )
+
+  ;(close-graphics)
   )
+;(mostrarVector #(1 2 3))
     
   
-;(define (cargarFichero 
+;ALGORITMOS DE ORDENACION
+
+;1 MERGE SORT
+(define (aux lista listaIzquierda listaDerecha i)
+  (open-graphics)
+  (define ventana1 (open-viewport "Split de los valores" (+ (* (length lista) 10) 500) 800 ) )
+  ;muestro los valores de las listas
+  
+  ;LISTA IZQUIERDA
+  (define (auxIzquierda listaIzquierda ventana1)
+    (do
+        (;valores del bucle
+         (i 0 (+ i 1))
+         (posicionenPantalla 50 (+ posicionenPantalla 10))
+         )
+      ;condición y sentencia de salida
+      ( (= i (vector-length (list->vector listaIzquierda)    )) posicionenPantalla )
+
+      ;cuerpo del bucle
+      ( (draw-solid-rectangle ventana1) (make-posn posicionenPantalla (- 750(* 10 (vector-ref (list->vector listaIzquierda) i))) ) 9 (* 10 (vector-ref (list->vector listaIzquierda) i)) "blue")
+      ( (draw-string ventana1) (make-posn posicionenPantalla 770 ) (number->string(vector-ref (list->vector listaIzquierda) i )  )     )
+      )
+    )
+
+  (define posicionUltima (auxIzquierda listaIzquierda ventana1))
+
+
+  ;LISTA DERECHA
+    (do
+        (;valores del bucle
+         (i 0 (+ i 1))
+         (posicionenPantalla (+ posicionUltima 100) (+ posicionenPantalla 10))
+         )
+      ;condición y sentencia de salida
+      ( (= i (vector-length (list->vector listaDerecha)    )) posicionenPantalla )
+
+      ;cuerpo del bucle
+      ( (draw-solid-rectangle ventana1) (make-posn posicionenPantalla (- 750(* 10 (vector-ref (list->vector listaDerecha) i))) ) 9 (* 10 (vector-ref (list->vector listaDerecha) i)) "blue")
+      ( (draw-string ventana1) (make-posn posicionenPantalla 770 ) (number->string(vector-ref (list->vector listaDerecha) i )  )     )
+      )
+    
+
+  ;Ahora espera hasta que el usuario hace click
+  ( (draw-rectangle ventana1)  (make-posn 35 770) 130 30 "red")
+  ( (draw-string ventana1)  (make-posn 35 785) "Continuar")
+
+  (define click (get-mouse-click ventana1))
+
+  (if (and (and (> (posn-x (mouse-click-posn click)) 35) (< (posn-x (mouse-click-posn click)) 130))
+           (and (> (posn-y (mouse-click-posn click)) 770) (< (posn-y (mouse-click-posn click)) 785)))
+      (display "Siguiente") 
+      )
+
   
   
+  (if (= i (length lista))
+      (append (list listaIzquierda) (list listaDerecha))
+      (if (even? i)
+          (aux lista (append listaIzquierda (list (list-ref lista i)) ) listaDerecha (+ i 1))
+          (aux lista listaIzquierda (append listaDerecha (list (list-ref lista i)) ) (+ i 1))
+          )
+      )
+  ;(close-graphics)
+  )
+
+(define (split lista)
+  (if (= (length lista) 0)
+      '( () () )
+      (if (= (length lista) 1)
+          (list lista '()  )
+          (aux lista '() '() 0)
+          )
+      )
+  )
+;(split '(5 4 1 3 2))
+
+
+
+(define (merge lista1 lista2)
+  (if (and (= (length lista1) 0) (= (length lista2) 0))
+      '() 
+      (if (and (= (length lista1) 0) (>= (length lista2) 1))
+          (sort ( append '() lista2 )<) 
+            (if (and (>= (length lista1) 1) (= (length lista2) 0))
+               (sort (append lista1 '() )<)
+                (sort(append lista1 lista2)<)
+                )
+            )
+      )
+  )
+
+;(merge '( 1 9 3) '(4 5 6))
+
+
+(define (mergeSort lista)
+  ;primero se le hace un split
+  (define listaDividida (split lista) )
+
+  (open-graphics)
+  (define ventana1 (open-viewport "Mensaje" 800 180))
+  ( (draw-string ventana1) (make-posn 100 30 ) "Ahora se unen ambos vectores" )
+  ;Ahora espera hasta que el usuario hace click
+  ( (draw-rectangle ventana1)  (make-posn 50 120) 100 90 "red")
+  ( (draw-string ventana1)  (make-posn 50 135) "OK")
+
+  (define click (get-mouse-click ventana1))
+
+  (if (and (and (> (posn-x (mouse-click-posn click)) 50) (< (posn-x (mouse-click-posn click)) 100))
+           (and (> (posn-y (mouse-click-posn click)) 90) (< (posn-y (mouse-click-posn click)) 120)))
+      (display "Siguiente") 
+      )
   
+(close-graphics)
+  ;ahora se hace un merge
+  (define a (merge (car listaDividida) (car (cdr listaDividida))))
+  (mostrarVector (list->vector a))
+  a
+ 
+)
+
+;(mergeSort  '(5 4 9 3 2))
+
+
+
+;2 BURBUJA
+
+(define (burbuja vector)
+  (define aux 0)
+  (do
+      (;definicion de variables
+       (i 0 (+ i 1))
+       (aux 0 )
+       )
+    ;condicion y sentencia de salida
+    ( ( = i (vector-length vector)) vector)
+    ;cuerpo del bucle
+    (cond (> (vector-ref i vector) (vector-ref (+ i 1) vector))
+        ;(set! aux (vector-ref  (+ i 1) vector ) )
+        (vector-set! vector (+ i 1) (vector-ref i vector))
+        (vector-set! vector i aux)
+        )
+    )
+       
+)

@@ -1,0 +1,65 @@
+(require (lib "graphics.ss" "graphics"))
+(require racket/vector)
+
+(define (menuPrincipal)
+  (open-graphics)
+  (define ventana1 (open-viewport "Introducir Valores iniciales" 750 200))
+
+  ( (draw-string ventana1) (make-posn 100 30 ) "Introduzca el numero de elementos a ordenar o cargue un fichero de datos." )
+
+  ( (draw-rectangle ventana1)  (make-posn 100 100) 130 30 "red")
+
+  ( (draw-string ventana1)  (make-posn 103 121) "Cargar fichero")
+
+;se comprueba donde hacemos click
+  (define click (get-mouse-click ventana1))
+
+  (if (and (and (> (posn-x (mouse-click-posn click)) 100) (< (posn-x (mouse-click-posn click)) 230))
+           (and (> (posn-y (mouse-click-posn click)) 100) (< (posn-y (mouse-click-posn click)) 130)))
+      (display "prueba") ;LLAMO A LA FUNCION CARGAR FICHERO
+      )
+      
+(close-graphics)
+  )
+
+
+(define (maximo-vector v)
+  (do
+      (
+       (n           (-(vector-length v) 1))
+       (i            1                        (+ i 1))
+       (maximo(vector-ref v 0)  (if(< maximo(vector-ref v i)) (vector-ref v i)maximo))
+       )
+    ;; Condiciónde salida
+    ((> i n) maximo)
+    ;; No haycuerpodelbucle
+    )
+  )
+
+
+(define (mostrarVector vector)
+  ;paso el vector a valor absoluto
+  (define vector2 (vector-map abs vector))
+  (open-graphics)
+  (define ventana1 (open-viewport "Valores del vector" (+ (* (vector-length vector) 10) 100) 800 ) )
+
+  ;dibujo los rectangulos
+  (do
+      (;valores del bucle
+       (i 0 (+ i 1))
+       (posicionenPantalla 50 (+ posicionenPantalla 10))
+       )
+    ;condición y sentencia de salida
+    ( (= i (vector-length vector2)) )
+
+    ;cuerpo del bucle
+    ( (draw-solid-rectangle ventana1) (make-posn posicionenPantalla (- 750(* 10 (vector-ref vector2 i))) ) 9 (* 10 (vector-ref vector2 i)) "blue")
+    ( (draw-string ventana1) (make-posn posicionenPantalla 770 ) (number->string(vector-ref vector2 i )  )     )
+    )
+  )
+    
+  
+;(define (cargarFichero 
+  
+  
+  
