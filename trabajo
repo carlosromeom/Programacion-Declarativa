@@ -418,15 +418,67 @@
         
 
 (define (ordenarVector vector vector2 u)
+
+;Muestro los candidatos a ordenar
+  (open-graphics)
+  (define ventana1 (open-viewport "Candidatos a ordenarse" (+ (* (vector-length vector) 10) 100) 800 ) )
+
+  ;dibujo los rectangulos
+  (do
+      (;valores del bucle
+       (o 0 (+ o 1))
+       (posicionenPantalla 50 (+ posicionenPantalla 15))
+       )
+    ;condición y sentencia de salida
+    ( (= o (vector-length vector)) )
+
+    ;cuerpo del bucle
+    (if (= o u) 
+        (and
+         ( (draw-solid-rectangle ventana1) (make-posn posicionenPantalla (- 750(* 10 (vector-ref vector o))) ) 9 (abs(* 10 (vector-ref vector o))) "red")
+         ( (draw-string ventana1) (make-posn posicionenPantalla 770 ) (number->string(vector-ref vector o )  )     )
+         )
+        (if (= o (+ u 1)) 
+            (and
+             ( (draw-solid-rectangle ventana1) (make-posn posicionenPantalla (- 750(* 10 (vector-ref vector o))) ) 9 (abs(* 10 (vector-ref vector o))) "red")
+             ( (draw-string ventana1) (make-posn posicionenPantalla 770 ) (number->string(vector-ref vector o )  )     )
+             )
+            (and
+        
+    ( (draw-solid-rectangle ventana1) (make-posn posicionenPantalla (- 750(* 10 (vector-ref vector o))) ) 9 (abs(* 10 (vector-ref vector o))) "blue")
+    ( (draw-string ventana1) (make-posn posicionenPantalla 770 ) (number->string(vector-ref vector o )  )     )
+    )
+    )
+        )
+    )
+  
+  (mensaje "Continuar...?")
+  
   ;(if (< (vector-ref vector (+ u 1)) (vector-ref vector u))
   (if (= u (- (vector-length vector) 1))
      ; (insertar (buscarPosicion vector2 (vector-ref vector (+ u 1)) 0 ) vector2 (vector-ref vector (+ u 1)))
-      (insertar (buscarPosicion vector2 (vector-ref vector u) 0) vector2 (vector-ref vector u))
-      (insertar (buscarPosicion vector2 (vector-ref vector u) 0 ) vector2 (vector-ref vector u ))
+      (and
+       (mostrarVector (insertar (buscarPosicion vector2 (vector-ref vector u) 0) vector2 (vector-ref vector u)))
+       (mensaje "Continuar...?")
+       (insertar (buscarPosicion vector2 (vector-ref vector u) 0) vector2 (vector-ref vector u))
+       )
+      (and
+       (mostrarVector (insertar (buscarPosicion vector2 (vector-ref vector u) 0 ) vector2 (vector-ref vector u )))
+       (mensaje "Continuar...?")
+       (insertar (buscarPosicion vector2 (vector-ref vector u) 0 ) vector2 (vector-ref vector u ))
+       )
       )
   )
 
+
+
 (define (insertionSort vector)
+  (mensaje "Se muestra el vector antes de ordenar por insercion")
+  (mostrarVector vector)
+  (mensaje "Continuar...?")
+
+
+  
   (do
       (;definicion de variables
        (i 0 (+ i 1))
@@ -437,5 +489,5 @@
     )
   )
 
-;(insertionSort #(5 1 0 4))
+(insertionSort #(5 1 0 4))
 ;(insertionSort #(5 1 0 4 -1))
