@@ -386,4 +386,56 @@
   
 
   )
-(burbuja (vector 4 2 3))
+;(burbuja (vector 4 2 3))
+
+
+
+;3 ORDENAMIENTO POR INSERCION
+(define (buscarPosicion vector2 n i)
+  (if (= (vector-length vector2) 0)
+      0
+      (if (< n (vector-ref vector2 i)) 
+          i
+          (buscarPosicion vector2 n (+ i 1))
+          )
+      )
+  )
+;(buscarPosicion #(1 2 4 0) 3 0)
+
+(define (insertar i vector2 n)
+  (define aux (vector-copy vector2 i (vector-length vector2)))
+  (if (= i 0)
+      (vector-append (vector n) vector2)
+      (if (= i (- (vector-length vector2)))
+          (vector-append vector2 (vector n) )
+          (vector-append (vector-append (vector-copy vector2 0 i) (vector n)) aux)
+          )
+      )
+  )
+;(insertar (buscarPosicion #(1 2 4 0) 3 0) #(1 2 4 0) 3)
+;(insertar 0 #(1 2 4 3) 0)
+;(insertar (vector-length #(1 2 4 3))   #(1 2 4 3) 5)
+        
+
+(define (ordenarVector vector vector2 u)
+  ;(if (< (vector-ref vector (+ u 1)) (vector-ref vector u))
+  (if (= u (- (vector-length vector) 1))
+     ; (insertar (buscarPosicion vector2 (vector-ref vector (+ u 1)) 0 ) vector2 (vector-ref vector (+ u 1)))
+      (insertar (buscarPosicion vector2 (vector-ref vector u) 0) vector2 (vector-ref vector u))
+      (insertar (buscarPosicion vector2 (vector-ref vector u) 0 ) vector2 (vector-ref vector u ))
+      )
+  )
+
+(define (insertionSort vector)
+  (do
+      (;definicion de variables
+       (i 0 (+ i 1))
+       (vector2 #() (ordenarVector vector vector2 i))
+       )
+    ;condicion y sentencia de salida
+    ( (= i (vector-length vector))  vector2)
+    )
+  )
+
+;(insertionSort #(5 1 0 4))
+;(insertionSort #(5 1 0 4 -1))
