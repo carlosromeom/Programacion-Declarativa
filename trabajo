@@ -489,5 +489,192 @@
     )
   )
 
-(insertionSort #(5 1 0 4))
+;(insertionSort #(5 1 0 4))
 ;(insertionSort #(5 1 0 4 -1))
+
+
+;4 QUICK SORT
+
+(define (quickSort vector)
+
+
+  
+  (define (aux pivote vectorIzquierda vectorDerecha vector2 vectorFinal)
+    ;(display pivote)
+   ; (if (and (= (vector-length vectorIzquierda) 0) (= (vector-length vectorDerecha) 0))
+    ;    vectorFinal
+     ;   )
+    (if (= (vector-length vector2) 0)
+        vectorFinal
+        )
+    
+    (open-graphics)
+    (define ventana1 (open-viewport "Split de los valores" (+ (* (vector-length vector2) 10) 500) 800 ) )
+    ;muestro los valores de las listas
+  
+    ;LISTA IZQUIERDA
+    (define (auxIzquierda vectorIzquierda ventana1)
+      (do
+          (;valores del bucle
+           (i 0 (+ i 1))
+           (posicionenPantalla 50 (+ posicionenPantalla 10))
+           )
+        ;condición y sentencia de salida
+        ( (= i (vector-length vectorIzquierda    )) posicionenPantalla )
+
+        ;cuerpo del bucle
+        ( (draw-solid-rectangle ventana1) (make-posn posicionenPantalla (- 750(* 10 (vector-ref vectorIzquierda i))) ) 9 (* 10 (vector-ref vectorIzquierda i)) "blue")
+        ( (draw-string ventana1) (make-posn posicionenPantalla 770 ) (number->string(vector-ref vectorIzquierda i )  )     )
+        )
+      )
+    (define posicionUltima (auxIzquierda vectorIzquierda ventana1))
+    
+      ;dibujo el pivote
+      ( (draw-solid-rectangle ventana1) (make-posn (+ posicionUltima 50) (- 750(* 10 pivote)) ) 9 (* 10 pivote) "red")
+      ( (draw-string ventana1) (make-posn (+ posicionUltima 50) 770 ) (number->string pivote  )     )
+      
+
+   
+
+    ;LISTA DERECHA
+    (do
+        (;valores del bucle
+         (i 0 (+ i 1))
+         (posicionenPantalla (+ posicionUltima 100) (+ posicionenPantalla 10))
+         )
+      ;condición y sentencia de salida
+      ( (= i (vector-length vectorDerecha    )) posicionenPantalla )
+
+      ;cuerpo del bucle
+      ( (draw-solid-rectangle ventana1) (make-posn posicionenPantalla (- 750(* 10 (vector-ref vectorDerecha i))) ) 9 (* 10 (vector-ref vectorDerecha i)) "blue")
+      ( (draw-string ventana1) (make-posn posicionenPantalla 770 ) (number->string(vector-ref vectorDerecha i )  )     )
+      )
+    
+
+    ;Ahora espera hasta que el usuario hace click
+    ( (draw-rectangle ventana1)  (make-posn 35 770) 130 30 "red")
+    ( (draw-string ventana1)  (make-posn 35 785) "Continuar")
+
+    (define click (get-mouse-click ventana1))
+
+    (if (and (and (> (posn-x (mouse-click-posn click)) 35) (< (posn-x (mouse-click-posn click)) 130))
+             (and (> (posn-y (mouse-click-posn click)) 770) (< (posn-y (mouse-click-posn click)) 785)))
+        (display "Siguiente") 
+        )
+
+    ;(display vector2)
+
+
+    ;(define nuevoVectorIzquierda3 (vector))
+    ;(define nuevoVectorDerecha (vector))
+   
+    (define (aux1 vector2 pivote )
+      
+      (define (introducirIzquierda nuevoVectorIzquierda vector2 pivote i)
+        ;(display vector2)
+        (define a (list (vector-ref vector2 i)))
+        ;(display nuevoVectorIzquierda)
+        ;(display a)
+        ;(newline)
+        (if (not (= (vector-length vector2) 0))
+            (if (and (< (car a) pivote) (not (= (car a) pivote) ))
+                (append nuevoVectorIzquierda a)
+                )
+            )
+        )
+
+      
+     ; (display vector2)
+      ;(newline)
+      ;(display pivote)
+      (do
+          (;definicion de variables
+           (i 0 (+ i 1))
+           (nuevoVectorIzquierda (list) (introducirIzquierda nuevoVectorIzquierda vector2 pivote i))
+           )
+        ;condicion y sentencia de salida
+        ( (= i (- (vector-length vector2) 1)) nuevoVectorIzquierda)
+        
+        ;cuerpo del bucle
+        ;(if (and (< (vector-ref vector i) pivote) (not (= (vector-ref vector i) pivote) ))
+            ;(vector-append nuevoVectorIzquierda (vector (vector-ref vector i )))
+            ;)
+        )
+      )
+    
+    (define a (aux1 vector2 pivote))
+    (display a)
+    
+    (if (odd? (vector-length a))
+        (vector-set! vectorFinal (+ (/ 1 2) (/ (vector-length a) 2)) (vector-ref a (+ (/ 1 2) (/ (vector-length a) 2))))
+        (vector-set! vectorFinal  (- (/ (vector-length a) 2) 1)  (vector-ref a (- (/ (vector-length a) 2) 1) ))
+        )
+
+    (if (odd? (vector-length a))
+        (aux (vector-ref a (+ (/ 1 2) (/ (vector-length a) 2))) (vector-copy vector 0 (- (+ (/ 1 2) (/ (vector-length a) 2))  1)) (vector-copy vector  (+ (/ 1 2) (/ (vector-length a) 2)) (vector-length a)) a  vectorFinal  )
+        (aux (vector-ref a (- (/ (vector-length a) 2) 1) ) (vector-copy vector 0 (- (/ (vector-length a) 2) 1)) (vector-copy vector (/ (vector-length a) 2) (vector-length a)) a vectorFinal)
+        )
+    
+
+    (define (aux2 vector2 pivote)
+      (do
+          (;definicion de variables
+           (i 0 (+ i 1))
+           (nuevoVectorDerecha (vector) )
+           )
+        ;condicion y sentencia de salida
+        ( (= i (- (vector-length vector2) 1)) nuevoVectorDerecha)
+        ;cuerpo del bucle
+        (if (and (> (vector-ref vector2 i) pivote) (not (= vector-ref vector2 i) pivote))
+            (vector-append nuevoVectorDerecha (vector (vector-ref vector2 i)))
+            )
+        )
+      )
+
+    (define b (aux2 vector2 pivote))
+    
+    (if (odd? (vector-length b))
+        (vector-set! vectorFinal (+ (/ 1 2) (/ (vector-length b) 2)) (vector-ref b (+ (/ 1 2) (/ (vector-length b) 2))))
+        (vector-set! vectorFinal  (- (/ (vector-length b) 2) 1)  (vector-ref b (- (/ (vector-length b) 2) 1) ))
+        )
+
+    (if (odd? (vector-length b))
+        (aux (vector-ref b (+ (/ 1 2) (/ (vector-length b) 2))) (vector-copy vector 0 (- (+ (/ 1 2) (/ (vector-length b) 2))  1)) (vector-copy vector  (+ (/ 1 2) (/ (vector-length b) 2)) (vector-length b)) b  vectorFinal  )
+        (aux (vector-ref b (- (/ (vector-length b) 2) 1) ) (vector-copy vector 0 (- (/ (vector-length b) 2) 1)) (vector-copy vector (/ (vector-length b) 2) (vector-length b)) b vectorFinal)
+        )
+    
+    
+    
+
+    
+    )
+
+
+
+
+  
+  (mensaje "Se muestra el vector antes de ordenar por Quick sort")
+  (mostrarVector vector)
+  (mensaje "Continuar...?")
+
+  (define vectorFinal (make-vector (vector-length vector)))
+  (if (odd? (vector-length vector))
+      (vector-set! vectorFinal (- (/ (vector-length vector) 2) (/ 1 2) ) (vector-ref vector (- (/ (vector-length vector) 2) (/ 1 2) )))
+      (vector-set! vectorFinal  (- (/ (vector-length vector) 2) 1)  (vector-ref vector (- (/ (vector-length vector) 2) 1) ))
+      )
+  
+  (if (odd? (vector-length vector))
+      (and
+       (mensaje "Se muestra el vector ordenado")
+       (mostrarVector (aux (vector-ref vector (- (/ (vector-length vector) 2) (/ 1 2) )) (vector-copy vector 0 (- (/ (vector-length vector) 2) (/ 1 2) ) ) (vector-copy vector  (+ 1 (- (/ (vector-length vector) 2) (/ 1 2) )) (vector-length vector)) vector  vectorFinal  ))
+       (mensaje "Continuar...?")
+       )
+      
+      (and
+       (mensaje "Se muestra el vector ordenado")
+       (mostrarVector (aux (vector-ref vector (- (/ (vector-length vector) 2) 1) ) (vector-copy vector 0 (- (/ (vector-length vector) 2) 1)) (vector-copy vector (/ (vector-length vector) 2) (vector-length vector)) vector vectorFinal))
+       (mensaje "Continuar...?")
+       )
+      )
+  )
+(quickSort #(5 1 0 4 7 8 2 3 9))
