@@ -677,4 +677,132 @@
        )
       )
   )
-(quickSort #(5 1 0 4 7 8 2 3 9))
+;(quickSort #(5 1 0 4 7 8 2 3 9))
+
+
+;5 ORDENAMIENTO POR SELECCION
+;(define (buscarMiembro minimo minimosAntiguos)
+;(display minimo)
+; (if (= (vector-length minimosAntiguos) 0)
+;    #t
+;   (if (equal? (vector-member minimo minimosAntiguos) #f)
+;      #t
+;     #f
+;    )
+;)
+;)
+
+;(buscarMiembro 0 #(0))
+
+(define (minimo-vector v)
+  ;(display v)
+  (do
+      (
+       (n           (-(vector-length v) 1))
+       (i            1                        (+ i 1))
+       (minimo (vector-ref v 0)  (if(> minimo (vector-ref v i)) (vector-ref v i) minimo))
+       )
+    ;; Condiciónde salida
+    ((> i n) minimo)
+    ;; No hay cuerpo del bucle
+    )
+  )
+
+
+
+(define (seleccionSort vector)
+  (define (aux lista minimos i)
+    (open-graphics)
+    (define ventana1 (open-viewport "Minimo del vector" (+ (* (vector-length vector) 10) 100) 800 ) )
+    (if (= i (length lista) )
+        (list->vector minimos)
+        
+        (and
+
+
+
+
+         
+
+
+         ;dibujo los rectangulos
+         (do
+             (;valores del bucle
+              (u 0 (+ u 1))
+              (posicionenPantalla 50 (+ posicionenPantalla 20))
+              )
+           ;condición y sentencia de salida
+           ( (= u (vector-length (list->vector (remove* minimos lista )))))
+
+           ;cuerpo del bucle
+           (if (= (vector-ref (list->vector (remove* minimos lista )) u) (minimo-vector (list->vector (remove* minimos lista ) ) ) )
+               (and
+                ( (draw-solid-rectangle ventana1) (make-posn posicionenPantalla (- 750(* 10 (vector-ref (list->vector (remove* minimos lista )) u))) ) 9 (abs(* 10 (vector-ref (list->vector (remove* minimos lista )) u))) "red")
+                ( (draw-string ventana1) (make-posn posicionenPantalla 770 ) (number->string(vector-ref (list->vector (remove* minimos lista )) u )  )     )
+                )
+        
+               (and
+        
+                ( (draw-solid-rectangle ventana1) (make-posn posicionenPantalla (- 750(* 10 (vector-ref (list->vector (remove* minimos lista )) u))) ) 9 (abs(* 10 (vector-ref (list->vector (remove* minimos lista )) u))) "blue")
+                ( (draw-string ventana1) (make-posn posicionenPantalla 770 ) (number->string(vector-ref (list->vector (remove* minimos lista )) u )  )     )
+                )
+               )
+           )
+    
+  
+         (mensaje "Continuar...?")
+         (close-graphics)
+         
+         (mensaje "Se muestra el vector de minimos: ")
+         (mostrarVector (list->vector (append minimos (list (minimo-vector (list->vector (remove* minimos lista ) ) ) ))))
+         (mensaje "Continuar...?")      
+        
+
+
+
+
+
+
+
+
+
+        
+         (aux lista (append minimos (list (minimo-vector (list->vector (remove* minimos lista ) ) ) )) (+ i 1) )
+         )
+        )
+    )
+  ;filtro los valores repetidos, borro la segunda aparacion de estos
+  (define (aux2 vector)
+    (define (filtrado vectorFiltrado valor)
+      (if (equal? (vector-member valor vectorFiltrado) #f); si no aparece en el vector
+          (vector-append vectorFiltrado (make-vector 1 valor) )
+          vectorFiltrado
+          )
+      )
+    
+    (do
+        (;definicion de variables
+         (i 0 (+ i 1))
+         (vectorFiltrado #() (filtrado vectorFiltrado (vector-ref vector i)))
+         )
+      ;condicion y sentencia de salida
+      ( (= i (vector-length vector)) vectorFiltrado)
+      )
+                         
+    )
+
+  (mensaje "Este es el vector a ordenar por seleccion: ")
+  (mostrarVector (aux2 vector))
+  (mensaje "Continuar...?")
+
+  
+  (aux (vector->list (aux2 vector)) (list) 0)
+  )
+
+;(seleccionSort #(2 3 4 21 0 1))
+;(seleccionSort #(2 3 4 -21 0 1))
+;(seleccionSort #(2 3 4 21 0 1 3))
+;(seleccionSort #(2 3 4 2 21 0 1 3))
+;(seleccionSort #(2 3 4 2 21 0 3 1 3))
+
+
