@@ -658,8 +658,7 @@
   (mensaje "Continuar...?")
 
   (define vectorFinal (make-vector (vector-length vector)))
-  
-(if (odd? (vector-length vector))
+  (if (odd? (vector-length vector))
       (vector-set! vectorFinal (- (/ (vector-length vector) 2) (/ 1 2) ) (vector-ref vector (- (/ (vector-length vector) 2) (/ 1 2) )))
       (vector-set! vectorFinal  (- (/ (vector-length vector) 2) 1)  (vector-ref vector (- (/ (vector-length vector) 2) 1) ))
       )
@@ -679,91 +678,6 @@
       )
   )
 ;(quickSort #(5 1 0 4 7 8 2 3 9))
-
-;QUICK SORT 2.0
-;(define aux22 (pivote vectorIzquierdo vectorDerecho)
-  
-  ;(if (and (= (vector-length vectorIzquierdo) 0) (= (vector-length vectorDerecho) 0))
-   ;   pivote
-    ;  (if (= (vector-length vectorIzquierdo) 0)
-     ;     (aux22 (vector-ref vectorDerecho 0) #() (vector-copy vector 0 (vector-length vectorDerecho)))
-
-      ;    (if (= (vector-length vectorDerecho) 0)
-        ;      (aux22 (vector-ref vectorIzquierdo 0) #() (vector-copy vector 0 (vector-length vectorIzquierdo)))
-         ;     (append (aux22 (vector-ref vectorIzquierdo 0) pivote (vector-copy vector 0 (vector-length vectorDerecho))) pivote (aux22 (vector-ref vectorIzquierdo 0) pivote (vector-copy vector 0 (vector-length vectorIzquierdo))))
-          
-          ;    )
-          ;)
-      ;)
-  ;)
-
-(define (sacarPivote lista)
-  ;Selecciono el pivote
-  (if (odd? (vector-length (list->vector lista)))
-      (vector-ref (list->vector lista) (- (/ (vector-length (list->vector lista)) 2) (/ 1 2) ))
-      (vector-ref (list->vector lista) (- (/ (vector-length (list->vector lista)) 2) 1) )
-      )
-  )
-
-;(sacarPivote '(1 2 3))
-;(sacarPivote '(1 4 3 0))
-
-(define (posicionPivote lista)
-  (if (odd? (vector-length (list->vector lista)))
-      (- (/ (vector-length (list->vector lista)) 2) (/ 1 2) )
-      (- (/ (vector-length (list->vector lista)) 2) 1) 
-      )
-  )
-;(posicionPivote '(1 2 3))
-;(posicionPivote '(1 4 3 0))
-  
-  
-
-
-(define (ordenarPivote pivote vector listaIzquierda listaDerecha vectorFinal)
-  (define lista (vector->list vector))
-  
-  (if (= (length lista) 0)
-      ;(aux22 pivote (list->vector listaIzquierda)  (list->vector listaDerecha))
-      (and
-       (ordenarPivote (sacarPivote listaIzquierda) (vector-copy (list->vector listaIzquierda) 0 (sacarPivote listaIzquierda)) (vector-copy (list->vector listaIzquierda) (sacarPivote listaIzquierda) (length listaIzquierda)) (vector-set! vectorFinal (posicionPivote listaIzquierda) pivote)) 
-       (ordenarPivote (sacarPivote listaDerecha) (vector-copy (list->vector listaDerecha) 0 (sacarPivote listaDerecha)) (vector-copy (list->vector listaDerecha) (sacarPivote listaDerecha) (length listaDerecha)) (vector-set! vectorFinal (posicionPivote listaDerecha) pivote)) 
-       )
-
-          
-       (if (< (car lista) pivote)
-          (ordenarPivote pivote (list->vector (cdr lista)) (append listaIzquierda (list (car lista))   ) listaDerecha vectorFinal)
-          (ordenarPivote pivote (list->vector (cdr lista)) listaIzquierda (append listaDerecha (list (car lista))) vectorFinal)
-          )
-      )
-  )
-
-;(ordenarPivote (sacarPivote '(1 4 3 5 6 9 7)) #(1 4 3 5 6 9 7) '(1 4 3) '(6 9 7) (make-vector 1 ))
-      
-
-(define (quickSort2 vector)
-  (mensaje "Se muestra el vector antes de ordenar por Quick sort")
-  (mostrarVector vector)
-  (mensaje "Continuar...?")
-
-  ;Selecciono el pivote
-  (if (odd? (vector-length vector))
-      ;(and
-      ;(mensaje "Se muestra el vector ordenado")
-      (ordenarPivote (vector-ref vector (- (/ (vector-length vector) 2) (/ 1 2) )) vector) ;(vector-copy vector 0 (- (/ (vector-length vector) 2) (/ 1 2) ) ) (vector-copy vector  (+ 1 (- (/ (vector-length vector) 2) (/ 1 2) )) (vector-length vector))   )
-      ;(mensaje "Continuar...?")
-      ;)
-      
-      ;(and
-      ;(mensaje "Se muestra el vector ordenado")
-      (ordenarPivote (vector-ref vector (- (/ (vector-length vector) 2) 1) ) vector) ;(vector-copy vector 0 (- (/ (vector-length vector) 2) 1)) (vector-copy vector (/ (vector-length vector) 2) (vector-length vector)) )
-      ;(mensaje "Continuar...?")
-      ;)
-      )
-
-  
-
-  )
 
 
 ;5 ORDENAMIENTO POR SELECCION
