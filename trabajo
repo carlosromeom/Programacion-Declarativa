@@ -681,18 +681,7 @@
 
 
 ;5 ORDENAMIENTO POR SELECCION
-;(define (buscarMiembro minimo minimosAntiguos)
-;(display minimo)
-; (if (= (vector-length minimosAntiguos) 0)
-;    #t
-;   (if (equal? (vector-member minimo minimosAntiguos) #f)
-;      #t
-;     #f
-;    )
-;)
-;)
 
-;(buscarMiembro 0 #(0))
 
 (define (minimo-vector v)
   ;(display v)
@@ -804,5 +793,7 @@
 ;(seleccionSort #(2 3 4 21 0 1 3))
 ;(seleccionSort #(2 3 4 2 21 0 1 3))
 ;(seleccionSort #(2 3 4 2 21 0 3 1 3))
+
+
 
 
