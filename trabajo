@@ -716,6 +716,77 @@
   )
 ;(posicionPivote '(1 2 3))
 ;(posicionPivote '(1 4 3 0))
+
+(define (ordenarporPivote lista vectorSolucion)
+  ;(if (= (length lista) 0)
+      ;vectorSolucion
+      ;)
+  
+  (define pivote (sacarPivote lista))
+  ;(define posicionPivote (posicionPivote lista))
+  
+  (define (auxIzquierda lista pivote listaOrdenada)
+    (if (= (length lista) 0)
+        listaOrdenada
+        (if (< (car lista) pivote)
+            (auxIzquierda (cdr lista) pivote (append listaOrdenada (list (car lista))))
+            (auxIzquierda (cdr lista) pivote listaOrdenada)
+            )
+        )
+    )
+
+  (define listaIzquierda (auxIzquierda lista pivote (list)))
+
+  (define (auxDerecha lista pivote listaOrdenada)
+    (if (= (length lista) 0)
+        listaOrdenada
+        (if (> (car lista) pivote)
+            (auxDerecha (cdr lista) pivote (append listaOrdenada (list (car lista))))
+            (auxDerecha (cdr lista) pivote listaOrdenada)
+            )
+        )
+    )
+
+  (define listaDerecha (auxDerecha lista pivote (list)))
+
+
+  
+  (define (auxVectorSolucion vectorSolucion listaIzquierda pivote)
+    (define posicionDefinitivaPivote 1)
+    ;busco la posicion definitiva del pivote
+   ; (if (and (= (length listaIzquierda) 0) (= (length listaDerecha) 0))
+    ;    (set! posicionDefinitivaPivote (-(vector-length vectorSolucion)1))
+        (if (= (length listaIzquierda) 0)
+            (if (vector-ref vectorSolucion 0)  ;AQUI TIENE QUE ESTAR EL FALLO
+            (set! posicionDefinitivaPivote 0)
+            (set! posicionDefinitivaPivote (length listaIzquierda))
+            )
+        ;)
+
+    ;Introduzco el pivote en su posicion definitiva del vector solucion
+    (vector-set! vectorSolucion posicionDefinitivaPivote pivote)
+    vectorSolucion
+    )
+
+  (define vecSol (auxVectorSolucion vectorSolucion listaIzquierda pivote))
+
+  ;;llamo por la izquierda
+  (if (= (length listaIzquierda) 0)
+      vecSol
+      (ordenarporPivote listaIzquierda vecSol)
+      )
+  
+  ;;llamo por la derecha
+  (if (= (length listaDerecha) 0)
+      vecSol
+      (ordenarporPivote listaDerecha vecSol)
+      )
+  )
+
+;(ordenarporPivote '(1 3 6) (make-vector 3)) 
+
+
+  
   
   
 
@@ -879,6 +950,7 @@
 ;(seleccionSort #(2 3 4 21 0 1 3))
 ;(seleccionSort #(2 3 4 2 21 0 1 3))
 ;(seleccionSort #(2 3 4 2 21 0 3 1 3))
+
 
 
 
