@@ -552,17 +552,122 @@
                (
                 (listaIzquierda (auxIzquierda lista pivote (list)))
                 (listaDerecha (auxDerecha lista pivote (list)))
-                )            
+                )
+
+             
+             (mensaje "Se muestra la lista izquierda, pivote y lista derecha")
+             ;(mostrarVector (list->vector listaIzquierda))
+             ;(mensaje "Continuar...?")
+             ;(mostrarVector (vector pivote))
+             ;(mensaje "Continuar...?")
+             ;(mostrarVector (list->vector listaDerecha))
+             ;(mensaje "Continuar...?")
+
+
+
+  (open-graphics)
+  (define ventana1 (open-viewport "Lista izquierda, pivote y derecha" (+ (* (length lista) 10) 500) 800 ) )
+  ;muestro los valores de las listas
+  
+  ;LISTA IZQUIERDA
+  (define (auxIzquierda listaIzquierda ventana1)
+    (do
+        (;valores del bucle
+         (i 0 (+ i 1))
+         (posicionenPantalla 50 (+ posicionenPantalla 10))
+         )
+      ;condición y sentencia de salida
+      ( (= i (vector-length (list->vector listaIzquierda)    )) posicionenPantalla )
+
+      ;cuerpo del bucle
+      ( (draw-solid-rectangle ventana1) (make-posn posicionenPantalla (- 750(* 10 (abs (vector-ref (list->vector listaIzquierda) i)))) ) 9 (* 10 (abs(vector-ref (list->vector listaIzquierda) i))) "blue")
+      ( (draw-string ventana1) (make-posn posicionenPantalla 770 ) (number->string(vector-ref (list->vector listaIzquierda) i )  )     )
+      )
+    )
+
+  (define posicionUltima (auxIzquierda listaIzquierda ventana1))
+
+
+             ;MUESTRO EL PIVOTE
+             ;(mostrarVector (vector pivote))
+             ( (draw-solid-rectangle ventana1) (make-posn (+ posicionUltima 45) (- 750 (* 10 (abs pivote)))) 9 (* 10 (abs pivote) ) "red")
+             ( (draw-string ventana1) (make-posn (+ posicionUltima 45) 770 ) (number->string pivote  )     )
+
+             
+
+
+  ;LISTA DERECHA
+    (do
+        (;valores del bucle
+         (i 0 (+ i 1))
+         (posicionenPantalla (+ posicionUltima 100) (+ posicionenPantalla 10))
+         )
+      ;condición y sentencia de salida
+      ( (= i (vector-length (list->vector listaDerecha)    )) posicionenPantalla )
+
+      ;cuerpo del bucle
+      ( (draw-solid-rectangle ventana1) (make-posn posicionenPantalla (- 750(* 10 (abs (vector-ref (list->vector listaDerecha) i)))) ) 9 (* 10 (abs (vector-ref (list->vector listaDerecha) i))) "blue")
+      ( (draw-string ventana1) (make-posn posicionenPantalla 770 ) (number->string(vector-ref (list->vector listaDerecha) i )  )     )
+      )
+    
+
+  ;Ahora espera hasta que el usuario hace click
+  ( (draw-rectangle ventana1)  (make-posn 35 770) 130 30 "red")
+  ( (draw-string ventana1)  (make-posn 35 785) "Continuar")
+
+  (define click (get-mouse-click ventana1))
+
+  (if (and (and (> (posn-x (mouse-click-posn click)) 35) (< (posn-x (mouse-click-posn click)) 130))
+           (and (> (posn-y (mouse-click-posn click)) 770) (< (posn-y (mouse-click-posn click)) 785)))
+      (display "Siguiente") 
+      )
+
+
+
+             
+
+
+
+             
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+             
              (append (ordenarporPivote listaIzquierda) (list pivote) (ordenarporPivote listaDerecha))
              )
          )
       )
   )
-  
+
+
+(define (QuickSort vector)
+  (mensaje "Se muestra el vector a ordenar por Quicksort")
+  (mostrarVector vector)
+  (mensaje "Continuar...?")
+
+  (define a (list->vector (ordenarporPivote (vector->list vector))))
+
+  (mensaje "Se muestra el vector despues de ordenar por Quicksort")
+  (mostrarVector a)
+  (mensaje "Continuar...?")
+  a
+)
  
  
 
-(ordenarporPivote '(-6 2 5 8 4 3 9 1122 424 24 2424242 0) ) 
+(QuickSort #(-6 2 5 8 4 3 9 1122 424 24 2424242 0) ) 
 
 
   
