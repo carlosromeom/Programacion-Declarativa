@@ -1,0 +1,157 @@
+(require racket/vector)
+(include "trabajo")
+;(include "competicionAlgoritmos")
+(require (lib "graphics.ss" "graphics"))
+
+
+
+;Burbuja
+;(define (pedirElemento)
+  ;(define menu (new frame% [label "Pedir elemento"]))
+  ;(define n (new text-field% [parent menu] [style (list 'single 'vertical-label)]
+   ;                          [label "Introduzca el elemento del vector"] [init-value (number->string 1)]))
+  ;(display "P")
+
+  ;(define (devolverNumero button event)
+    ;(display button)
+    ;(display event)
+   ; (display "hola")
+   ; )
+  
+
+  ;(define botonOK (new button% [parent menu] [label "OK"] [callback devolverNumero]))
+  
+
+  
+  ;)
+
+
+(define (pedirElemento)
+  (define menu (new frame% [label "Nuevo elemento"]))
+  (define elemento (new text-field% [parent menu] [style (list 'single 'vertical-label)]
+                             [label "Introduzca el nuevo elemento del vector"] [init-value (number->string 1)]))
+
+
+(define (clickenbotonOK2 button event)
+  ;(display button)
+  ;(display event)
+  (define nuevoElemento (string->number (send elemento get-value)))
+  ;(display nuevoElemento)
+  ;(send menu show #f)
+  (set! elemento nuevoElemento)
+  (send menu show #f)
+  )
+  
+  (define botonOK (new button% [parent menu] [label "OK"][callback clickenbotonOK2] ))
+  elemento
+  (send menu show #t)
+  )
+(pedirElemento)
+
+
+(define (rellenarVector button event)
+  
+  (define menu (new frame% [label "Rellenar vector"]))
+  (define tamanyoVector (new text-field% [parent menu] [style (list 'single 'vertical-label)]
+                             [label "Numero de elementos"] [init-value (number->string 1)]))
+
+
+  (define (clickenbotonOK button event)
+    (define nuevoTamanyoVector (string->number (send tamanyoVector get-value)))
+    (display nuevoTamanyoVector)
+    
+    (define (aux nuevoTamanyoVector)
+      (do
+          (
+           (i 0 (+ i 1))
+           (vector2 (vector) (vector-append (vector (pedirElemento)) vector2 ) )
+           )
+        
+        ( (= i nuevoTamanyoVector) vector2)
+        )
+      )
+    
+    (burbuja (aux nuevoTamanyoVector))
+    (send menu show #f)
+    (programa)
+    )
+
+
+
+
+  (define botonOK (new button% [parent menu] [label "OK"][callback clickenbotonOK] ))
+  (send menu show #t)
+
+
+
+
+
+
+  
+)
+
+
+
+
+
+
+(define (rellenarVectorAleatorios button event)
+  
+  (define menu (new frame% [label "Rellenar vector"]))
+  (define tamanyoVector (new text-field% [parent menu] [style (list 'single 'vertical-label)]
+                             [label "Numero de elementos"] [init-value (number->string 1)]))
+
+  (define (clickenbotonOK button event)
+    (define nuevoTamanyoVector (string->number (send tamanyoVector get-value)))
+    ;(define vector (make-vector nuevoTamanyoVector))
+    (define (aux nuevoTamanyoVector)
+      (do
+          (
+           (i 0 (+ i 1))
+           (vector2 (vector) (vector-append vector2 (vector (inexact->exact (round (* 10 (random)))))))
+           )
+        ( (= i nuevoTamanyoVector) vector2)
+        )
+      )
+    (burbuja (aux nuevoTamanyoVector))
+    (send menu show #f)
+    (programa)
+    )
+  
+                  
+      
+  (define botonOK (new button% [parent menu] [label "OK"] [callback clickenbotonOK]))
+  (send menu show #t)
+  
+  )
+
+
+(define (AuxBurbujaAscendente button event)
+  (define menu2 (new frame% [label "Burbuja ascendente"]))
+  (define boton1 (new button% [parent menu2] [label "Rellenar vector"] [callback rellenarVector]))
+  (define boton2 (new button% [parent menu2] [label "Rellenar vector con valores aleatorios"] [callback rellenarVectorAleatorios]))
+  (send menu2 show #t)
+  )
+
+
+
+
+
+
+
+(define (programa)
+  (define menu (new frame% [label "Menu principal"]))
+  ;(define panel-central (new horizontal-panel% [parent menu] [alignment '(center center)]))
+  
+  (define boton1 (new button% [parent menu] [label "Burbuja ascendente"] [callback AuxBurbujaAscendente]))
+  ;(define boton1 (new button% [parent menu] [label "Prueba"] [callback prueba]))
+  
+ (send menu show #t)
+
+
+
+
+
+  )
+
+;(programa)
