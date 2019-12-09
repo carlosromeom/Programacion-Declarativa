@@ -93,24 +93,31 @@
 (define (buscarPosicion vector2 n i)
   (if (= (vector-length vector2) 0)
       0
-      (if (< n (vector-ref vector2 i)) 
+      (if (<= n (vector-ref vector2 i)) 
           i
-          (buscarPosicion vector2 n (+ i 1))
+          (if ( <= (+ i 1) (- (vector-length vector2) 1))
+              (buscarPosicion vector2 n (+ i 1))
+              (vector-length vector2) 
+              )
           )
       )
   )
 ;(buscarPosicion #(1 2 4 0) 3 0)
 
 (define (insertar i vector2 n)
+  ;(if (= i (- (vector-length vector2) 1))
+      ;(vector-append vector2 (vector n))
   
-  (define aux (vector-copy vector2 i (vector-length vector2)))
-  (if (= i 0)
-      (vector-append (vector n) vector2)
-      (if (= i (- (vector-length vector2)))
-          (vector-append vector2 (vector n) )
-          (vector-append (vector-append (vector-copy vector2 0 i) (vector n)) aux)
+      ;(define aux (vector-copy vector2 i (vector-length vector2)))
+  
+      (if (= i 0)
+          (vector-append (vector n) vector2)
+          (if (= i (vector-length vector2)   )
+              (vector-append vector2 (vector n) )
+              (vector-append (vector-append (vector-copy vector2 0 i) (vector n)) (vector-copy vector2 i (vector-length vector2)))
+              )
           )
-      )
+      ;)
   )
 
 ;(insertar (buscarPosicion #(1 2 4 0) 3 0) #(1 2 4 0) 3)
@@ -135,14 +142,15 @@
        (vector2 #() (ordenarVector vector vector2 i))
        )
     ;condicion y sentencia de salida
-    ( (= i (vector-length vector))  vector2)
+    ( (=  (vector-length vector)  (vector-length vector2)) vector2)
     )
   )
 
 ;(insertionSort #(5 1 0 4))
 ;(insertionSort #(5 1 0 4 -1))
-;(insertionSort #( 42 21 4 0))
+;(insertionSort #( 42 21 4 0 42))
 ;(insertionSort (vector  42 21 4 0))
+;(insertionSort #(2 99 4 6))
 ;(insertionSort (vector  42 21 4 0 95 3 3 535 5 34 3 5 34 3 43 34 3 54 4 54 54  65 667 7 4 53 6 7 57 3 5 7  4 5 3 6 5 7 57 6 86 7 3 5 4 7 6 8 7 8 4 3 5 5 85 78 4 8 58 4 37 36 3 6 3 6363 6 4 7  36 6))
 
 
@@ -213,7 +221,7 @@
 
 ;(QuickSort #(-6 2 5 8 4 3 9 1122 424 24 2424242 0) )
 ;(QuickSort (vector 4 42 21 4 0))
-
+;(QuickSort #(2 99 4 6 1 4 -5 56 45567 49 76 90 7 -5 73 ))
 
 
 
@@ -278,6 +286,7 @@
 ;(seleccionSort #(2 3 4 21 0 1 3))
 ;(seleccionSort #(2 3 4 2 21 0 1 3))
 ;(seleccionSort #(2 3 4 2 21 0 3 1 3))
+;(seleccionSort #(2 99 4 6 1 4  56 -5 45567 49 76 90 7 -5 73 ))
 
 
 
@@ -345,6 +354,7 @@
   )
 
 ;(burbuja (vector 4 42 21 4 0))
+;(burbuja (vector 2 99 4 6 1 4 -5 56 45567 49 76 90 7 -5 73 ))
 
 
 

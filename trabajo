@@ -419,23 +419,31 @@
 (define (buscarPosicion vector2 n i)
   (if (= (vector-length vector2) 0)
       0
-      (if (< n (vector-ref vector2 i)) 
+      (if (<= n (vector-ref vector2 i)) 
           i
-          (buscarPosicion vector2 n (+ i 1))
+          (if ( <= (+ i 1) (- (vector-length vector2) 1))
+              (buscarPosicion vector2 n (+ i 1))
+              (vector-length vector2) 
+              )
           )
       )
   )
 ;(buscarPosicion #(1 2 4 0) 3 0)
 
 (define (insertar i vector2 n)
-  (define aux (vector-copy vector2 i (vector-length vector2)))
-  (if (= i 0)
-      (vector-append (vector n) vector2)
-      (if (= i (- (vector-length vector2)))
-          (vector-append vector2 (vector n) )
-          (vector-append (vector-append (vector-copy vector2 0 i) (vector n)) aux)
+  ;(if (= i (- (vector-length vector2) 1))
+      ;(vector-append vector2 (vector n))
+  
+      ;(define aux (vector-copy vector2 i (vector-length vector2)))
+  
+      (if (= i 0)
+          (vector-append (vector n) vector2)
+          (if (= i (vector-length vector2)   )
+              (vector-append vector2 (vector n) )
+              (vector-append (vector-append (vector-copy vector2 0 i) (vector n)) (vector-copy vector2 i (vector-length vector2)))
+              )
           )
-      )
+      ;)
   )
 ;(insertar (buscarPosicion #(1 2 4 0) 3 0) #(1 2 4 0) 3)
 ;(insertar 0 #(1 2 4 3) 0)
@@ -516,6 +524,7 @@
 
 ;(insertionSort #(5 1 0 4))
 ;(insertionSort #(5 1 0 4 -1))
+;(insertionSort #(2 99 4 6))
 
 
 
