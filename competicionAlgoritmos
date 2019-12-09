@@ -1,4 +1,5 @@
 (require racket/vector)
+(include "trabajo")
 (require (lib "graphics.ss" "graphics"))
 ;Aqui se guardan los algoritmos de ordenacion modificados para la competicion entre ellos
 
@@ -208,14 +209,14 @@
                 )           
              (append (ordenarporPivote listaIzquierda) (list pivote) (ordenarporPivote listaDerecha))
              )
-         )
+        )
       )
   )
 
 
 (define (QuickSort vector)
   (list->vector (ordenarporPivote (vector->list vector)))
-)
+  )
  
  
 
@@ -296,17 +297,17 @@
 (define (modificarVector vector2 i) 
   (define aux 0)
   (if (not (= i (- (vector-length vector2) 1)))
-  (cond
-    (
-     (and (> (vector-ref vector2 i) (vector-ref vector2 (+ i 1))))
+      (cond
+        (
+         (and (> (vector-ref vector2 i) (vector-ref vector2 (+ i 1))))
      
-     (set! aux (vector-ref vector2 i))
-     (vector-set! vector2 i (vector-ref vector2 (+ i 1)) )
-     (vector-set! vector2 (+ i 1) aux )
-     )
+         (set! aux (vector-ref vector2 i))
+         (vector-set! vector2 i (vector-ref vector2 (+ i 1)) )
+         (vector-set! vector2 (+ i 1) aux )
+         )
       
-     )
-  ) 
+        )
+      ) 
   vector2
   )
 
@@ -336,19 +337,19 @@
 (define (burbuja vector)
   (define (aux4 vector)
     (do
-         (;definicion de variables
-          (i 0 (+ i 1))
-          (vector2 vector (modificarVector vector2 i) )
-          )
-          ;condicion y sentencia de salida
-          ( ( = i (vector-length vector)) vector)
-          )
+        (;definicion de variables
+         (i 0 (+ i 1))
+         (vector2 vector (modificarVector vector2 i) )
+         )
+      ;condicion y sentencia de salida
+      ( ( = i (vector-length vector)) vector)
+      )
     )
   
   (define vec (aux4 vector))
 
   (if (ordenado? vec)
-       vec
+      vec
       (burbuja vec)
       )
   )
@@ -362,14 +363,15 @@
 (define (competicion vector)
   (define lista (vector->list vector))
   (define vector2 vector) 
+  ;(define resultados '(2 3 5 9 7))
   (define resultados '())
   (define date1 0)
   (define date2 0)
 
-   ;INSERCCION
+  ;INSERCCION
   (set! date1 (current-seconds))
-  ;(display "Inserccion   ")
-  (insertionSort vector2)
+  (display "Inserccion   ")
+  (display (insertionSort vector2))
   ;(newline)
   (set! date2 (current-seconds))
   (display "Inserccion    ")
@@ -379,77 +381,105 @@
 
   ;MERGE SORT
   (set! date1 (current-seconds))
-  ;(display "MergeSort  ")
-  (mergeSort lista)
+  (display "MergeSort  ")
+  (display (mergeSort lista))
   ;(newline)
   (set! date2 (current-seconds))
   (newline)
-   (display "merge    ")
+  (display "merge    ")
   (display (- date2 date1))
 
   (append resultados (list (- date2 date1)))
 
   ;BURBUJA
   (set! date1 (current-seconds))
-  ;(display "Burbuja   ")
-  (burbuja vector2)
+  (display "Burbuja   ")
+  (display (burbuja vector2))
   ;(newline)
   (set! date2 (current-seconds))
-   (newline)
-   (display "burbuja    ")
+  (newline)
+  (display "burbuja    ")
   (display (- date2 date1))
 
   (append resultados (list (- date2 date1)))
 
   ;QUICK SORT
   (set! date1 (current-seconds))
-  ;(display "QuicSort     ")
-  (QuickSort vector)
+  (display "QuicSort     ")
+  (display (QuickSort vector))
   ;(newline)
   (set! date2 (current-seconds))
-   (newline)
-   (display "QuickSort    ")
+  (newline)
+  (display "QuickSort    ")
   (display (- date2 date1))
 
   (append resultados (list (- date2 date1)))
   
   ;SELECCION
   (set! date1 (current-seconds))
-  ;(display "Seleccion      ")
-  (seleccionSort vector2)
+  (display "Seleccion      ")
+  (display (seleccionSort vector2))
   (set! date2 (current-seconds))
-   (newline)
-   (display "seleccion    ")
+  (newline)
+  (display "seleccion    ")
   (display (- date2 date1))
 
   (append resultados (list (- date2 date1)))
 
   
   ;Muestro los resultados
+  (if (= (length resultados) 0)
+      (mensaje "Introduzca mas elementos")
 
-  (open-graphics)
-  (define ventana1 (open-viewport "Resultados de la competicion" (+ (* (length lista) 10) 500) 800 ) )
+      (and
+
+       (open-graphics)
+       (let
+           (
+            ;(define ventana1 (open-viewport "Resultados de la competicion" (+ (* (length lista) 10) 500) 800 ) )
+            )
+         (define ventana1 (open-viewport "Resultados de la competicion" (+ (* (length lista) 10) 500) 800 ) )
  
-  ;(define (aux lista ventana1)
-    (do
-        (;valores del bucle
-         (i 0 (+ i 1))
-         (posicionenPantalla 50 (+ posicionenPantalla 24))
+         ;(define (aux lista ventana1)
+         (do
+             (;valores del bucle
+              (i 0 (+ i 1))
+              (posicionenPantalla 50 (+ posicionenPantalla 24))
+              )
+           ;condición y sentencia de salida
+           ( (= i (length resultados   ) ))
+
+           ;cuerpo del bucle
+           ( (draw-solid-rectangle ventana1) (make-posn posicionenPantalla (- 750(* 10 (list-ref resultados i))) ) 9 (* 10 (list-ref resultados i)) "green")
+           ( (draw-string ventana1) (make-posn posicionenPantalla 770 ) (number->string(vector-ref (list->vector resultados) i )  )     )
+           (if (= i 0)
+               ( (draw-string ventana1) (make-posn posicionenPantalla 790 ) "I" )
+               
+               (if (= i 1)
+                   ( (draw-string ventana1) (make-posn posicionenPantalla 790 ) "M" )
+                   
+                   (if (= i 2)
+                       ( (draw-string ventana1) (make-posn posicionenPantalla 790 ) "B" )
+
+                       (if (= i 3)
+                           ( (draw-string ventana1) (make-posn posicionenPantalla 790 ) "Q" )
+                           ( (draw-string ventana1) (make-posn posicionenPantalla 790 ) "S" )
+                           )
+                       )
+                   )
+               )
+           )
          )
-      ;condición y sentencia de salida
-      ( (= i (length lista   )) )
-
-      ;cuerpo del bucle
-      ( (draw-solid-rectangle ventana1) (make-posn posicionenPantalla (- 750(* 10 (list-ref lista i))) ) 9 (* 10 (list-ref lista i)) "green")
-      ( (draw-string ventana1) (make-posn posicionenPantalla 770 ) (number->string(vector-ref (list->vector lista) i )  )     )
+       (mensaje "Continuar...?")
+       (close-graphics)
+       )
       )
-    ;)
-        
-  
-
-
-  
-  
   )
+    
 
-;(competicion (vector  42 21 4 0 95 3 3 535 5 34 3 5 34 3 43 34 3 54 4 54 54  65 667 7 4 53 6 7 57 3 5 7  4 5 3 6 5 7 57 6 86 7 3 5 4 7 6 8 7 8 4 3 5 5 85 78 4 8 58 4 37 36 3 6 3 6363 6 4 7  36 6))
+
+  
+  
+  
+
+;(competicion (vector  42 21 4 9 0 95 3 3 535 5 34 3 5 34 3 43 34 3 54 4 54 54  65 667 7 4 53 6 7 57 3 5 7  4 5 3 6 5 7 57 6 86 7 3 5 4 7 6 8 7 8 4 3 5 5 85 78 4 8 58 4 37 36 3 6 3 6363 6 4 7  36 6))
