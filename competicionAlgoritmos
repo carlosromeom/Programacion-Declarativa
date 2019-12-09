@@ -7,7 +7,7 @@
 ;;MERGE SORT
 
 ;; 
-;; Nombre: mergeSort
+;; Nombre: mergeSort2
 ;; Objetivo: Función que dada una lista de números, la ordena según el método mergeSort.
 ;; Parámetros:
 ;;         lista: lista de números a ordenar.
@@ -65,26 +65,26 @@
       '()
       (if (and (= (length lista1) 0) (>= (length lista2) 1))
           (sort ( append '() lista2 )<) 
-            (if (and (>= (length lista1) 1) (= (length lista2) 0))
-               (sort (append lista1 '() )<)
-                (sort(append lista1 lista2)<)
-                )
-            )
+          (if (and (>= (length lista1) 1) (= (length lista2) 0))
+              (sort (append lista1 '() )<)
+              (sort(append lista1 lista2)<)
+              )
+          )
       )
   )
 
 ;(merge '( 1 9 3) '(4 5 6))
 
-(define (mergeSort lista)
+(define (mergeSort2 lista)
   ;primero se le hace un split
   (define listaDividida (split lista) )
 
   ;ahora se hace un merge
   (merge (car listaDividida) (car (cdr listaDividida))) 
-)
+  )
 
-;(mergeSort  '(5 4 9 3 2))
-;(mergeSort (vector->list #(4 42 21 4 0)))
+;(mergeSort2  '(5 4 9 3 2))
+;(mergeSort2 (vector->list #(4 42 21 4 0)))
 
 
 
@@ -107,18 +107,18 @@
 
 (define (insertar i vector2 n)
   ;(if (= i (- (vector-length vector2) 1))
-      ;(vector-append vector2 (vector n))
+  ;(vector-append vector2 (vector n))
   
-      ;(define aux (vector-copy vector2 i (vector-length vector2)))
+  ;(define aux (vector-copy vector2 i (vector-length vector2)))
   
-      (if (= i 0)
-          (vector-append (vector n) vector2)
-          (if (= i (vector-length vector2)   )
-              (vector-append vector2 (vector n) )
-              (vector-append (vector-append (vector-copy vector2 0 i) (vector n)) (vector-copy vector2 i (vector-length vector2)))
-              )
+  (if (= i 0)
+      (vector-append (vector n) vector2)
+      (if (= i (vector-length vector2)   )
+          (vector-append vector2 (vector n) )
+          (vector-append (vector-append (vector-copy vector2 0 i) (vector n)) (vector-copy vector2 i (vector-length vector2)))
           )
-      ;)
+      )
+  ;)
   )
 
 ;(insertar (buscarPosicion #(1 2 4 0) 3 0) #(1 2 4 0) 3)
@@ -128,15 +128,15 @@
 
 (define (ordenarVector vector vector2 u)
   (if (= u (- (vector-length vector) 1))
-       (insertar (buscarPosicion vector2 (vector-ref vector u) 0) vector2 (vector-ref vector u))
-       (insertar (buscarPosicion vector2 (vector-ref vector u) 0 ) vector2 (vector-ref vector u ))
+      (insertar (buscarPosicion vector2 (vector-ref vector u) 0) vector2 (vector-ref vector u))
+      (insertar (buscarPosicion vector2 (vector-ref vector u) 0 ) vector2 (vector-ref vector u ))
        
       )
   )
 
 
 
-(define (insertionSort vector) 
+(define (insertionSort2 vector) 
   (do
       (;definicion de variables
        (i 0 (+ i 1))
@@ -147,12 +147,12 @@
     )
   )
 
-;(insertionSort #(5 1 0 4))
-;(insertionSort #(5 1 0 4 -1))
-;(insertionSort #( 42 21 4 0 42))
-;(insertionSort (vector  42 21 4 0))
-;(insertionSort #(2 99 4 6))
-;(insertionSort (vector  42 21 4 0 95 3 3 535 5 34 3 5 34 3 43 34 3 54 4 54 54  65 667 7 4 53 6 7 57 3 5 7  4 5 3 6 5 7 57 6 86 7 3 5 4 7 6 8 7 8 4 3 5 5 85 78 4 8 58 4 37 36 3 6 3 6363 6 4 7  36 6))
+;(insertionSort2 #(5 1 0 4))
+;(insertionSort2 #(5 1 0 4 -1))
+;(insertionSort2 #( 42 21 4 0 42))
+;(insertionSort2 (vector  42 21 4 0))
+;(insertionSort2 #(2 99 4 6))
+;(insertionSort2 (vector  42 21 4 0 95 3 3 535 5 34 3 5 34 3 43 34 3 54 4 54 54  65 667 7 4 53 6 7 57 3 5 7  4 5 3 6 5 7 57 6 86 7 3 5 4 7 6 8 7 8 4 3 5 5 85 78 4 8 58 4 37 36 3 6 3 6363 6 4 7  36 6))
 
 
 
@@ -174,25 +174,25 @@
 
 
 (define (auxIzquierda lista pivote listaOrdenada)
-    (if (= (length lista) 0)
-        listaOrdenada
-        (if (< (car lista) pivote)
-            (auxIzquierda (cdr lista) pivote (append listaOrdenada (list (car lista))))
-            (auxIzquierda (cdr lista) pivote listaOrdenada)
-            )
-        )
-    )
+  (if (= (length lista) 0)
+      listaOrdenada
+      (if (< (car lista) pivote)
+          (auxIzquierda (cdr lista) pivote (append listaOrdenada (list (car lista))))
+          (auxIzquierda (cdr lista) pivote listaOrdenada)
+          )
+      )
+  )
 
 
 (define (auxDerecha lista pivote listaOrdenada)
-    (if (= (length lista) 0)
-        listaOrdenada
-        (if (> (car lista) pivote)
-            (auxDerecha (cdr lista) pivote (append listaOrdenada (list (car lista))))
-            (auxDerecha (cdr lista) pivote listaOrdenada)
-            )
-        )
-    )
+  (if (= (length lista) 0)
+      listaOrdenada
+      (if (> (car lista) pivote)
+          (auxDerecha (cdr lista) pivote (append listaOrdenada (list (car lista))))
+          (auxDerecha (cdr lista) pivote listaOrdenada)
+          )
+      )
+  )
 
 
 (define (ordenarporPivote lista)
@@ -202,27 +202,27 @@
           (
            (pivote (sacarPivote lista))
            )
-           (let
-               (
-                (listaIzquierda (auxIzquierda lista pivote (list)))
-                (listaDerecha (auxDerecha lista pivote (list)))
-                )           
-             (append (ordenarporPivote listaIzquierda) (list pivote) (ordenarporPivote listaDerecha))
-             )
+        (let
+            (
+             (listaIzquierda (auxIzquierda lista pivote (list)))
+             (listaDerecha (auxDerecha lista pivote (list)))
+             )           
+          (append (ordenarporPivote listaIzquierda) (list pivote) (ordenarporPivote listaDerecha))
+          )
         )
       )
   )
 
 
-(define (QuickSort vector)
+(define (QuickSort2 vector)
   (list->vector (ordenarporPivote (vector->list vector)))
   )
  
  
 
-;(QuickSort #(-6 2 5 8 4 3 9 1122 424 24 2424242 0) )
-;(QuickSort (vector 4 42 21 4 0))
-;(QuickSort #(2 99 4 6 1 4 -5 56 45567 49 76 90 7 -5 73 ))
+;(QuickSort2 #(-6 2 5 8 4 3 9 1122 424 24 2424242 0) )
+;(QuickSort2 (vector 4 42 21 4 0))
+;(QuickSort2 #(2 99 4 6 1 4 -5 56 45567 49 76 90 7 -5 73 ))
 
 
 
@@ -247,7 +247,7 @@
 
 
 
-(define (seleccionSort vector)
+(define (seleccionSort2 vector)
   (define (aux lista minimos i)
     ; (open-graphics)
     ;(define ventana1 (open-viewport "Minimo del vector" (+ (* (vector-length vector) 10) 100) 800 ) )
@@ -282,12 +282,12 @@
   (aux (vector->list (aux2 vector)) (list) 0)
   )
 
-;(seleccionSort #(2 3 4 21 0 1))
-;(seleccionSort #(2 3 4 -21 0 1))
-;(seleccionSort #(2 3 4 21 0 1 3))
-;(seleccionSort #(2 3 4 2 21 0 1 3))
-;(seleccionSort #(2 3 4 2 21 0 3 1 3))
-;(seleccionSort #(2 99 4 6 1 4  56 -5 45567 49 76 90 7 -5 73 ))
+;(seleccionSort2 #(2 3 4 21 0 1))
+;(seleccionSort2 #(2 3 4 -21 0 1))
+;(seleccionSort2 #(2 3 4 21 0 1 3))
+;(seleccionSort2 #(2 3 4 2 21 0 1 3))
+;(seleccionSort2 #(2 3 4 2 21 0 3 1 3))
+;(seleccionSort2 #(2 99 4 6 1 4  56 -5 45567 49 76 90 7 -5 73 ))
 
 
 
@@ -334,7 +334,7 @@
 
 
 
-(define (burbuja vector)
+(define (burbuja2 vector)
   (define (aux4 vector)
     (do
         (;definicion de variables
@@ -350,12 +350,12 @@
 
   (if (ordenado? vec)
       vec
-      (burbuja vec)
+      (burbuja2 vec)
       )
   )
 
-;(burbuja (vector 4 42 21 4 0))
-;(burbuja (vector 2 99 4 6 1 4 -5 56 45567 49 76 90 7 -5 73 ))
+;(burbuja2 (vector 4 42 21 4 0))
+;(burbuja2 (vector 2 99 4 6 1 4 -5 56 45567 49 76 90 7 -5 73 ))
 
 
 
@@ -371,7 +371,7 @@
   ;INSERCCION
   (set! date1 (current-seconds))
   (display "Inserccion   ")
-  (display (insertionSort vector2))
+  (display (insertionSort2 vector2))
   ;(newline)
   (set! date2 (current-seconds))
   (display "Inserccion    ")
@@ -382,7 +382,7 @@
   ;MERGE SORT
   (set! date1 (current-seconds))
   (display "MergeSort  ")
-  (display (mergeSort lista))
+  (display (mergeSort2 lista))
   ;(newline)
   (set! date2 (current-seconds))
   (newline)
@@ -394,7 +394,7 @@
   ;BURBUJA
   (set! date1 (current-seconds))
   (display "Burbuja   ")
-  (display (burbuja vector2))
+  (display (burbuja2 vector2))
   ;(newline)
   (set! date2 (current-seconds))
   (newline)
@@ -406,7 +406,7 @@
   ;QUICK SORT
   (set! date1 (current-seconds))
   (display "QuicSort     ")
-  (display (QuickSort vector))
+  (display (QuickSort2 vector))
   ;(newline)
   (set! date2 (current-seconds))
   (newline)
@@ -418,7 +418,7 @@
   ;SELECCION
   (set! date1 (current-seconds))
   (display "Seleccion      ")
-  (display (seleccionSort vector2))
+  (display (seleccionSort2 vector2))
   (set! date2 (current-seconds))
   (newline)
   (display "seleccion    ")
