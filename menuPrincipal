@@ -7,6 +7,17 @@
 
 ;;BURBUJA
 
+;; 
+;; Nombre: rellenarVector
+;; Objetivo: Función para rellenar un vector de tamaño decidido mediante la entrada por teclado del usuario, después, le aplica el algoritmo de ordenación burbuja ascendente.
+;; Parámetros:
+;;         button: Parámetro de la interfaz gráfica.
+;;         event: Parámetro de la interfaz gráfica.
+;; Resultado: 
+;;         Se aplica la ordenación al vector.
+;; Funciones a las que llama: funciones auxiliares, programa y burbuja.
+;;
+
 (define (rellenarVector button event)
   
   (define menu (new frame% [label "Rellenar vector"]))
@@ -45,7 +56,16 @@
 
 
 
-
+;; 
+;; Nombre: rellenarVectorAleatorios
+;; Objetivo: Función para rellenar un vector de tamaño decidido mediante números aleatorios, después, le aplica el algoritmo de ordenación burbuja ascendente.
+;; Parámetros:
+;;         button: Parámetro de la interfaz gráfica.
+;;         event: Parámetro de la interfaz gráfica.
+;; Resultado: 
+;;         Se aplica la ordenación al vector.
+;; Funciones a las que llama: funciones auxiliares, programa y burbuja.
+;;
 
 (define (rellenarVectorAleatorios button event)
   
@@ -55,7 +75,7 @@
 
   (define (clickenbotonOK button event)
     (define nuevoTamanyoVector (string->number (send tamanyoVector get-value)))
-    ;(define vector (make-vector nuevoTamanyoVector))
+
     (define (aux nuevoTamanyoVector)
       (do
           (
@@ -77,6 +97,16 @@
   
   )
 
+;; 
+;; Nombre: cargarFichero
+;; Objetivo: Función para rellenar un vector de tamaño decidido mediante la entrada por un fihcero, después, le aplica el algoritmo de ordenación burbuja ascendente.
+;; Parámetros:
+;;         button: Parámetro de la interfaz gráfica.
+;;         event: Parámetro de la interfaz gráfica.
+;; Resultado: 
+;;         Se aplica la ordenación al vector.
+;; Funciones a las que llama: funciones auxiliares, programa y burbuja.
+;;
 
 (define (cargarFichero button event)
   (mensaje "Introduzca el nombre del fichero (use comillas)")
@@ -92,6 +122,17 @@
       )
   (programa)
   )
+
+;; 
+;; Nombre: AuxBurbujaAscendente
+;; Objetivo: Función auxiliar para mostrar el menú con las opciones del algoritmo burbuja ascendente.
+;; Parámetros:
+;;         button: Parámetro de la interfaz gráfica.
+;;         event: Parámetro de la interfaz gráfica.
+;; Resultado: 
+;;         Se aplica la opción elegida
+;; Funciones a las que llama: funcion elegida.
+;;
 
 
 (define (AuxBurbujaAscendente button event)
@@ -111,6 +152,17 @@
 
 
 ;;MERGE SORT
+
+;; 
+;; Nombre: rellenarVectorAleatoriosMG
+;; Objetivo: Función para rellenar un vector de tamaño decidido mediante números aleatorios, después, le aplica el algoritmo de ordenación Merge sort ascendente.
+;; Parámetros:
+;;         button: Parámetro de la interfaz gráfica.
+;;         event: Parámetro de la interfaz gráfica.
+;; Resultado: 
+;;         Se aplica la ordenación al vector.
+;; Funciones a las que llama: funciones auxiliares, programa y mergeSort.
+;;
 (define (rellenarVectorAleatoriosMG button event)
   
   (define menu (new frame% [label "Rellenar vector"]))
@@ -145,6 +197,17 @@
   )
 
 
+;; 
+;; Nombre: cargarFicheroMG
+;; Objetivo: Función para rellenar un vector de tamaño decidido mediante la entrada de un fichero, después, le aplica el algoritmo de ordenación merge sort ascendente.
+;; Parámetros:
+;;         button: Parámetro de la interfaz gráfica.
+;;         event: Parámetro de la interfaz gráfica.
+;; Resultado: 
+;;         Se aplica la ordenación al vector.
+;; Funciones a las que llama: funciones auxiliares, programa y mergeSort.
+;;
+
 (define (cargarFicheroMG button event)
   (mensaje "Introduzca el nombre del fichero (use comillas)")
   (define fichero (read))
@@ -161,7 +224,16 @@
   )
 
 
-
+;; 
+;; Nombre: rellenarVectorMG
+;; Objetivo: Función para rellenar un vector de tamaño decidido mediante la entrada por teclado del usuario, después, le aplica el algoritmo de ordenación merge sort ascendente.
+;; Parámetros:
+;;         button: Parámetro de la interfaz gráfica.
+;;         event: Parámetro de la interfaz gráfica.
+;; Resultado: 
+;;         Se aplica la ordenación al vector.
+;; Funciones a las que llama: funciones auxiliares, programa y mergeSort.
+;;
 
 
 (define (rellenarVectorMG button event)
@@ -202,6 +274,18 @@
   )
 
 
+
+;; 
+;; Nombre: AuxMergeSortAscendente
+;; Objetivo: Función auxiliar para mostrar el menú con las opciones del algoritmo merge sort ascendente.
+;; Parámetros:
+;;         button: Parámetro de la interfaz gráfica.
+;;         event: Parámetro de la interfaz gráfica.
+;; Resultado: 
+;;         Se aplica la opción elegida
+;; Funciones a las que llama: funcion elegida.
+;;
+
 (define (AuxMergeSortAscendente button event)
   (define (volverMenu button event)
     (close-graphics)
@@ -219,6 +303,18 @@
 
 
 ;;QUICK SORT
+
+;; 
+;; Nombre: rellenarVectorQS
+;; Objetivo: Función para rellenar un vector de tamaño decidido mediante la entrada por teclado del usuario, después, le aplica el algoritmo de ordenación quick sort ascendente.
+;; Parámetros:
+;;         button: Parámetro de la interfaz gráfica.
+;;         event: Parámetro de la interfaz gráfica.
+;; Resultado: 
+;;         Se aplica la ordenación al vector.
+;; Funciones a las que llama: funciones auxiliares, programa y quickSort.
+;;
+
 (define (rellenarVectorQS button event)
   
   (define menu (new frame% [label "Rellenar vector"]))
@@ -257,6 +353,18 @@
   )
 
 
+
+;; 
+;; Nombre: rellenarVectorAleatorioQS
+;; Objetivo: Función para rellenar un vector de tamaño decidido mediante valores aleatorios, después, le aplica el algoritmo de ordenación quick sort ascendente.
+;; Parámetros:
+;;         button: Parámetro de la interfaz gráfica.
+;;         event: Parámetro de la interfaz gráfica.
+;; Resultado: 
+;;         Se aplica la ordenación al vector.
+;; Funciones a las que llama: funciones auxiliares, programa y quickSort.
+;;
+
 (define (rellenarVectorAleatoriosQS button event)
   
   (define menu (new frame% [label "Rellenar vector"]))
@@ -289,6 +397,18 @@
   )
 
 
+
+;; 
+;; Nombre: cargarFicheroQS
+;; Objetivo: Función para rellenar un vector de tamaño decidido mediante la entrada de un fichero, después, le aplica el algoritmo de ordenación quick sort ascendente.
+;; Parámetros:
+;;         button: Parámetro de la interfaz gráfica.
+;;         event: Parámetro de la interfaz gráfica.
+;; Resultado: 
+;;         Se aplica la ordenación al vector.
+;; Funciones a las que llama: funciones auxiliares, programa y quickSort.
+;;
+
 (define (cargarFicheroQS button event)
   (mensaje "Introduzca el nombre del fichero (use comillas)")
   (define fichero (read))
@@ -306,6 +426,17 @@
 
 
 
+;; 
+;; Nombre: AuxQuickSortAscendente
+;; Objetivo: Función auxiliar para mostrar el menú con las opciones del algoritmo quick sort ascendente.
+;; Parámetros:
+;;         button: Parámetro de la interfaz gráfica.
+;;         event: Parámetro de la interfaz gráfica.
+;; Resultado: 
+;;         Se aplica la opción elegida
+;; Funciones a las que llama: funcion elegida.
+;;
+
 (define (AuxQuickSortAscendente button event)
   (define (volverMenu button event)
     (close-graphics)
@@ -321,6 +452,18 @@
   )
 
 ;;SELECCION
+
+;; 
+;; Nombre: rellenarVectorS
+;; Objetivo: Función para rellenar un vector de tamaño decidido mediante la entrada de usuario, después, le aplica el algoritmo de ordenación por selección ascendente.
+;; Parámetros:
+;;         button: Parámetro de la interfaz gráfica.
+;;         event: Parámetro de la interfaz gráfica.
+;; Resultado: 
+;;         Se aplica la ordenación al vector.
+;; Funciones a las que llama: funciones auxiliares, programa y seleccionSort.
+;;
+
 (define (rellenarVectorS button event)
   
   (define menu (new frame% [label "Rellenar vector"]))
@@ -358,6 +501,18 @@
  
   )
 
+
+;; 
+;; Nombre: rellenarVectorAleatoriosS
+;; Objetivo: Función para rellenar un vector de tamaño decidido mediante valores aleatorios, después, le aplica el algoritmo de ordenación por selección ascendente.
+;; Parámetros:
+;;         button: Parámetro de la interfaz gráfica.
+;;         event: Parámetro de la interfaz gráfica.
+;; Resultado: 
+;;         Se aplica la ordenación al vector.
+;; Funciones a las que llama: funciones auxiliares, programa y seleccionSort.
+;;
+
 (define (rellenarVectorAleatoriosS button event)
   
   (define menu (new frame% [label "Rellenar vector"]))
@@ -389,6 +544,18 @@
   
   )
 
+
+
+;; 
+;; Nombre: cargarFicheroS
+;; Objetivo: Función para rellenar un vector de tamaño decidido mediante la entrada de fichero, después, le aplica el algoritmo de ordenación por selección ascendente.
+;; Parámetros:
+;;         button: Parámetro de la interfaz gráfica.
+;;         event: Parámetro de la interfaz gráfica.
+;; Resultado: 
+;;         Se aplica la ordenación al vector.
+;; Funciones a las que llama: funciones auxiliares, programa y seleccionSort.
+;;
 (define (cargarFicheroS button event)
   (mensaje "Introduzca el nombre del fichero (use comillas)")
   (define fichero (read))
@@ -403,6 +570,18 @@
       )
   (programa)
   )
+
+
+;; 
+;; Nombre: AuxSeleccionAscendente
+;; Objetivo: Función auxiliar para mostrar el menú con las opciones del algoritmo de ordenación por selección ascendente.
+;; Parámetros:
+;;         button: Parámetro de la interfaz gráfica.
+;;         event: Parámetro de la interfaz gráfica.
+;; Resultado: 
+;;         Se aplica la opción elegida
+;; Funciones a las que llama: funcion elegida.
+;;
 
 (define (AuxSeleccionAscendente button event)
   (define (volverMenu button event)
@@ -420,6 +599,17 @@
 
 
 ;;INSERCCION
+
+;; 
+;; Nombre: rellenarVectorI
+;; Objetivo: Función para rellenar un vector de tamaño decidido mediante la entrada de usuario, después, le aplica el algoritmo de ordenación por inserción ascendente.
+;; Parámetros:
+;;         button: Parámetro de la interfaz gráfica.
+;;         event: Parámetro de la interfaz gráfica.
+;; Resultado: 
+;;         Se aplica la ordenación al vector.
+;; Funciones a las que llama: funciones auxiliares, programa y insertionSort.
+;;
 (define (rellenarVectorI button event)
   
   (define menu (new frame% [label "Rellenar vector"]))
@@ -456,6 +646,18 @@
   )
 
 
+
+;; 
+;; Nombre: rellenarVectorAleatoriosI
+;; Objetivo: Función para rellenar un vector de tamaño decidido mediante valores aleatorios, después, le aplica el algoritmo de ordenación por inserción ascendente.
+;; Parámetros:
+;;         button: Parámetro de la interfaz gráfica.
+;;         event: Parámetro de la interfaz gráfica.
+;; Resultado: 
+;;         Se aplica la ordenación al vector.
+;; Funciones a las que llama: funciones auxiliares, programa y insertionSort.
+;;
+
 (define (rellenarVectorAleatoriosI button event)
   
   (define menu (new frame% [label "Rellenar vector"]))
@@ -487,6 +689,19 @@
   
   )
 
+
+
+;; 
+;; Nombre: cargarFicheroI
+;; Objetivo: Función para rellenar un vector de tamaño decidido mediante la entrada de fichero, después, le aplica el algoritmo de ordenación por inserción ascendente.
+;; Parámetros:
+;;         button: Parámetro de la interfaz gráfica.
+;;         event: Parámetro de la interfaz gráfica.
+;; Resultado: 
+;;         Se aplica la ordenación al vector.
+;; Funciones a las que llama: funciones auxiliares, programa y insertionSort.
+;;
+
 (define (cargarFicheroI button event)
   (mensaje "Introduzca el nombre del fichero (use comillas)")
   (define fichero (read))
@@ -504,6 +719,18 @@
 
 
 
+
+;; 
+;; Nombre: AuxInserccionAscendente
+;; Objetivo: Función auxiliar para mostrar el menú con las opciones del algoritmo de ordenación por insercción ascendente.
+;; Parámetros:
+;;         button: Parámetro de la interfaz gráfica.
+;;         event: Parámetro de la interfaz gráfica.
+;; Resultado: 
+;;         Se aplica la opción elegida
+;; Funciones a las que llama: funcion elegida.
+;;
+
 (define (AuxInserccionAscendente button event)
   (define (volverMenu button event)
     (close-graphics)
@@ -519,6 +746,18 @@
   )
 
 ;;COMPETICION DE ALGORITMOS
+
+;; 
+;; Nombre: AuxCompeticion
+;; Objetivo: Función auxiliar para mostrar el menú con las opciones de competición de los algoritmos.
+;; Parámetros:
+;;         button: Parámetro de la interfaz gráfica.
+;;         event: Parámetro de la interfaz gráfica.
+;; Resultado: 
+;;         Se aplica la opción elegida
+;; Funciones a las que llama: funcion elegida.
+;;
+
 (define (AuxCompeticion button event)
   
   (define menu (new frame% [label "Rellenar vector"]))
@@ -553,6 +792,17 @@
 
 
 ;; BURBUJA DESCENDENTE
+
+;; 
+;; Nombre: rellenarVectorBurbujaDescendente
+;; Objetivo: Función para rellenar un vector de tamaño decidido mediante la entrada de usuario, después, le aplica el algoritmo de ordenación burbuja descendente.
+;; Parámetros:
+;;         button: Parámetro de la interfaz gráfica.
+;;         event: Parámetro de la interfaz gráfica.
+;; Resultado: 
+;;         Se aplica la ordenación al vector.
+;; Funciones a las que llama: funciones auxiliares, programa y burbujaInverso.
+;;
 
 (define (rellenarVectorBurbujaDescendente button event)
   
@@ -590,6 +840,17 @@
   )
 
 
+;; 
+;; Nombre: rellenarVectorAleatoriosBurbujaDescendente
+;; Objetivo: Función para rellenar un vector de tamaño decidido mediante valores aleatorios, después, le aplica el algoritmo de ordenación burbuja descendente.
+;; Parámetros:
+;;         button: Parámetro de la interfaz gráfica.
+;;         event: Parámetro de la interfaz gráfica.
+;; Resultado: 
+;;         Se aplica la ordenación al vector.
+;; Funciones a las que llama: funciones auxiliares, programa y burbujaInverso.
+;;
+
 (define (rellenarVectorAleatoriosBurbujaDescendente button event)
   
   (define menu (new frame% [label "Rellenar vector"]))
@@ -621,6 +882,18 @@
   
   )
 
+
+;; 
+;; Nombre: cargarFicheroBurbujaDescendente
+;; Objetivo: Función para rellenar un vector de tamaño decidido mediante la entrada de fichero, después, le aplica el algoritmo de ordenación burbuja descendente.
+;; Parámetros:
+;;         button: Parámetro de la interfaz gráfica.
+;;         event: Parámetro de la interfaz gráfica.
+;; Resultado: 
+;;         Se aplica la ordenación al vector.
+;; Funciones a las que llama: funciones auxiliares, programa y burbujaInverso.
+;;
+
 (define (cargarFicheroBurbujaDescendente button event)
   (mensaje "Introduzca el nombre del fichero (use comillas)")
   (define fichero (read))
@@ -637,7 +910,16 @@
   )
 
 
-
+;; 
+;; Nombre: AuxBurbujaDescendente
+;; Objetivo: Función auxiliar para mostrar el menú con las opciones del algoritmo de ordenación burbuja descendente.
+;; Parámetros:
+;;         button: Parámetro de la interfaz gráfica.
+;;         event: Parámetro de la interfaz gráfica.
+;; Resultado: 
+;;         Se aplica la opción elegida
+;; Funciones a las que llama: funcion elegida.
+;;
 
 (define (AuxBurbujaDescendente button event)
   (define (volverMenu button event)
@@ -653,8 +935,19 @@
   (send menu2 show #t)
   )
 
-;;MERGE SORT DESCENDIENTE
-;
+;;MERGE SORT DESCENDENTE
+
+;; 
+;; Nombre: rellenarVectorAleatoriosMGDescendente
+;; Objetivo: Función para rellenar un vector de tamaño decidido mediante valores aleatorios, después, le aplica el algoritmo de ordenación merge sort descendente.
+;; Parámetros:
+;;         button: Parámetro de la interfaz gráfica.
+;;         event: Parámetro de la interfaz gráfica.
+;; Resultado: 
+;;         Se aplica la ordenación al vector.
+;; Funciones a las que llama: funciones auxiliares, programa y mergeSortInverso.
+;;
+
 (define (rellenarVectorAleatoriosMGDescendente button event)
   
   (define menu (new frame% [label "Rellenar vector"]))
@@ -689,6 +982,18 @@
   )
 
 
+;; 
+;; Nombre: cargarFicheroMGDescendente
+;; Objetivo: Función para rellenar un vector de tamaño decidido mediante la entrada de fichero, después, le aplica el algoritmo de ordenación merge sort descendente.
+;; Parámetros:
+;;         button: Parámetro de la interfaz gráfica.
+;;         event: Parámetro de la interfaz gráfica.
+;; Resultado: 
+;;         Se aplica la ordenación al vector.
+;; Funciones a las que llama: funciones auxiliares, programa y mergeSortInverso.
+;;
+
+
 (define (cargarFicheroMGDescendente button event)
   (mensaje "Introduzca el nombre del fichero (use comillas)")
   (define fichero (read))
@@ -705,6 +1010,16 @@
   )
 
 
+;; 
+;; Nombre: rellenarVectorMGDescendente
+;; Objetivo: Función para rellenar un vector de tamaño decidido mediante la entrada de usuario, después, le aplica el algoritmo de ordenación merge sort descendente.
+;; Parámetros:
+;;         button: Parámetro de la interfaz gráfica.
+;;         event: Parámetro de la interfaz gráfica.
+;; Resultado: 
+;;         Se aplica la ordenación al vector.
+;; Funciones a las que llama: funciones auxiliares, programa y mergeSortInverso.
+;;
 
 (define (rellenarVectorMGDescendente button event)
   
@@ -744,6 +1059,18 @@
   )
 
 
+;; 
+;; Nombre: AuxMergeSortDescendente
+;; Objetivo: Función auxiliar para mostrar el menú con las opciones del algoritmo de ordenación merge sort descendente.
+;; Parámetros:
+;;         button: Parámetro de la interfaz gráfica.
+;;         event: Parámetro de la interfaz gráfica.
+;; Resultado: 
+;;         Se aplica la opción elegida
+;; Funciones a las que llama: funcion elegida.
+;;
+
+
 (define (AuxMergeSortDescendente button event)
   (define (volverMenu button event)
     (close-graphics)
@@ -761,6 +1088,18 @@
 
 
 ;;QUICK SORT DESCENDENTE
+
+;; 
+;; Nombre: rellenarVectorQSDescendente
+;; Objetivo: Función para rellenar un vector de tamaño decidido mediante la entrada de usuario, después, le aplica el algoritmo de ordenación quick sort descendente.
+;; Parámetros:
+;;         button: Parámetro de la interfaz gráfica.
+;;         event: Parámetro de la interfaz gráfica.
+;; Resultado: 
+;;         Se aplica la ordenación al vector.
+;; Funciones a las que llama: funciones auxiliares, programa y QuickSortInverso.
+;;
+
 (define (rellenarVectorQSDescendente button event)
   
   (define menu (new frame% [label "Rellenar vector"]))
@@ -799,6 +1138,18 @@
   )
 
 
+;; 
+;; Nombre: rellenarVectorAleatoriosQSDescendente
+;; Objetivo: Función para rellenar un vector de tamaño decidido mediante valores aleatorios, después, le aplica el algoritmo de ordenación quick sort descendente.
+;; Parámetros:
+;;         button: Parámetro de la interfaz gráfica.
+;;         event: Parámetro de la interfaz gráfica.
+;; Resultado: 
+;;         Se aplica la ordenación al vector.
+;; Funciones a las que llama: funciones auxiliares, programa y QuickSortInverso.
+;;
+
+
 (define (rellenarVectorAleatoriosQSDescendente button event)
   
   (define menu (new frame% [label "Rellenar vector"]))
@@ -831,6 +1182,19 @@
   )
 
 
+;; 
+;; Nombre: cargarFicheroQSDescendente
+;; Objetivo: Función para rellenar un vector de tamaño decidido mediante entrada de fichero, después, le aplica el algoritmo de ordenación quick sort descendente.
+;; Parámetros:
+;;         button: Parámetro de la interfaz gráfica.
+;;         event: Parámetro de la interfaz gráfica.
+;; Resultado: 
+;;         Se aplica la ordenación al vector.
+;; Funciones a las que llama: funciones auxiliares, programa y QuickSortInverso.
+;;
+
+
+
 (define (cargarFicheroQSDescendente button event)
   (mensaje "Introduzca el nombre del fichero (use comillas)")
   (define fichero (read))
@@ -846,6 +1210,18 @@
   (programa)
   )
 
+
+
+;; 
+;; Nombre: AuxQuickSortDescendente
+;; Objetivo: Función auxiliar para mostrar el menú con las opciones del algoritmo de ordenación quick sort descendente.
+;; Parámetros:
+;;         button: Parámetro de la interfaz gráfica.
+;;         event: Parámetro de la interfaz gráfica.
+;; Resultado: 
+;;         Se aplica la opción elegida
+;; Funciones a las que llama: funcion elegida.
+;;
 
 
 (define (AuxQuickSortDescendente button event)
@@ -864,6 +1240,18 @@
 
 
 ;;SELECCION DESCENDENTE
+
+;; 
+;; Nombre: rellenarVectorSDescendente
+;; Objetivo: Función para rellenar un vector de tamaño decidido mediante la entrada de usuario, después, le aplica el algoritmo de ordenación por selección descendente.
+;; Parámetros:
+;;         button: Parámetro de la interfaz gráfica.
+;;         event: Parámetro de la interfaz gráfica.
+;; Resultado: 
+;;         Se aplica la ordenación al vector.
+;; Funciones a las que llama: funciones auxiliares, programa y seleccionSortInverso.
+;;
+
 (define (rellenarVectorSDescendente button event)
   
   (define menu (new frame% [label "Rellenar vector"]))
@@ -901,6 +1289,18 @@
  
   )
 
+
+;; 
+;; Nombre: rellenarVectorAleatoriosSDescendente
+;; Objetivo: Función para rellenar un vector de tamaño decidido mediante valores aleatorios, después, le aplica el algoritmo de ordenación por selección descendente.
+;; Parámetros:
+;;         button: Parámetro de la interfaz gráfica.
+;;         event: Parámetro de la interfaz gráfica.
+;; Resultado: 
+;;         Se aplica la ordenación al vector.
+;; Funciones a las que llama: funciones auxiliares, programa y seleccionSortInverso.
+;;
+
 (define (rellenarVectorAleatoriosSDescendente button event)
   
   (define menu (new frame% [label "Rellenar vector"]))
@@ -932,6 +1332,18 @@
   
   )
 
+
+;; 
+;; Nombre: cargarFicheroSDescendente
+;; Objetivo: Función para rellenar un vector de tamaño decidido mediante entrada de fichero, después, le aplica el algoritmo de ordenación por selección descendente.
+;; Parámetros:
+;;         button: Parámetro de la interfaz gráfica.
+;;         event: Parámetro de la interfaz gráfica.
+;; Resultado: 
+;;         Se aplica la ordenación al vector.
+;; Funciones a las que llama: funciones auxiliares, programa y seleccionSortInverso.
+;;
+
 (define (cargarFicheroSDescendente button event)
   (mensaje "Introduzca el nombre del fichero (use comillas)")
   (define fichero (read))
@@ -946,6 +1358,18 @@
       )
   (programa)
   )
+
+
+;; 
+;; Nombre: AuxSeleccionDescendente
+;; Objetivo: Función auxiliar para mostrar el menú con las opciones del algoritmo de ordenación por selección descendente.
+;; Parámetros:
+;;         button: Parámetro de la interfaz gráfica.
+;;         event: Parámetro de la interfaz gráfica.
+;; Resultado: 
+;;         Se aplica la opción elegida
+;; Funciones a las que llama: funcion elegida.
+;;
 
 (define (AuxSeleccionDescendente button event)
   (define (volverMenu button event)
@@ -963,6 +1387,19 @@
 
 
 ;;INSERCCION DESCENDENTE
+
+;; 
+;; Nombre: rellenarVectorIDescendente
+;; Objetivo: Función para rellenar un vector de tamaño decidido mediante la entrada de usuario, después, le aplica el algoritmo de ordenación por insercción descendente.
+;; Parámetros:
+;;         button: Parámetro de la interfaz gráfica.
+;;         event: Parámetro de la interfaz gráfica.
+;; Resultado: 
+;;         Se aplica la ordenación al vector.
+;; Funciones a las que llama: funciones auxiliares, programa y insertionSortInverso.
+;;
+
+
 (define (rellenarVectorIDescendente button event)
   
   (define menu (new frame% [label "Rellenar vector"]))
@@ -999,6 +1436,17 @@
   )
 
 
+;; 
+;; Nombre: rellenarVectorAleatoriosIDescendente
+;; Objetivo: Función para rellenar un vector de tamaño decidido mediante valores aleatorios, después, le aplica el algoritmo de ordenación por insercción descendente.
+;; Parámetros:
+;;         button: Parámetro de la interfaz gráfica.
+;;         event: Parámetro de la interfaz gráfica.
+;; Resultado: 
+;;         Se aplica la ordenación al vector.
+;; Funciones a las que llama: funciones auxiliares, programa y insertionSortInverso.
+;;
+
 (define (rellenarVectorAleatoriosIDescendente button event)
   
   (define menu (new frame% [label "Rellenar vector"]))
@@ -1030,6 +1478,18 @@
   
   )
 
+
+;; 
+;; Nombre: cargarFicheroIDescendente
+;; Objetivo: Función para rellenar un vector de tamaño decidido mediante entrada de fichero, después, le aplica el algoritmo de ordenación por insercción descendente.
+;; Parámetros:
+;;         button: Parámetro de la interfaz gráfica.
+;;         event: Parámetro de la interfaz gráfica.
+;; Resultado: 
+;;         Se aplica la ordenación al vector.
+;; Funciones a las que llama: funciones auxiliares, programa y insertionSortInverso.
+;;
+
 (define (cargarFicheroIDescendente button event)
   (mensaje "Introduzca el nombre del fichero (use comillas)")
   (define fichero (read))
@@ -1044,6 +1504,18 @@
       )
   (programa)
   )
+
+
+;; 
+;; Nombre: AuxInserccionDescendente
+;; Objetivo: Función auxiliar para mostrar el menú con las opciones del algoritmo de ordenación por insercción descendente.
+;; Parámetros:
+;;         button: Parámetro de la interfaz gráfica.
+;;         event: Parámetro de la interfaz gráfica.
+;; Resultado: 
+;;         Se aplica la opción elegida
+;; Funciones a las que llama: funcion elegida.
+;;
 
 
 (define (AuxInserccionDescendente button event)
