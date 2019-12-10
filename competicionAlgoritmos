@@ -4,7 +4,7 @@
 ;Aqui se guardan los algoritmos de ordenacion modificados para la competicion entre ellos
 
 ;; 
-;; Nombre: mostrarVector
+;; Nombre: mostrarVectorCompeticion
 ;; Objetivo: Función que dado un vector de números, lo muestra por pantalla de forma gráfica
 ;; Parámetros:
 ;;         vector: vector para mostrar por pantalla de forma gráfica.
@@ -39,7 +39,7 @@
 
 
 ;; 
-;; Nombre: mensaje
+;; Nombre: mensajeCompeticion
 ;; Objetivo: Función que dada una cadena la muestra por pantalla y para la ejecución del programa hasta que el usuario acepta.
 ;; Parámetros:
 ;;         m: mensaje para mostrar por pantalla.
@@ -76,11 +76,11 @@
 ;;         lista: lista de números a ordenar.
 ;; Resultado: 
 ;;         Lista ordenada.
-;; Funciones a las que llama: split y merge.
+;; Funciones a las que llama: splitCompeticion y mergeCompeticion.
 ;;
 
 ;; 
-;; Nombre: split
+;; Nombre: splitCompeticion
 ;; Objetivo: Función que reparte los elementos de una lista en dos según el criterio de mergeSort.
 ;; Parámetros:
 ;;         lista: lista de números para dividir.
@@ -90,7 +90,7 @@
 ;;
 
 ;; 
-;; Nombre: merge
+;; Nombre: mergeCompeticion
 ;; Objetivo: Función que dadas dos listas, las une en una sola de forma ordenada.
 ;; Parámetros:
 ;;         lista1: lista 1 para unir.
@@ -155,17 +155,17 @@
 
 ;ORDENAMIENTO POR INSERCION
 ;; 
-;; Nombre: insertionSort
+;; Nombre: insertionSortCompeticion
 ;; Objetivo: Función que dado un vector de números, lo ordena según el método de inserción. 
 ;; Parámetros:
 ;;         vector: vector de números a ordenar.
 ;; Resultado: 
 ;;         vector ordenado.
-;; Funciones a las que llama: ordenarVector
+;; Funciones a las que llama: ordenarVectorCompeticion
 ;;
 
 ;; 
-;; Nombre: ordenarVector
+;; Nombre: ordenarVectorCompeticion
 ;; Objetivo: Función que ordena un vector de números. 
 ;; Parámetros:
 ;;         vector: vector con los números a ordenar.
@@ -173,11 +173,11 @@
 ;;         n: posición que ordenar de vector.
 ;; Resultado: 
 ;;         vector parcialmente ordenado.
-;; Funciones a las que llama: insertar y buscarPosicion.
+;; Funciones a las que llama: insertarCompeticion y buscarPosicionCompeticion.
 ;;
 
 ;; 
-;; Nombre: buscarPosicion
+;; Nombre: buscarPosicionCompeticion
 ;; Objetivo: Función auxiliar que busca la posición para introducir en orden un elemento en un vector.
 ;; Parámetros:
 ;;         vector2: vector donde introducir el elemento.
@@ -190,7 +190,7 @@
 
 
 ;; 
-;; Nombre: insertar
+;; Nombre: insertarCompeticion
 ;; Objetivo: Función auxiliar que inserta un elemento en un vector en la posición indicada.
 ;; Parámetros:
 ;;         vector2: vector donde introducir el elemento.
@@ -274,21 +274,21 @@
 ;;         vector: vector de números a ordenar.
 ;; Resultado: 
 ;;         vector ordenado.
-;; Funciones a las que llama: mostrarVector y ordenarporPivote
+;; Funciones a las que llama: mostrarVectorCompeticion y ordenarporPivoteCompeticion
 ;;
 
 ;; 
-;; Nombre: ordenarporPivote
+;; Nombre: ordenarporPivoteCompeticion
 ;; Objetivo: Función que lleva a cabo la operatoria del método de ordenación Quicksort.
 ;; Parámetros:
 ;;         lista: lista de números a ordenar.
 ;; Resultado: 
 ;;         lista ordenada.
-;; Funciones a las que llama: funciones auxiliares y sacarPivote
+;; Funciones a las que llama: funciones auxiliares y sacarPivoteCompeticion
 ;;
 
 ;; 
-;; Nombre: sacarPivote
+;; Nombre: sacarPivoteCompeticion
 ;; Objetivo: Función que dada una lista de números, devuelve el número del medio o uno central si el número de elementos es par.
 ;; Parámetros:
 ;;         lista: lista de donde sacar el pivote.
@@ -376,7 +376,7 @@
 ;;         vector: vector de números a ordenar.
 ;; Resultado: 
 ;;         vector ordenado.
-;; Funciones a las que llama: minimo-vector, funciones auxiliares y mostrarVector
+;; Funciones a las que llama: minimo-vectorCompeticion, funciones auxiliares y mostrarVectorCompeticion
 ;;
 
 ;; 
@@ -450,28 +450,28 @@
 
 ;BURBUJA
 ;; 
-;; Nombre: burbuja
+;; Nombre: burbujaCompeticion
 ;; Objetivo: Función que dado un vector de números, lo ordena según el método burbuja. Orden descendente.
 ;; Parámetros:
 ;;         vector: vector de números a ordenar.
 ;; Resultado: 
 ;;         vector ordenado.
-;; Funciones a las que llama: mostrarVector, ordenado? y función auxiliar.
+;; Funciones a las que llama: mostrarVectorCompeticion, ordenado?Competicion y función auxiliar.
 ;;
 
 ;; 
-;; Nombre: modificarVector
+;; Nombre: modificarVectorCompeticion
 ;; Objetivo: Función que ordena los elementos referidos del vector pasado como parámetro.
 ;; Parámetros:
 ;;         vector2: vector de números a ordenar.
 ;;         i: posición del vector de número a ordenar.
 ;; Resultado: 
 ;;         vertor ordenado parcialmente.
-;; Funciones a las que llama: mensaje.
+;; Funciones a las que llama: mensajeCompeticion.
 ;;
 
 ;; 
-;; Nombre: ordenado?
+;; Nombre: ordenado?Competicion
 ;; Objetivo: Predicado que comprueba si un vector está ordenado.
 ;; Parámetros:
 ;;         vector: vector de números a comprobar si está ordenado.
@@ -541,8 +541,8 @@
       )
   )
 
-;(burbuja2 (vector 4 42 21 4 0))
-;(burbuja2 (vector 2 99 4 6 1 4 -5 56 45567 49 76 90 7 -5 73 ))
+;(burbuja2Competicion (vector 4 42 21 4 0))
+;(burbuja2Competicion (vector 2 99 4 6 1 4 -5 56 45567 49 76 90 7 -5 73 ))
 
 
 
@@ -554,7 +554,7 @@
 ;;         vector: vector de números a comprobar si está ordenado.
 ;; Resultado: 
 ;;         Tiempo que ha tardado cada algoritmo.
-;; Funciones a las que llama: insertionSort2, mergeSort2, burbuja2, quickSort2, seleccionSort2 y mostrarVector
+;; Funciones a las que llama: insertionSort2Competicion, mergeSort2, burbuja2Competicion, quickSort2Competicion, seleccionSort2Competicion y mostrarVectorCompeticion
 ;;
 
 (define (competicion vector)

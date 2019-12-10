@@ -1064,7 +1064,16 @@
 
 
 ;;MENU PRINCIPAL
+;; 
+;; Nombre: programa
+;; Objetivo: Función que muestra el menú principal.
+;; Resultado: 
+;;         Operaciones indicadas por el usuario
+;; Funciones a las que llama: Todo el demás programa.
+;;
+
 (define (programa)
+  
   (define (clickenSalir button event)
     ;; Cerrar ventanas de gráficos
     (close-graphics)
