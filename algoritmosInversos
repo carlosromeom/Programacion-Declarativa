@@ -7,6 +7,52 @@
 ;ALGORITMOS DE ORDENACION
 
 ;1 MERGE SORT INVERSO
+
+
+;; 
+;; Nombre: mergeSortInverso
+;; Objetivo: Función que dada una lista de números, la ordena según el método mergeSort. Además, muestra por pantalla de forma gráfica los pasos del algoritmo. Orden descendente
+;; Parámetros:
+;;         lista: lista de números a ordenar.
+;; Resultado: 
+;;         Lista ordenada.
+;; Funciones a las que llama: auxInverso, mergeInverso, mostrarVector y splitInverso.
+;;
+
+;; 
+;; Nombre: auxInverso
+;; Objetivo: Función auxiliar para mostrar de forma gráfica por pantalla los pasos del algoritmo.
+;; Parámetros:
+;;         lista: lista de números a ordenar.
+;;         listaIzquierda: lista izquierda para mostrar
+;;         listaDerecha: lista derecha para mostrar
+;;         i: posicion de la lista a mostrar
+;; Resultado: 
+;;         Se muestra la lista
+;; Funciones a las que llama: ninguna.
+;;
+
+;; 
+;; Nombre: splitInverso
+;; Objetivo: Función que reparte los elementos de una lista en dos según el criterio de mergeSort.
+;; Parámetros:
+;;         lista: lista de números para dividir.
+;; Resultado: 
+;;         Lista compuesta de dos sublistas con los elementos de la lista inicial repartidos en ellas.
+;; Funciones a las que llama: Función auxiliar.
+;;
+
+;; 
+;; Nombre: mergeInverso
+;; Objetivo: Función que dadas dos listas, las une en una sola de forma ordenada.
+;; Parámetros:
+;;         lista1: lista 1 para unir.
+;;         lista2: lista 2 para unir.
+;; Resultado: 
+;;         Lista compuesta de lista1 y lista2 con sus elementos ordenados de menor a mayor.
+;; Funciones a las que llama: ninguna.
+;;
+
 (define (auxInverso lista listaIzquierda listaDerecha i)
   (open-graphics)
   (define ventana1 (open-viewport "Split de los valores" (+ (* (length lista) 10) 500) 800 ) )
@@ -114,9 +160,39 @@
 
 
 
-
-
 ;2 BURBUJA INVERSO
+
+;; 
+;; Nombre: burbujaInverso
+;; Objetivo: Función que dado un vector de números, lo ordena según el método burbuja. Además, muestra por pantalla de forma gráfica los pasos del algoritmo. Orden descendiente.
+;; Parámetros:
+;;         vector: vector de números a ordenar.
+;; Resultado: 
+;;         vector ordenado.
+;; Funciones a las que llama: mostrarVector, ordenado?Inverso y función auxiliar.
+;;
+
+;; 
+;; Nombre: modificarVectorInverso
+;; Objetivo: Función que ordena los elementos referidos del vector pasado como parámetro.
+;; Parámetros:
+;;         vector2: vector de números a ordenar.
+;;         i: posición del vector de número a ordenar.
+;; Resultado: 
+;;         vertor ordenado parcialmente.
+;; Funciones a las que llama: mensaje.
+;;
+
+;; 
+;; Nombre: ordenado?Inverso
+;; Objetivo: Predicado que comprueba si un vector está ordenado.
+;; Parámetros:
+;;         vector: vector de números a comprobar si está ordenado.
+;; Resultado: 
+;;         true o false.
+;; Funciones a las que llama: ninguna.
+;;
+
 (define (modificarVectorInverso vector2 i)
   ;Muestro los candidatos a ordenar
   (open-graphics)
@@ -269,6 +345,55 @@
 
 
 ;3 ORDENAMIENTO POR INSERCION INVERSO
+;; 
+;; Nombre: insertionSortInverso
+;; Objetivo: Función que dado un vector de números, lo ordena según el método de inserción. Además, muestra por pantalla de forma gráfica los pasos del algoritmo. Orden descendente.
+;; Parámetros:
+;;         vector: vector de números a ordenar.
+;; Resultado: 
+;;         vector ordenado.
+;; Funciones a las que llama: mostrarVector y ordenarVectorInverso
+;;
+
+;; 
+;; Nombre: ordenarVectorInverso
+;; Objetivo: Función que ordena un vector de números. Muestra los pasos gráficamente por pantalla.
+;; Parámetros:
+;;         vector: vector con los números a ordenar.
+;;         vector2: vector donde se meten los números ordenados.
+;;         n: posición que ordenar de vector.
+;; Resultado: 
+;;         vector parcialmente ordenado.
+;; Funciones a las que llama: mostrarVector, insertarInverso y buscarPosicionInverso.
+;;
+
+;; 
+;; Nombre: buscarPosicionInverso
+;; Objetivo: Función auxiliar que busca la posición para introducir en orden un elemento en un vector.
+;; Parámetros:
+;;         vector2: vector donde introducir el elemento.
+;;         n: valor para introducir en vector2.
+;;         i: posición de búsqueda en vector2.
+;; Resultado: 
+;;         Posición en la que introducir el elemento en el vector.
+;; Funciones a las que llama: ninguno.
+;;
+
+
+;; 
+;; Nombre: insertarInverso
+;; Objetivo: Función auxiliar que inserta un elemento en un vector en la posición indicada.
+;; Parámetros:
+;;         vector2: vector donde introducir el elemento.
+;;         n: valor para introducir en vector2.
+;;         i: posición en la que introducir el elmento.
+;; Resultado: 
+;;         vector con el valor introducido en orden
+;; Funciones a las que llama: ninguno.
+;;
+
+
+
 (define (buscarPosicionInverso vector2 n i)
   (if (= (vector-length vector2) 0)
       0
@@ -375,6 +500,37 @@
 
 
 ;4 QUICK SORT INVERSO
+;; 
+;; Nombre: QuickSortInverso
+;; Objetivo: Función que dado un vector de números, lo ordena según el método de QuickSort. Además, muestra por pantalla de forma gráfica los pasos del algoritmo. Orden descendente.
+;; Parámetros:
+;;         vector: vector de números a ordenar.
+;; Resultado: 
+;;         vector ordenado.
+;; Funciones a las que llama: mostrarVector y ordenarporPivoteInverso
+;;
+
+
+;; 
+;; Nombre: ordenarporPivoteInverso
+;; Objetivo: Función que lleva a cabo la operatoria del método de ordenación Quicksort y muestra los pasos por pantalla de forma gráfica.
+;; Parámetros:
+;;         lista: lista de números a ordenar.
+;; Resultado: 
+;;         lista ordenada.
+;; Funciones a las que llama: funciones auxiliares y sacarPivoteInverso
+;;
+
+;; 
+;; Nombre: sacarPivoteInverso
+;; Objetivo: Función que dada una lista de números, devuelve el número del medio o uno central si el número de elementos es par.
+;; Parámetros:
+;;         lista: lista de donde sacar el pivote.
+;; Resultado: 
+;;         pivote para emplearlo en QuickSort
+;; Funciones a las que llama: ninguna.
+;;
+
 
 (define (sacarPivoteInverso lista)
   ;Selecciono el pivote
@@ -525,6 +681,25 @@
   
   
 ;5 ORDENAMIENTO POR SELECCION INVERSO
+;; 
+;; Nombre: seleccionSortInverso
+;; Objetivo: Función que dado un vector de números, lo ordena según el método de selección. Además, muestra por pantalla de forma gráfica los pasos del algoritmo. Orden descendente.
+;; Parámetros:
+;;         vector: vector de números a ordenar.
+;; Resultado: 
+;;         vector ordenado.
+;; Funciones a las que llama: minimo-vectorInverso, funciones auxiliares y mostrarVectorInverso
+;;
+
+;; 
+;; Nombre: minimo-vectorInverso
+;; Objetivo: Función que dado un vector de números, obtiene el valor mínimo.
+;; Parámetros:
+;;         vector: vector de números de donde sacar el valor mínimo.
+;; Resultado: 
+;;         mínimo del vector
+;; Funciones a las que llama: ninguna.
+;;
 
 
 (define (minimo-vectorInverso v)

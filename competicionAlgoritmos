@@ -1,7 +1,70 @@
 (require racket/vector)
-(include "trabajo")
+;(include "trabajo")
 (require (lib "graphics.ss" "graphics"))
 ;Aqui se guardan los algoritmos de ordenacion modificados para la competicion entre ellos
+
+;; 
+;; Nombre: mostrarVector
+;; Objetivo: Función que dado un vector de números, lo muestra por pantalla de forma gráfica
+;; Parámetros:
+;;         vector: vector para mostrar por pantalla de forma gráfica.
+;; Resultado: 
+;;         Se muestra el vector
+;; Funciones a las que llama: ninguna.
+;;
+(define (mostrarVectorCompeticion vector )
+  
+  (define vector2 vector)
+  (open-graphics)
+  (define ventana1 (open-viewport "Valores del vector" (+ (* (vector-length vector) 10) 300) 800 ) )
+
+  ;dibujo los rectangulos
+  (do
+      (;valores del bucle
+       (i 0 (+ i 1))
+       (posicionenPantalla 50 (+ posicionenPantalla 15))
+       )
+    ;condición y sentencia de salida
+    ( (= i (vector-length vector2)) )
+
+    ;cuerpo del bucle
+    ( (draw-solid-rectangle ventana1) (make-posn posicionenPantalla (- 750(* 10 (vector-ref vector2 i))) ) 9 (abs(* 10 (vector-ref vector2 i))) "blue")
+    ( (draw-string ventana1) (make-posn posicionenPantalla 770 ) (number->string(vector-ref vector2 i )  )     )
+    )
+
+  )
+;(mostrarVectorCompeticion #(1 -2 3))
+;(mostrarVectorCompeticion #(1 2 3))
+
+
+
+;; 
+;; Nombre: mensaje
+;; Objetivo: Función que dada una cadena la muestra por pantalla y para la ejecución del programa hasta que el usuario acepta.
+;; Parámetros:
+;;         m: mensaje para mostrar por pantalla.
+;; Resultado: 
+;;         Se muestra el mensaje y continúa la ejecución.
+;; Funciones a las que llama: ninguna.
+;;
+(define (mensajeCompeticion m)
+  (open-graphics)
+  (define ventana1 (open-viewport "Mensaje" 800 180))
+  ( (draw-string ventana1) (make-posn 100 30 ) m )
+  ;Ahora espera hasta que el usuario hace click
+  ( (draw-rectangle ventana1)  (make-posn 50 120) 100 90 "red")
+  ( (draw-string ventana1)  (make-posn 50 135) "OK")
+
+  (define click (get-mouse-click ventana1))
+
+  (if (and (and (> (posn-x (mouse-click-posn click)) 50) (< (posn-x (mouse-click-posn click)) 100))
+           (and (> (posn-y (mouse-click-posn click)) 90) (< (posn-y (mouse-click-posn click)) 120)))
+      (display "Siguiente") 
+      )
+  
+  (close-graphics)
+  
+  )
 
 
 ;;MERGE SORT
@@ -37,30 +100,30 @@
 ;; Funciones a las que llama: ninguna.
 ;;
 
-(define (aux lista listaIzquierda listaDerecha i)
+(define (auxCompeticion lista listaIzquierda listaDerecha i)
   (if (= i (length lista))
       (append (list listaIzquierda) (list listaDerecha))
       (if (even? i)
-          (aux lista (append listaIzquierda (list (list-ref lista i)) ) listaDerecha (+ i 1))
-          (aux lista listaIzquierda (append listaDerecha (list (list-ref lista i)) ) (+ i 1))
+          (auxCompeticion lista (append listaIzquierda (list (list-ref lista i)) ) listaDerecha (+ i 1))
+          (auxCompeticion lista listaIzquierda (append listaDerecha (list (list-ref lista i)) ) (+ i 1))
           )
       )
   )
 
-(define (split lista)
+(define (splitCompeticion lista)
   (if (= (length lista) 0)
       '( () () )
       (if (= (length lista) 1)
           (list lista '()  )
-          (aux lista '() '() 0)
+          (auxCompeticion lista '() '() 0)
           )
       )
   )
-;(split '(5 4 1 3 2))
+;(splitCompeticion '(5 4 1 3 2))
 
 
 
-(define (merge lista1 lista2)
+(define (mergeCompeticion lista1 lista2)
   (if (and (= (length lista1) 0) (= (length lista2) 0))
       '()
       (if (and (= (length lista1) 0) (>= (length lista2) 1))
@@ -73,14 +136,14 @@
       )
   )
 
-;(merge '( 1 9 3) '(4 5 6))
+;(mergeCompeticion '( 1 9 3) '(4 5 6))
 
 (define (mergeSort2 lista)
   ;primero se le hace un split
-  (define listaDividida (split lista) )
+  (define listaDividida (splitCompeticion lista) )
 
   ;ahora se hace un merge
-  (merge (car listaDividida) (car (cdr listaDividida))) 
+  (mergeCompeticion (car listaDividida) (car (cdr listaDividida))) 
   )
 
 ;(mergeSort2  '(5 4 9 3 2))
@@ -91,25 +154,70 @@
 
 
 ;ORDENAMIENTO POR INSERCION
-(define (buscarPosicion vector2 n i)
+;; 
+;; Nombre: insertionSort
+;; Objetivo: Función que dado un vector de números, lo ordena según el método de inserción. 
+;; Parámetros:
+;;         vector: vector de números a ordenar.
+;; Resultado: 
+;;         vector ordenado.
+;; Funciones a las que llama: ordenarVector
+;;
+
+;; 
+;; Nombre: ordenarVector
+;; Objetivo: Función que ordena un vector de números. 
+;; Parámetros:
+;;         vector: vector con los números a ordenar.
+;;         vector2: vector donde se meten los números ordenados.
+;;         n: posición que ordenar de vector.
+;; Resultado: 
+;;         vector parcialmente ordenado.
+;; Funciones a las que llama: insertar y buscarPosicion.
+;;
+
+;; 
+;; Nombre: buscarPosicion
+;; Objetivo: Función auxiliar que busca la posición para introducir en orden un elemento en un vector.
+;; Parámetros:
+;;         vector2: vector donde introducir el elemento.
+;;         n: valor para introducir en vector2.
+;;         i: posición de búsqueda en vector2.
+;; Resultado: 
+;;         Posición en la que introducir el elemento en el vector.
+;; Funciones a las que llama: ninguno.
+;;
+
+
+;; 
+;; Nombre: insertar
+;; Objetivo: Función auxiliar que inserta un elemento en un vector en la posición indicada.
+;; Parámetros:
+;;         vector2: vector donde introducir el elemento.
+;;         n: valor para introducir en vector2.
+;;         i: posición en la que introducir el elmento.
+;; Resultado: 
+;;         vector con el valor introducido en orden
+;; Funciones a las que llama: ninguno.
+;;
+
+
+
+(define (buscarPosicionCompeticion vector2 n i)
   (if (= (vector-length vector2) 0)
       0
       (if (<= n (vector-ref vector2 i)) 
           i
           (if ( <= (+ i 1) (- (vector-length vector2) 1))
-              (buscarPosicion vector2 n (+ i 1))
+              (buscarPosicionCompeticion vector2 n (+ i 1))
               (vector-length vector2) 
               )
           )
       )
   )
-;(buscarPosicion #(1 2 4 0) 3 0)
+;(buscarPosicionCompeticion #(1 2 4 0) 3 0)
 
-(define (insertar i vector2 n)
-  ;(if (= i (- (vector-length vector2) 1))
-  ;(vector-append vector2 (vector n))
-  
-  ;(define aux (vector-copy vector2 i (vector-length vector2)))
+(define (insertarCompeticion i vector2 n)
   
   (if (= i 0)
       (vector-append (vector n) vector2)
@@ -118,41 +226,40 @@
           (vector-append (vector-append (vector-copy vector2 0 i) (vector n)) (vector-copy vector2 i (vector-length vector2)))
           )
       )
-  ;)
   )
 
-;(insertar (buscarPosicion #(1 2 4 0) 3 0) #(1 2 4 0) 3)
-;(insertar 0 #(1 2 4 3) 0)
-;(insertar (vector-length #(1 2 4 3))   #(1 2 4 3) 5)
+;(insertarCompeticion (buscarPosicionCompeticion #(1 2 4 0) 3 0) #(1 2 4 0) 3)
+;(insertarCompeticion 0 #(1 2 4 3) 0)
+;(insertarCompeticion (vector-length #(1 2 4 3))   #(1 2 4 3) 5)
         
 
-(define (ordenarVector vector vector2 u)
+(define (ordenarVectorCompeticion vector vector2 u)
   (if (= u (- (vector-length vector) 1))
-      (insertar (buscarPosicion vector2 (vector-ref vector u) 0) vector2 (vector-ref vector u))
-      (insertar (buscarPosicion vector2 (vector-ref vector u) 0 ) vector2 (vector-ref vector u ))
+      (insertarCompeticion (buscarPosicionCompeticion vector2 (vector-ref vector u) 0) vector2 (vector-ref vector u))
+      (insertarCompeticion (buscarPosicionCompeticion vector2 (vector-ref vector u) 0 ) vector2 (vector-ref vector u ))
        
       )
   )
 
 
 
-(define (insertionSort2 vector) 
+(define (insertionSort2Competicion vector) 
   (do
       (;definicion de variables
        (i 0 (+ i 1))
-       (vector2 #() (ordenarVector vector vector2 i))
+       (vector2 #() (ordenarVectorCompeticion vector vector2 i))
        )
     ;condicion y sentencia de salida
     ( (=  (vector-length vector)  (vector-length vector2)) vector2)
     )
   )
 
-;(insertionSort2 #(5 1 0 4))
-;(insertionSort2 #(5 1 0 4 -1))
-;(insertionSort2 #( 42 21 4 0 42))
-;(insertionSort2 (vector  42 21 4 0))
-;(insertionSort2 #(2 99 4 6))
-;(insertionSort2 (vector  42 21 4 0 95 3 3 535 5 34 3 5 34 3 43 34 3 54 4 54 54  65 667 7 4 53 6 7 57 3 5 7  4 5 3 6 5 7 57 6 86 7 3 5 4 7 6 8 7 8 4 3 5 5 85 78 4 8 58 4 37 36 3 6 3 6363 6 4 7  36 6))
+;(insertionSort2Competicion #(5 1 0 4))
+;(insertionSort2Competicion #(5 1 0 4 -1))
+;(insertionSort2Competicion #( 42 21 4 0 42))
+;(insertionSort2Competicion (vector  42 21 4 0))
+;(insertionSort2Competicion #(2 99 4 6))
+;(insertionSort2Competicion (vector  42 21 4 0 95 3 3 535 5 34 3 5 34 3 43 34 3 54 4 54 54  65 667 7 4 53 6 7 57 3 5 7  4 5 3 6 5 7 57 6 86 7 3 5 4 7 6 8 7 8 4 3 5 5 85 78 4 8 58 4 37 36 3 6 3 6363 6 4 7  36 6))
 
 
 
@@ -160,8 +267,39 @@
 
 
 ;QUICK SORT
+;; 
+;; Nombre: QuickSortCompeticion
+;; Objetivo: Función que dado un vector de números, lo ordena según el método de QuickSort. Orden descendente.
+;; Parámetros:
+;;         vector: vector de números a ordenar.
+;; Resultado: 
+;;         vector ordenado.
+;; Funciones a las que llama: mostrarVector y ordenarporPivote
+;;
 
-(define (sacarPivote lista)
+;; 
+;; Nombre: ordenarporPivote
+;; Objetivo: Función que lleva a cabo la operatoria del método de ordenación Quicksort.
+;; Parámetros:
+;;         lista: lista de números a ordenar.
+;; Resultado: 
+;;         lista ordenada.
+;; Funciones a las que llama: funciones auxiliares y sacarPivote
+;;
+
+;; 
+;; Nombre: sacarPivote
+;; Objetivo: Función que dada una lista de números, devuelve el número del medio o uno central si el número de elementos es par.
+;; Parámetros:
+;;         lista: lista de donde sacar el pivote.
+;; Resultado: 
+;;         pivote para emplearlo en QuickSort
+;; Funciones a las que llama: ninguna.
+;;
+
+
+
+(define (sacarPivoteCompeticion lista)
   ;Selecciono el pivote
   (if (odd? (vector-length (list->vector lista)))
       (vector-ref (list->vector lista) (- (/ (vector-length (list->vector lista)) 2) (/ 1 2) ))
@@ -169,45 +307,45 @@
       )
   )
 
-;(sacarPivote '(1 2 3))
-;(sacarPivote '(1 4 3 0))
+;(sacarPivoteCompeticion '(1 2 3))
+;(sacarPivoteCompeticion '(1 4 3 0))
 
 
-(define (auxIzquierda lista pivote listaOrdenada)
+(define (auxIzquierdaCompeticion lista pivote listaOrdenada)
   (if (= (length lista) 0)
       listaOrdenada
       (if (< (car lista) pivote)
-          (auxIzquierda (cdr lista) pivote (append listaOrdenada (list (car lista))))
-          (auxIzquierda (cdr lista) pivote listaOrdenada)
+          (auxIzquierdaCompeticion (cdr lista) pivote (append listaOrdenada (list (car lista))))
+          (auxIzquierdaCompeticion (cdr lista) pivote listaOrdenada)
           )
       )
   )
 
 
-(define (auxDerecha lista pivote listaOrdenada)
+(define (auxDerechaCompeticion lista pivote listaOrdenada)
   (if (= (length lista) 0)
       listaOrdenada
       (if (> (car lista) pivote)
-          (auxDerecha (cdr lista) pivote (append listaOrdenada (list (car lista))))
-          (auxDerecha (cdr lista) pivote listaOrdenada)
+          (auxDerechaCompeticion (cdr lista) pivote (append listaOrdenada (list (car lista))))
+          (auxDerechaCompeticion (cdr lista) pivote listaOrdenada)
           )
       )
   )
 
 
-(define (ordenarporPivote lista)
+(define (ordenarporPivoteCompeticion lista)
   (if (<= (length lista) 1)
       lista
       (let
           (
-           (pivote (sacarPivote lista))
+           (pivote (sacarPivoteCompeticion lista))
            )
         (let
             (
-             (listaIzquierda (auxIzquierda lista pivote (list)))
-             (listaDerecha (auxDerecha lista pivote (list)))
+             (listaIzquierda (auxIzquierdaCompeticion lista pivote (list)))
+             (listaDerecha (auxDerechaCompeticion lista pivote (list)))
              )           
-          (append (ordenarporPivote listaIzquierda) (list pivote) (ordenarporPivote listaDerecha))
+          (append (ordenarporPivoteCompeticion listaIzquierda) (list pivote) (ordenarporPivoteCompeticion listaDerecha))
           )
         )
       )
@@ -215,14 +353,14 @@
 
 
 (define (QuickSort2 vector)
-  (list->vector (ordenarporPivote (vector->list vector)))
+  (list->vector (ordenarporPivoteCompeticion (vector->list vector)))
   )
  
  
 
-;(QuickSort2 #(-6 2 5 8 4 3 9 1122 424 24 2424242 0) )
-;(QuickSort2 (vector 4 42 21 4 0))
-;(QuickSort2 #(2 99 4 6 1 4 -5 56 45567 49 76 90 7 -5 73 ))
+;(QuickSort2Competicion #(-6 2 5 8 4 3 9 1122 424 24 2424242 0) )
+;(QuickSort2Competicion (vector 4 42 21 4 0))
+;(QuickSort2Competicion #(2 99 4 6 1 4 -5 56 45567 49 76 90 7 -5 73 ))
 
 
 
@@ -231,8 +369,27 @@
 
 ;ORDENAMIENTO POR SELECCION
 
+;; 
+;; Nombre: seleccionSortCompeticion
+;; Objetivo: Función que dado un vector de números, lo ordena según el método de selección. Orden descendente
+;; Parámetros:
+;;         vector: vector de números a ordenar.
+;; Resultado: 
+;;         vector ordenado.
+;; Funciones a las que llama: minimo-vector, funciones auxiliares y mostrarVector
+;;
 
-(define (minimo-vector v)
+;; 
+;; Nombre: minimo-vector
+;; Objetivo: Función que dado un vector de números, obtiene el valor mínimo.
+;; Parámetros:
+;;         vector: vector de números de donde sacar el valor mínimo.
+;; Resultado: 
+;;         mínimo del vector
+;; Funciones a las que llama: ninguna.
+;;
+
+(define (minimo-vectorCompeticion v)
   (do
       (
        (n           (-(vector-length v) 1))
@@ -247,20 +404,18 @@
 
 
 
-(define (seleccionSort2 vector)
-  (define (aux lista minimos i)
-    ; (open-graphics)
-    ;(define ventana1 (open-viewport "Minimo del vector" (+ (* (vector-length vector) 10) 100) 800 ) )
+(define (seleccionSort2Competicion vector)
+  (define (auxCompeticion lista minimos i)
     (if (= i (length lista) )
         (list->vector minimos)     
-        (aux lista (append minimos (list (minimo-vector (list->vector (remove* minimos lista ) ) ) )) (+ i 1) )
+        (auxCompeticion lista (append minimos (list (minimo-vectorCompeticion (list->vector (remove* minimos lista ) ) ) )) (+ i 1) )
          
         )
     )
   
   ;filtro los valores repetidos, borro la segunda aparacion de estos
-  (define (aux2 vector)
-    (define (filtrado vectorFiltrado valor)
+  (define (aux2Competicion vector)
+    (define (filtradoCompeticion vectorFiltrado valor)
       (if (equal? (vector-member valor vectorFiltrado) #f); si no aparece en el vector
           (vector-append vectorFiltrado (make-vector 1 valor) )
           vectorFiltrado
@@ -270,7 +425,7 @@
     (do
         (;definicion de variables
          (i 0 (+ i 1))
-         (vectorFiltrado #() (filtrado vectorFiltrado (vector-ref vector i)))
+         (vectorFiltrado #() (filtradoCompeticion vectorFiltrado (vector-ref vector i)))
          )
       ;condicion y sentencia de salida
       ( (= i (vector-length vector)) vectorFiltrado)
@@ -279,22 +434,54 @@
     )
 
   
-  (aux (vector->list (aux2 vector)) (list) 0)
+  (auxCompeticion (vector->list (aux2Competicion vector)) (list) 0)
   )
 
-;(seleccionSort2 #(2 3 4 21 0 1))
-;(seleccionSort2 #(2 3 4 -21 0 1))
-;(seleccionSort2 #(2 3 4 21 0 1 3))
-;(seleccionSort2 #(2 3 4 2 21 0 1 3))
-;(seleccionSort2 #(2 3 4 2 21 0 3 1 3))
-;(seleccionSort2 #(2 99 4 6 1 4  56 -5 45567 49 76 90 7 -5 73 ))
+;(seleccionSort2Competicion #(2 3 4 21 0 1))
+;(seleccionSort2Competicion #(2 3 4 -21 0 1))
+;(seleccionSort2Competicion #(2 3 4 21 0 1 3))
+;(seleccionSort2Competicion #(2 3 4 2 21 0 1 3))
+;(seleccionSort2Competicion #(2 3 4 2 21 0 3 1 3))
+;(seleccionSort2Competicion #(2 99 4 6 1 4  56 -5 45567 49 76 90 7 -5 73 ))
 
 
 
 
 
 ;BURBUJA
-(define (modificarVector vector2 i) 
+;; 
+;; Nombre: burbuja
+;; Objetivo: Función que dado un vector de números, lo ordena según el método burbuja. Orden descendente.
+;; Parámetros:
+;;         vector: vector de números a ordenar.
+;; Resultado: 
+;;         vector ordenado.
+;; Funciones a las que llama: mostrarVector, ordenado? y función auxiliar.
+;;
+
+;; 
+;; Nombre: modificarVector
+;; Objetivo: Función que ordena los elementos referidos del vector pasado como parámetro.
+;; Parámetros:
+;;         vector2: vector de números a ordenar.
+;;         i: posición del vector de número a ordenar.
+;; Resultado: 
+;;         vertor ordenado parcialmente.
+;; Funciones a las que llama: mensaje.
+;;
+
+;; 
+;; Nombre: ordenado?
+;; Objetivo: Predicado que comprueba si un vector está ordenado.
+;; Parámetros:
+;;         vector: vector de números a comprobar si está ordenado.
+;; Resultado: 
+;;         true o false.
+;; Funciones a las que llama: ninguna.
+;;
+
+
+(define (modificarVectorCompeticion vector2 i) 
   (define aux 0)
   (if (not (= i (- (vector-length vector2) 1)))
       (cond
@@ -311,46 +498,46 @@
   vector2
   )
 
-;(modificarVector (vector 4 2 3) 0)
+;(modificarVectorCompeticion (vector 4 2 3) 0)
 
 
 
-(define (ordenado? vector)
-  (define (aux5 lista)
+(define (ordenado?Competicion vector)
+  (define (aux5Competicion lista)
     (if (= (length lista) 1)
         true
         (if (<= (car lista) (car (cdr lista)))
-            (aux5 (cdr lista))
+            (aux5Competicion (cdr lista))
             false
             )
         )
     )
 
-  (aux5 (vector->list vector))
+  (aux5Competicion (vector->list vector))
   )
-;(ordenado? #(2 3 41 0))
-;(ordenado? #(0 1 2 3 4))
+;(ordenado?Competicion #(2 3 41 0))
+;(ordenado?Competicion #(0 1 2 3 4))
 
 
 
 
-(define (burbuja2 vector)
-  (define (aux4 vector)
+(define (burbuja2Competicion vector)
+  (define (aux4Competicion vector)
     (do
         (;definicion de variables
          (i 0 (+ i 1))
-         (vector2 vector (modificarVector vector2 i) )
+         (vector2 vector (modificarVectorCompeticion vector2 i) )
          )
       ;condicion y sentencia de salida
       ( ( = i (vector-length vector)) vector)
       )
     )
   
-  (define vec (aux4 vector))
+  (define vec (aux4Competicion vector))
 
-  (if (ordenado? vec)
+  (if (ordenado?Competicion vec)
       vec
-      (burbuja2 vec)
+      (burbuja2Competicion vec)
       )
   )
 
@@ -360,10 +547,21 @@
 
 
 
+;; 
+;; Nombre: competicion
+;; Objetivo: Función que comprueba la eficiencia de los algoritmos dado un gran vector.
+;; Parámetros:
+;;         vector: vector de números a comprobar si está ordenado.
+;; Resultado: 
+;;         Tiempo que ha tardado cada algoritmo.
+;; Funciones a las que llama: insertionSort2, mergeSort2, burbuja2, quickSort2, seleccionSort2 y mostrarVector
+;;
+
 (define (competicion vector)
+  ;(mostrarVector vector)
   (define lista (vector->list vector))
-  (define vector2 vector) 
-  ;(define resultados '(2 3 5 9 7))
+  (define vector2 vector)
+  ;(define resultados '(4 5 3 2 9))
   (define resultados '())
   (define date1 0)
   (define date2 0)
@@ -371,7 +569,7 @@
   ;INSERCCION
   (set! date1 (current-seconds))
   (display "Inserccion   ")
-  (display (insertionSort2 vector2))
+  (display (insertionSort2Competicion vector2))
   ;(newline)
   (set! date2 (current-seconds))
   (display "Inserccion    ")
@@ -394,7 +592,7 @@
   ;BURBUJA
   (set! date1 (current-seconds))
   (display "Burbuja   ")
-  (display (burbuja2 vector2))
+  (display (burbuja2Competicion vector2))
   ;(newline)
   (set! date2 (current-seconds))
   (newline)
@@ -418,7 +616,7 @@
   ;SELECCION
   (set! date1 (current-seconds))
   (display "Seleccion      ")
-  (display (seleccionSort2 vector2))
+  (display (seleccionSort2Competicion vector2))
   (set! date2 (current-seconds))
   (newline)
   (display "seleccion    ")
@@ -429,7 +627,7 @@
   
   ;Muestro los resultados
   (if (= (length resultados) 0)
-      (mensaje "Introduzca mas elementos")
+      (mensajeCompeticion "Introduzca mas elementos")
 
       (and
 

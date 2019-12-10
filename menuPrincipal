@@ -537,6 +537,7 @@
         ( (= i nuevoTamanyoVector) vector2)
         )
       )
+    
     (define v (aux nuevoTamanyoVector))
     (competicion v)
     (send menu show #f)
