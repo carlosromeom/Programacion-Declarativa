@@ -1,61 +1,19 @@
+(include "trabajo")
 (require (lib "graphics.ss" "graphics"))
 (require racket/vector)
 
-
-(define (mostrarVector vector )
-  (define vector2 vector)
-  (open-graphics)
-  (define ventana1 (open-viewport "Valores del vector" (+ (* (vector-length vector) 10) 300) 800 ) )
-
-  ;dibujo los rectangulos
-  (do
-      (;valores del bucle
-       (i 0 (+ i 1))
-       (posicionenPantalla 50 (+ posicionenPantalla 15))
-       )
-    ;condición y sentencia de salida
-    ( (= i (vector-length vector2)) )
-
-    ;cuerpo del bucle
-    ( (draw-solid-rectangle ventana1) (make-posn posicionenPantalla (- 750(* 10 (vector-ref vector2 i))) ) 9 (abs(* 10 (vector-ref vector2 i))) "blue")
-    ( (draw-string ventana1) (make-posn posicionenPantalla 770 ) (number->string(vector-ref vector2 i )  )     )
-    )
-
-  )
-;(mostrarVector #(1 -2 3))
-
-
-(define (mensaje m)
-  (open-graphics)
-  (define ventana1 (open-viewport "Mensaje" 800 180))
-  ( (draw-string ventana1) (make-posn 100 30 ) m )
-  ;Ahora espera hasta que el usuario hace click
-  ( (draw-rectangle ventana1)  (make-posn 50 120) 100 90 "red")
-  ( (draw-string ventana1)  (make-posn 50 135) "OK")
-
-  (define click (get-mouse-click ventana1))
-
-  (if (and (and (> (posn-x (mouse-click-posn click)) 50) (< (posn-x (mouse-click-posn click)) 100))
-           (and (> (posn-y (mouse-click-posn click)) 90) (< (posn-y (mouse-click-posn click)) 120)))
-      (display "Siguiente") 
-      )
-  
-  (close-graphics)
-  
-  )
-
-    
+ 
   
 ;ALGORITMOS DE ORDENACION
 
 ;1 MERGE SORT INVERSO
-(define (aux lista listaIzquierda listaDerecha i)
+(define (auxInverso lista listaIzquierda listaDerecha i)
   (open-graphics)
   (define ventana1 (open-viewport "Split de los valores" (+ (* (length lista) 10) 500) 800 ) )
   ;muestro los valores de las listas
   
   ;LISTA IZQUIERDA
-  (define (auxIzquierda listaIzquierda ventana1)
+  (define (auxIzquierdaInverso listaIzquierda ventana1)
     (do
         (;valores del bucle
          (i 0 (+ i 1))
@@ -70,7 +28,7 @@
       )
     )
 
-  (define posicionUltima (auxIzquierda listaIzquierda ventana1))
+  (define posicionUltima (auxIzquierdaInverso listaIzquierda ventana1))
 
 
   ;LISTA DERECHA
@@ -104,18 +62,18 @@
   (if (= i (length lista))
       (append (list listaIzquierda) (list listaDerecha))
       (if (even? i)
-          (aux lista (append listaIzquierda (list (list-ref lista i)) ) listaDerecha (+ i 1))
-          (aux lista listaIzquierda (append listaDerecha (list (list-ref lista i)) ) (+ i 1))
+          (auxInverso lista (append listaIzquierda (list (list-ref lista i)) ) listaDerecha (+ i 1))
+          (auxInverso lista listaIzquierda (append listaDerecha (list (list-ref lista i)) ) (+ i 1))
           )
       )
   )
 
-(define (split lista)
+(define (splitInverso lista)
   (if (= (length lista) 0)
       '( () () )
       (if (= (length lista) 1)
           (list lista '()  )
-          (aux lista '() '() 0)
+          (auxInverso lista '() '() 0)
           )
       )
   )
@@ -123,7 +81,7 @@
 
 
 
-(define (merge lista1 lista2)
+(define (mergeInverso lista1 lista2)
   (if (and (= (length lista1) 0) (= (length lista2) 0))
       '() 
       (if (and (= (length lista1) 0) (<= (length lista2) 1))
@@ -141,12 +99,12 @@
 
 (define (mergeSortInverso lista)
   ;primero se le hace un split
-  (define listaDividida (split lista) )
+  (define listaDividida (splitInverso lista) )
 
   (mensaje "Ahora se unen ambos vectores")
   
   ;ahora se hace un merge
-  (define a (merge (car listaDividida) (car (cdr listaDividida))))
+  (define a (mergeInverso (car listaDividida) (car (cdr listaDividida))))
   (mostrarVector (list->vector a))
   a
  
@@ -159,7 +117,7 @@
 
 
 ;2 BURBUJA INVERSO
-(define (modificarVector vector2 i)
+(define (modificarVectorInverso vector2 i)
   ;Muestro los candidatos a ordenar
   (open-graphics)
   (define ventana1 (open-viewport "Candidatos a ordenarse" (+ (* (vector-length vector2) 10) 300) 800 ) )
@@ -250,25 +208,25 @@
   vector2
   )
 
-;(modificarVector (vector 4 2 3) 0)
+;(modificarVectorInverso (vector 4 2 3) 0)
 
 
 
-(define (ordenado? vector)
-  (define (aux5 lista)
+(define (ordenado?Inverso vector)
+  (define (aux5Inverso lista)
     (if (= (length lista) 1)
         true
         (if (>= (car lista) (car (cdr lista)))
-            (aux5 (cdr lista))
+            (aux5Inverso (cdr lista))
             false
             )
         )
     )
 
-  (aux5 (vector->list vector))
+  (aux5Inverso (vector->list vector))
   )
-;(ordenado? #(2 3 41 0))
-;(ordenado? #(0 1 2 3 4))
+;(ordenado?Inverso #(2 3 41 0))
+;(ordenado?Inverso #(0 1 2 3 4))
 
 
 
@@ -280,20 +238,20 @@
   (mensaje "Continuar...?")
 
 
-  (define (aux4 vector)
+  (define (aux4Inverso vector)
     (do
         (;definicion de variables
          (i 0 (+ i 1))
-         (vector2 vector (modificarVector vector2 i) )
+         (vector2 vector (modificarVectorInverso vector2 i) )
          )
       ;condicion y sentencia de salida
       ( ( = i (vector-length vector)) vector)
       )
     )
   
-  (define vec (aux4 vector))
+  (define vec (aux4Inverso vector))
 
-  (if (ordenado? vec)
+  (if (ordenado?Inverso vec)
       (and
        (mensaje "El vector ordenado es:")
        (mostrarVector vec)
@@ -311,21 +269,21 @@
 
 
 ;3 ORDENAMIENTO POR INSERCION INVERSO
-(define (buscarPosicion vector2 n i)
+(define (buscarPosicionInverso vector2 n i)
   (if (= (vector-length vector2) 0)
       0
       (if (>= n (vector-ref vector2 i)) 
           i
           (if ( <= (+ i 1) (- (vector-length vector2) 1))
-              (buscarPosicion vector2 n (+ i 1))
+              (buscarPosicionInverso vector2 n (+ i 1))
               (vector-length vector2) 
               )
           )
       )
   )
-;(buscarPosicion #(1 2 4 0) 3 0)
+;(buscarPosicionInverso #(1 2 4 0) 3 0)
 
-(define (insertar i vector2 n)
+(define (insertarInverso i vector2 n)
   
   (if (= i 0)
       (vector-append (vector n) vector2)
@@ -335,12 +293,12 @@
           )
       )
   )
-;(insertar (buscarPosicion #(1 2 4 0) 3 0) #(1 2 4 0) 3)
-;(insertar 0 #(1 2 4 3) 0)
-;(insertar (vector-length #(1 2 4 3))   #(1 2 4 3) 5)
+;(insertarInverso (buscarPosicion #(1 2 4 0) 3 0) #(1 2 4 0) 3)
+;(insertarInverso 0 #(1 2 4 3) 0)
+;(insertarInverso (vector-length #(1 2 4 3))   #(1 2 4 3) 5)
         
 
-(define (ordenarVector vector vector2 u)
+(define (ordenarVectorInverso vector vector2 u)
 
   ;Muestro los candidatos a ordenar
   (open-graphics)
@@ -379,14 +337,14 @@
 
   (if (= u (- (vector-length vector) 1))
       (and
-       (mostrarVector (insertar (buscarPosicion vector2 (vector-ref vector u) 0) vector2 (vector-ref vector u)))
+       (mostrarVector (insertarInverso (buscarPosicionInverso vector2 (vector-ref vector u) 0) vector2 (vector-ref vector u)))
        (mensaje "Continuar...?")
-       (insertar (buscarPosicion vector2 (vector-ref vector u) 0) vector2 (vector-ref vector u))
+       (insertarInverso (buscarPosicionInverso vector2 (vector-ref vector u) 0) vector2 (vector-ref vector u))
        )
       (and
-       (mostrarVector (insertar (buscarPosicion vector2 (vector-ref vector u) 0 ) vector2 (vector-ref vector u )))
+       (mostrarVector (insertarInverso (buscarPosicionInverso vector2 (vector-ref vector u) 0 ) vector2 (vector-ref vector u )))
        (mensaje "Continuar...?")
-       (insertar (buscarPosicion vector2 (vector-ref vector u) 0 ) vector2 (vector-ref vector u ))
+       (insertarInverso (buscarPosicionInverso vector2 (vector-ref vector u) 0 ) vector2 (vector-ref vector u ))
        )
       )
   )
@@ -403,7 +361,7 @@
   (do
       (;definicion de variables
        (i 0 (+ i 1))
-       (vector2 #() (ordenarVector vector vector2 i))
+       (vector2 #() (ordenarVectorInverso vector vector2 i))
        )
     ;condicion y sentencia de salida
     ( (= i (vector-length vector))  vector2)
@@ -418,7 +376,7 @@
 
 ;4 QUICK SORT INVERSO
 
-(define (sacarPivote lista)
+(define (sacarPivoteInverso lista)
   ;Selecciono el pivote
   (if (odd? (vector-length (list->vector lista)))
       (vector-ref (list->vector lista) (- (/ (vector-length (list->vector lista)) 2) (/ 1 2) ))
@@ -426,55 +384,55 @@
       )
   )
 
-;(sacarPivote '(1 2 3))
-;(sacarPivote '(1 4 3 0))
+;(sacarPivoteInverso '(1 2 3))
+;(sacarPivoteInverso '(1 4 3 0))
 
 
-(define (posicionPivote lista)
+(define (posicionPivoteInverso lista)
   (if (odd? (vector-length (list->vector lista)))
       (- (/ (vector-length (list->vector lista)) 2) (/ 1 2) )
       (- (/ (vector-length (list->vector lista)) 2) 1) 
       )
   )
-;(posicionPivote '(1 2 3))
-;(posicionPivote '(1 4 3 0))
+;(posicionPivoteInverso '(1 2 3))
+;(posicionPivoteInverso '(1 4 3 0))
 
 
 
 
-(define (auxIzquierda lista pivote listaOrdenada)
+(define (auxIzquierdaInverso lista pivote listaOrdenada)
   (if (= (length lista) 0)
       listaOrdenada
       (if (> (car lista) pivote)
-          (auxIzquierda (cdr lista) pivote (append listaOrdenada (list (car lista))))
-          (auxIzquierda (cdr lista) pivote listaOrdenada)
+          (auxIzquierdaInverso (cdr lista) pivote (append listaOrdenada (list (car lista))))
+          (auxIzquierdaInverso (cdr lista) pivote listaOrdenada)
           )
       )
   )
 
 
-(define (auxDerecha lista pivote listaOrdenada)
+(define (auxDerechaInverso lista pivote listaOrdenada)
   (if (= (length lista) 0)
       listaOrdenada
       (if (< (car lista) pivote)
-          (auxDerecha (cdr lista) pivote (append listaOrdenada (list (car lista))))
-          (auxDerecha (cdr lista) pivote listaOrdenada)
+          (auxDerechaInverso (cdr lista) pivote (append listaOrdenada (list (car lista))))
+          (auxDerechaInverso (cdr lista) pivote listaOrdenada)
           )
       )
   )
 
 
-(define (ordenarporPivote lista)
+(define (ordenarporPivoteInverso lista)
   (if (<= (length lista) 1)
       lista
       (let
           (
-           (pivote (sacarPivote lista))
+           (pivote (sacarPivoteInverso lista))
            )
         (let
             (
-             (listaIzquierda (auxIzquierda lista pivote (list)))
-             (listaDerecha (auxDerecha lista pivote (list)))
+             (listaIzquierda (auxIzquierdaInverso lista pivote (list)))
+             (listaDerecha (auxDerechaInverso lista pivote (list)))
              )
 
              
@@ -486,7 +444,7 @@
           ;muestro los valores de las listas
   
           ;LISTA IZQUIERDA
-          (define (auxIzquierda listaIzquierda ventana1)
+          (define (auxIzquierdaInverso3 listaIzquierda ventana1)
             (do
                 (;valores del bucle
                  (i 0 (+ i 1))
@@ -501,7 +459,7 @@
               )
             )
 
-          (define posicionUltima (auxIzquierda listaIzquierda ventana1))
+          (define posicionUltima (auxIzquierdaInverso3 listaIzquierda ventana1))
 
 
           ;MUESTRO EL PIVOTE
@@ -538,7 +496,7 @@
               (display "Siguiente") 
               )
              
-          (append (ordenarporPivote listaIzquierda) (list pivote) (ordenarporPivote listaDerecha))
+          (append (ordenarporPivoteInverso listaIzquierda) (list pivote) (ordenarporPivoteInverso listaDerecha))
           )
         )
       )
@@ -550,7 +508,7 @@
   (mostrarVector vector)
   (mensaje "Continuar...?")
 
-  (define a (list->vector (ordenarporPivote (vector->list vector))))
+  (define a (list->vector (ordenarporPivoteInverso (vector->list vector))))
 
   (mensaje "Se muestra el vector despues de ordenar por Quicksort")
   (mostrarVector a)
@@ -562,13 +520,14 @@
 
 ;(QuickSortInverso #(-6 2 5 8 4 3 9 1122 424 24 2424242 0) ) 
 
+;(QuickSortInverso #(5 1 2))
 
   
   
 ;5 ORDENAMIENTO POR SELECCION INVERSO
 
 
-(define (minimo-vector v)
+(define (minimo-vectorInverso v)
   (do
       (
        (n           (-(vector-length v) 1))
@@ -584,7 +543,7 @@
 
 
 (define (seleccionSortInverso vector)
-  (define (aux lista minimos i)
+  (define (auxInverso lista minimos i)
     (open-graphics)
     (define ventana1 (open-viewport "Maximo del vector" (+ (* (vector-length vector) 10) 100) 800 ) )
     (if (= i (length lista) )
@@ -621,16 +580,16 @@
          (close-graphics)
          
          (mensaje "Se muestra el vector de Maximos ")
-         (mostrarVector (list->vector (append minimos (list (minimo-vector (list->vector (remove* minimos lista ) ) ) ))))
+         (mostrarVector (list->vector (append minimos (list (minimo-vectorInverso (list->vector (remove* minimos lista ) ) ) ))))
          (mensaje "Continuar...?")      
     
-         (aux lista (append minimos (list (minimo-vector (list->vector (remove* minimos lista ) ) ) )) (+ i 1) )
+         (auxInverso lista (append minimos (list (minimo-vectorInverso (list->vector (remove* minimos lista ) ) ) )) (+ i 1) )
          )
         )
     )
   ;filtro los valores repetidos, borro la segunda aparacion de estos
-  (define (aux2 vector)
-    (define (filtrado vectorFiltrado valor)
+  (define (aux2Inverso vector)
+    (define (filtradoInverso vectorFiltrado valor)
       (if (equal? (vector-member valor vectorFiltrado) #f); si no aparece en el vector
           (vector-append vectorFiltrado (make-vector 1 valor) )
           vectorFiltrado
@@ -640,7 +599,7 @@
     (do
         (;definicion de variables
          (i 0 (+ i 1))
-         (vectorFiltrado #() (filtrado vectorFiltrado (vector-ref vector i)))
+         (vectorFiltrado #() (filtradoInverso vectorFiltrado (vector-ref vector i)))
          )
       ;condicion y sentencia de salida
       ( (= i (vector-length vector)) vectorFiltrado)
@@ -649,11 +608,11 @@
     )
 
   (mensaje "Este es el vector a ordenar por seleccion: ")
-  (mostrarVector (aux2 vector))
+  (mostrarVector (aux2Inverso vector))
   (mensaje "Continuar...?")
 
   
-  (aux (vector->list (aux2 vector)) (list) 0)
+  (auxInverso (vector->list (aux2Inverso vector)) (list) 0)
   )
 
 ;(seleccionSortInverso #(2 3 4 21 0 1))
