@@ -436,11 +436,10 @@
        (open-graphics)
        (let
            (
-            ;(define ventana1 (open-viewport "Resultados de la competicion" (+ (* (length lista) 10) 500) 800 ) )
+
             )
          (define ventana1 (open-viewport "Resultados de la competicion" (+ (* (length lista) 10) 500) 800 ) )
  
-         ;(define (aux lista ventana1)
          (do
              (;valores del bucle
               (i 0 (+ i 1))

@@ -95,10 +95,16 @@
 
 
 (define (AuxBurbujaAscendente button event)
+  (define (volverMenu button event)
+    (close-graphics)
+    (send menu2 show #f)
+    (programa)
+    )
   (define menu2 (new frame% [label "Burbuja ascendente"]))
   (define boton1 (new button% [parent menu2] [label "Rellenar vector"] [callback rellenarVector]))
   (define boton2 (new button% [parent menu2] [label "Rellenar vector con valores aleatorios"] [callback rellenarVectorAleatorios]))
   (define boton3 (new button% [parent menu2] [label "Cargar desde fichero"] [callback cargarFichero]))
+  (define boton4 (new button% [parent menu2] [label "Volver al menu"] [callback volverMenu]))
   (send menu2 show #t)
   )
 
@@ -197,10 +203,16 @@
 
 
 (define (AuxMergeSortAscendente button event)
+  (define (volverMenu button event)
+    (close-graphics)
+    (send menu2 show #f)
+    (programa)
+    )
   (define menu2 (new frame% [label "Merge Sort ascendente"]))
   (define boton1 (new button% [parent menu2] [label "Rellenar vector"] [callback rellenarVectorMG]))
   (define boton2 (new button% [parent menu2] [label "Rellenar vector con valores aleatorios"] [callback rellenarVectorAleatoriosMG]))
   (define boton3 (new button% [parent menu2] [label "Cargar desde fichero"] [callback cargarFicheroMG]))
+  (define boton4 (new button% [parent menu2] [label "Volver al menu"] [callback volverMenu]))
   (send menu2 show #t)
   )
 
@@ -295,10 +307,16 @@
 
 
 (define (AuxQuickSortAscendente button event)
+  (define (volverMenu button event)
+    (close-graphics)
+    (send menu2 show #f)
+    (programa)
+    )
   (define menu2 (new frame% [label "Quick Sort ascendente"]))
   (define boton1 (new button% [parent menu2] [label "Rellenar vector"] [callback rellenarVectorQS]))
   (define boton2 (new button% [parent menu2] [label "Rellenar vector con valores aleatorios"] [callback rellenarVectorAleatoriosQS]))
   (define boton3 (new button% [parent menu2] [label "Cargar desde fichero"] [callback cargarFicheroQS]))
+  (define boton4 (new button% [parent menu2] [label "Volver al menu"] [callback volverMenu]))
   (send menu2 show #t)
   )
 
@@ -387,10 +405,16 @@
   )
 
 (define (AuxSeleccionAscendente button event)
+  (define (volverMenu button event)
+    (close-graphics)
+    (send menu2 show #f)
+    (programa)
+    )
   (define menu2 (new frame% [label "Seleccion ascendente"]))
   (define boton1 (new button% [parent menu2] [label "Rellenar vector"] [callback rellenarVectorS]))
   (define boton2 (new button% [parent menu2] [label "Rellenar vector con valores aleatorios"] [callback rellenarVectorAleatoriosS]))
   (define boton3 (new button% [parent menu2] [label "Cargar desde fichero"] [callback cargarFicheroS]))
+  (define boton4 (new button% [parent menu2] [label "Volver al menu"] [callback volverMenu]))
   (send menu2 show #t)
   )
 
@@ -481,10 +505,16 @@
 
 
 (define (AuxInserccionAscendente button event)
+  (define (volverMenu button event)
+    (close-graphics)
+    (send menu2 show #f)
+    (programa)
+    )
   (define menu2 (new frame% [label "Inserccion ascendente"]))
   (define boton1 (new button% [parent menu2] [label "Rellenar vector"] [callback rellenarVectorI]))
   (define boton2 (new button% [parent menu2] [label "Rellenar vector con valores aleatorios"] [callback rellenarVectorAleatoriosI]))
   (define boton3 (new button% [parent menu2] [label "Cargar desde fichero"] [callback cargarFicheroI]))
+  (define boton4 (new button% [parent menu2] [label "Volver al menu"] [callback volverMenu]))
   (send menu2 show #t)
   )
 
@@ -609,10 +639,16 @@
 
 
 (define (AuxBurbujaDescendente button event)
+  (define (volverMenu button event)
+    (close-graphics)
+    (send menu2 show #f)
+    (programa)
+    )
   (define menu2 (new frame% [label "Burbuja descendente"]))
   (define boton1 (new button% [parent menu2] [label "Rellenar vector"] [callback rellenarVectorBurbujaDescendente]))
   (define boton2 (new button% [parent menu2] [label "Rellenar vector con valores aleatorios"] [callback rellenarVectorAleatoriosBurbujaDescendente]))
   (define boton3 (new button% [parent menu2] [label "Cargar desde fichero"] [callback cargarFicheroBurbujaDescendente]))
+  (define boton4 (new button% [parent menu2] [label "Volver al menu"] [callback volverMenu]))
   (send menu2 show #t)
   )
 
@@ -708,10 +744,16 @@
 
 
 (define (AuxMergeSortDescendente button event)
+  (define (volverMenu button event)
+    (close-graphics)
+    (send menu2 show #f)
+    (programa)
+    )
   (define menu2 (new frame% [label "Merge Sort descendente"]))
   (define boton1 (new button% [parent menu2] [label "Rellenar vector"] [callback rellenarVectorMGDescendente]))
   (define boton2 (new button% [parent menu2] [label "Rellenar vector con valores aleatorios"] [callback rellenarVectorAleatoriosMGDescendente]))
   (define boton3 (new button% [parent menu2] [label "Cargar desde fichero"] [callback cargarFicheroMGDescendente]))
+  (define boton4 (new button% [parent menu2] [label "Volver al menu"] [callback volverMenu]))
   (send menu2 show #t)
   )
 
@@ -806,10 +848,16 @@
 
 
 (define (AuxQuickSortDescendente button event)
+  (define (volverMenu button event)
+    (close-graphics)
+    (send menu2 show #f)
+    (programa)
+    )
   (define menu2 (new frame% [label "Quick Sort descendente"]))
   (define boton1 (new button% [parent menu2] [label "Rellenar vector"] [callback rellenarVectorQSDescendente]))
   (define boton2 (new button% [parent menu2] [label "Rellenar vector con valores aleatorios"] [callback rellenarVectorAleatoriosQSDescendente]))
   (define boton3 (new button% [parent menu2] [label "Cargar desde fichero"] [callback cargarFicheroQSDescendente]))
+  (define boton4 (new button% [parent menu2] [label "Volver al menu"] [callback volverMenu]))
   (send menu2 show #t)
   )
 
@@ -899,10 +947,16 @@
   )
 
 (define (AuxSeleccionDescendente button event)
+  (define (volverMenu button event)
+    (close-graphics)
+    (send menu2 show #f)
+    (programa)
+    )
   (define menu2 (new frame% [label "Seleccion descendiente"]))
   (define boton1 (new button% [parent menu2] [label "Rellenar vector"] [callback rellenarVectorSDescendente]))
   (define boton2 (new button% [parent menu2] [label "Rellenar vector con valores aleatorios"] [callback rellenarVectorAleatoriosSDescendente]))
   (define boton3 (new button% [parent menu2] [label "Cargar desde fichero"] [callback cargarFicheroSDescendente]))
+  (define boton4 (new button% [parent menu2] [label "Volver al menu"] [callback volverMenu]))
   (send menu2 show #t)
   )
 
@@ -991,12 +1045,18 @@
   )
 
 
-
 (define (AuxInserccionDescendente button event)
+  (define (volverMenu button event)
+    (close-graphics)
+    (send menu2 show #f)
+    (programa)
+    )
+  
   (define menu2 (new frame% [label "Inserccion descendente"]))
   (define boton1 (new button% [parent menu2] [label "Rellenar vector"] [callback rellenarVectorIDescendente]))
   (define boton2 (new button% [parent menu2] [label "Rellenar vector con valores aleatorios"] [callback rellenarVectorAleatoriosIDescendente]))
   (define boton3 (new button% [parent menu2] [label "Cargar desde fichero"] [callback cargarFicheroIDescendente]))
+  (define boton4 (new button% [parent menu2] [label "Volver al menu"] [callback volverMenu]))
   (send menu2 show #t)
   )
 
@@ -1004,7 +1064,15 @@
 
 ;;MENU PRINCIPAL
 (define (programa)
-  (define menu (new frame% [label "Menu principal"]))  
+  (define (clickenSalir button event)
+    ;; Cerrar ventanas de gráficos
+    (close-graphics)
+    ;; Ocultar ventana de menú
+    (send menu show #f)
+    )
+
+  
+  (define menu (new frame% [label "Menu principal"]))
   (define boton1 (new button% [parent menu] [label "Burbuja ascendente"] [callback AuxBurbujaAscendente]))
   (define boton2 (new button% [parent menu] [label "Merge Sort ascendente"] [callback AuxMergeSortAscendente]))
   (define boton3 (new button% [parent menu] [label "Quick Sort ascendente"] [callback AuxQuickSortAscendente]))
@@ -1017,13 +1085,11 @@
   (define boton9 (new button% [parent menu] [label "Quick Sort descendente"] [callback AuxQuickSortDescendente]))
   (define boton10 (new button% [parent menu] [label "Seleccion descendente"] [callback AuxSeleccionDescendente]))
   (define boton11 (new button% [parent menu] [label "Inserccion descendente"] [callback AuxInserccionDescendente]))
+  (define boton12 (new button% [parent menu] [label "Salir"] [callback clickenSalir]))
   
   (send menu show #t)
 
 
-
-
-
   )
 
-;(programa)
+(programa)

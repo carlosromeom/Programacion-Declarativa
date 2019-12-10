@@ -3,10 +3,9 @@
 
 
 (define (mostrarVector vector )
-  ;paso el vector a valor absoluto
   (define vector2 vector)
   (open-graphics)
-  (define ventana1 (open-viewport "Valores del vector" (+ (* (vector-length vector) 10) 100) 800 ) )
+  (define ventana1 (open-viewport "Valores del vector" (+ (* (vector-length vector) 10) 300) 800 ) )
 
   ;dibujo los rectangulos
   (do
@@ -109,7 +108,6 @@
           (aux lista listaIzquierda (append listaDerecha (list (list-ref lista i)) ) (+ i 1))
           )
       )
-  ;(close-graphics)
   )
 
 (define (split lista)
@@ -164,7 +162,7 @@
 (define (modificarVector vector2 i)
   ;Muestro los candidatos a ordenar
   (open-graphics)
-  (define ventana1 (open-viewport "Candidatos a ordenarse" (+ (* (vector-length vector2) 10) 100) 800 ) )
+  (define ventana1 (open-viewport "Candidatos a ordenarse" (+ (* (vector-length vector2) 10) 300) 800 ) )
 
   ;dibujo los rectangulos
   (do
@@ -215,7 +213,7 @@
   ;se muestra el movimiento hecho en el vector
 
   (open-graphics)
-  (define ventana2 (open-viewport "Resultado de la ordenacion" (+ (* (vector-length vector2) 10) 100) 800 ) )
+  (define ventana2 (open-viewport "Resultado de la ordenacion" (+ (* (vector-length vector2) 10) 300) 800 ) )
 
   ;dibujo los rectangulos
   (do
@@ -346,7 +344,7 @@
 
   ;Muestro los candidatos a ordenar
   (open-graphics)
-  (define ventana1 (open-viewport "Candidatos a ordenarse" (+ (* (vector-length vector) 10) 100) 800 ) )
+  (define ventana1 (open-viewport "Candidatos a ordenarse" (+ (* (vector-length vector) 10) 300) 800 ) )
 
   ;dibujo los rectangulos
   (do
@@ -539,29 +537,6 @@
                    (and (> (posn-y (mouse-click-posn click)) 770) (< (posn-y (mouse-click-posn click)) 785)))
               (display "Siguiente") 
               )
-
-
-
-             
-
-
-
-             
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
              
           (append (ordenarporPivote listaIzquierda) (list pivote) (ordenarporPivote listaDerecha))
           )
@@ -616,13 +591,7 @@
         (list->vector minimos)
         
         (and
-
-
-
-
          
-
-
          ;dibujo los rectangulos
          (do
              (;valores del bucle
@@ -654,17 +623,7 @@
          (mensaje "Se muestra el vector de Maximos ")
          (mostrarVector (list->vector (append minimos (list (minimo-vector (list->vector (remove* minimos lista ) ) ) ))))
          (mensaje "Continuar...?")      
-        
-
-
-
-
-
-
-
-
-
-        
+    
          (aux lista (append minimos (list (minimo-vector (list->vector (remove* minimos lista ) ) ) )) (+ i 1) )
          )
         )

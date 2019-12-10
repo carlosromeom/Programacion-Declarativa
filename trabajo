@@ -2,27 +2,11 @@
 (require racket/vector)
 
 
-
-;sin usar aun
-(define (maximo-vector v)
-  (do
-      (
-       (n           (-(vector-length v) 1))
-       (i            1                        (+ i 1))
-       (maximo(vector-ref v 0)  (if(< maximo(vector-ref v i)) (vector-ref v i)maximo))
-       )
-    ;; Condiciónde salida
-    ((> i n) maximo)
-    ;; No hay cuerpo del bucle
-    )
-  )
-
-
 (define (mostrarVector vector )
-  ;paso el vector a valor absoluto
+  
   (define vector2 vector)
   (open-graphics)
-  (define ventana1 (open-viewport "Valores del vector" (+ (* (vector-length vector) 10) 100) 800 ) )
+  (define ventana1 (open-viewport "Valores del vector" (+ (* (vector-length vector) 10) 300) 800 ) )
 
   ;dibujo los rectangulos
   (do
@@ -41,6 +25,7 @@
   ;(close-graphics)
   )
 ;(mostrarVector #(1 -2 3))
+;(mostrarVector #(1 2 3))
 
 
 (define (mensaje m)
@@ -181,7 +166,7 @@
 (define (modificarVector vector2 i)
   ;Muestro los candidatos a ordenar
   (open-graphics)
-  (define ventana1 (open-viewport "Candidatos a ordenarse" (+ (* (vector-length vector2) 10) 100) 800 ) )
+  (define ventana1 (open-viewport "Candidatos a ordenarse" (+ (* (vector-length vector2) 10) 300) 800 ) )
 
   ;dibujo los rectangulos
   (do
@@ -237,7 +222,7 @@
   ;se muestra el movimiento hecho en el vector
 
   (open-graphics)
-  (define ventana2 (open-viewport "Resultado de la ordenacion" (+ (* (vector-length vector2) 10) 100) 800 ) )
+  (define ventana2 (open-viewport "Resultado de la ordenacion" (+ (* (vector-length vector2) 10) 300) 800 ) )
 
   ;dibujo los rectangulos
   (do
@@ -287,53 +272,6 @@
 ;(modificarVector (vector 4 2 3) 0)
 
 
-
-;MERGE SORT PARA USO INTERNO
-(define (aux2 lista listaIzquierda listaDerecha i)
-  (if (= i (length lista))
-      (append (list listaIzquierda) (list listaDerecha))
-      (if (even? i)
-          (aux2 lista (append listaIzquierda (list (list-ref lista i)) ) listaDerecha (+ i 1))
-          (aux2 lista listaIzquierda (append listaDerecha (list (list-ref lista i)) ) (+ i 1))
-          )
-      )
-  )
-
-(define (split2 lista)
-  (if (= (length lista) 0)
-      '( () () )
-      (if (= (length lista) 1)
-          (list lista '()  )
-          (aux2 lista '() '() 0)
-          )
-      )
-  )
-;(split '(5 4 1 3 2))
-
-
-
-(define (merge2 lista1 lista2)
-  (if (and (= (length lista1) 0) (= (length lista2) 0))
-      '()
-      (if (and (= (length lista1) 0) (>= (length lista2) 1))
-          (sort ( append '() lista2 )<) 
-          (if (and (>= (length lista1) 1) (= (length lista2) 0))
-              (sort (append lista1 '() )<)
-              (sort(append lista1 lista2)<)
-              )
-          )
-      )
-  )
-
-;(merge '( 1 9 3) '(4 5 6))
-
-(define (mergeSort2 lista)
-  ;primero se le hace un split
-  (define listaDividida (split2 lista) )
-
-  ;ahora se hace un merge
-  (merge2 (car listaDividida) (car (cdr listaDividida))) 
-  )
 
 
 (define (ordenado? vector)
@@ -411,10 +349,6 @@
 ;(buscarPosicion #(1 2 4 0) 3 0)
 
 (define (insertar i vector2 n)
-  ;(if (= i (- (vector-length vector2) 1))
-  ;(vector-append vector2 (vector n))
-  
-  ;(define aux (vector-copy vector2 i (vector-length vector2)))
   
   (if (= i 0)
       (vector-append (vector n) vector2)
@@ -423,7 +357,6 @@
           (vector-append (vector-append (vector-copy vector2 0 i) (vector n)) (vector-copy vector2 i (vector-length vector2)))
           )
       )
-  ;)
   )
 ;(insertar (buscarPosicion #(1 2 4 0) 3 0) #(1 2 4 0) 3)
 ;(insertar 0 #(1 2 4 3) 0)
@@ -434,7 +367,7 @@
 
   ;Muestro los candidatos a ordenar
   (open-graphics)
-  (define ventana1 (open-viewport "Candidatos a ordenarse" (+ (* (vector-length vector) 10) 100) 800 ) )
+  (define ventana1 (open-viewport "Candidatos a ordenarse" (+ (* (vector-length vector) 10) 300) 800 ) )
 
   ;dibujo los rectangulos
   (do
@@ -467,9 +400,7 @@
   
   (mensaje "Continuar...?")
   
-  ;(if (< (vector-ref vector (+ u 1)) (vector-ref vector u))
   (if (= u (- (vector-length vector) 1))
-      ; (insertar (buscarPosicion vector2 (vector-ref vector (+ u 1)) 0 ) vector2 (vector-ref vector (+ u 1)))
       (and
        (mostrarVector (insertar (buscarPosicion vector2 (vector-ref vector u) 0) vector2 (vector-ref vector u)))
        (mensaje "Continuar...?")
@@ -571,14 +502,6 @@
 
              
           (mensaje "Se muestra la lista izquierda, pivote y lista derecha")
-          ;(mostrarVector (list->vector listaIzquierda))
-          ;(mensaje "Continuar...?")
-          ;(mostrarVector (vector pivote))
-          ;(mensaje "Continuar...?")
-          ;(mostrarVector (list->vector listaDerecha))
-          ;(mensaje "Continuar...?")
-
-
 
           (open-graphics)
           (define ventana1 (open-viewport "Lista izquierda, pivote y derecha" (+ (* (length lista) 10) 500) 800 ) )
@@ -604,7 +527,6 @@
 
 
           ;MUESTRO EL PIVOTE
-          ;(mostrarVector (vector pivote))
           ( (draw-solid-rectangle ventana1) (make-posn (+ posicionUltima 45) (- 750 (* 10 (abs pivote)))) 9 (* 10 (abs pivote )) "red")
           ( (draw-string ventana1) (make-posn (+ posicionUltima 45) 770 ) (number->string pivote  )    "red" )
 
@@ -635,30 +557,7 @@
           (if (and (and (> (posn-x (mouse-click-posn click)) 35) (< (posn-x (mouse-click-posn click)) 130))
                    (and (> (posn-y (mouse-click-posn click)) 770) (< (posn-y (mouse-click-posn click)) 785)))
               (display "Siguiente") 
-              )
-
-
-
-             
-
-
-
-             
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+              )  
              
           (append (ordenarporPivote listaIzquierda) (list pivote) (ordenarporPivote listaDerecha))
           )
@@ -681,23 +580,16 @@
   )
  
  
-
+;(QuickSort #(-6 2 5 8 4 3 9 11 42 24 22 0) ) 
 ;(QuickSort #(-6 2 5 8 4 3 9 1122 424 24 2424242 0) ) 
 
 
   
   
-  
-
-
-      
-
-
 ;5 ORDENAMIENTO POR SELECCION
 
 
 (define (minimo-vector v)
-  ;(display v)
   (do
       (
        (n           (-(vector-length v) 1))
@@ -715,18 +607,11 @@
 (define (seleccionSort vector)
   (define (aux lista minimos i)
     (open-graphics)
-    (define ventana1 (open-viewport "Minimo del vector" (+ (* (vector-length vector) 10) 100) 800 ) )
+    (define ventana1 (open-viewport "Minimo del vector" (+ (* (vector-length vector) 10) 300) 800 ) )
     (if (= i (length lista) )
         (list->vector minimos)
         
         (and
-
-
-
-
-         
-
-
          ;dibujo los rectangulos
          (do
              (;valores del bucle
@@ -758,16 +643,6 @@
          (mensaje "Se muestra el vector de minimos: ")
          (mostrarVector (list->vector (append minimos (list (minimo-vector (list->vector (remove* minimos lista ) ) ) ))))
          (mensaje "Continuar...?")      
-        
-
-
-
-
-
-
-
-
-
         
          (aux lista (append minimos (list (minimo-vector (list->vector (remove* minimos lista ) ) ) )) (+ i 1) )
          )
